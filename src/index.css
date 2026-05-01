@@ -514,22 +514,7 @@ html.lenis body {
   display: block;
   line-height: 1.45;     /* gap between consecutive marker lines */
 }
-.marker {
-  background: var(--marker-bg, #0e0e0e);
-  color: var(--marker-fg, #f6f4ee);
-  padding: 0.06em 0.34em;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
-}
-.marker--sub {
-  display: inline-block;
-  margin-top: 8px;
-  font-size: 0.78em;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 0.25em 0.6em;
-}
+
 
 
 

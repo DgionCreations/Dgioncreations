@@ -207,14 +207,8 @@ export default function HomeOverview() {
                           {item.badge}
                         </span>
                         <h3 data-title className="mt-2 md:mt-6">
-                           {/* Mobile: Clean, Modern, Professional (No boxes) */}
-                           <div className="md:hidden font-sans font-extrabold tracking-tight text-white drop-shadow-[0_2px_15px_rgba(0,0,0,0.8)]" style={{ fontSize: "clamp(32px, 10vw, 42px)", lineHeight: "1" }}>
+                           <div className="font-sans font-extrabold tracking-tight text-white drop-shadow-[0_2px_15px_rgba(0,0,0,0.8)]" style={{ fontSize: "clamp(32px, 5vw, 64px)", lineHeight: "1" }}>
                               {item.title}
-                           </div>
-                           {/* Desktop: Keep the original editorial marker style */}
-                           <div className="hidden md:block" style={desktopTitleCss}>
-                              <span className="marker">{item.title}</span><br />
-                              <span className="marker marker--sub">{item.badge}</span>
                            </div>
                         </h3>
                         <p className="mt-5 md:mt-6 leading-relaxed max-w-sm md:max-w-md text-sm md:text-base text-white/90 drop-shadow-[0_1px_8px_rgba(0,0,0,0.5)]" style={textStyleToCss(item.summaryStyle, DEFAULT_CARD_SUMMARY_STYLE)}>
