@@ -198,30 +198,15 @@ export default function Services() {
   }, []);
 
   const { data, loading } = useContent<ServicesContent>(SERVICES_CONTENT_KEY, defaultServicesContent);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-background text-white overflow-x-hidden selection:bg-[#837FFB]/30">
-        <Navbar />
-        {/* Background Texture & Glows */}
-        <div className="fixed inset-0 pointer-events-none z-0">
-          <div className="absolute inset-0 opacity-[0.03] contrast-150 brightness-100" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3仿真%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }} />
-          <div className="absolute top-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full opacity-15 blur-[120px] bg-[#837FFB]" />
-        </div>
-      </div>
-    );
-  }
-
   const testimonialSectionRef = useRef<HTMLElement>(null);
   const frameRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    if (loading) return;
+    if (loading || !testimonialSectionRef.current || !frameRef.current || !textRef.current) return;
     const section = testimonialSectionRef.current;
     const frame = frameRef.current;
     const text = textRef.current;
-    if (!section || !frame || !text) return;
 
     gsap.set([frame, text], { transformOrigin: "center center" });
 
@@ -242,6 +227,19 @@ export default function Services() {
 
     return () => ctx.revert();
   }, [loading]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background text-white overflow-x-hidden selection:bg-[#837FFB]/30">
+        <Navbar />
+        {/* Background Texture & Glows */}
+        <div className="fixed inset-0 pointer-events-none z-0">
+          <div className="absolute inset-0 opacity-[0.03] contrast-150 brightness-100" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3仿真%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }} />
+          <div className="absolute top-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full opacity-15 blur-[120px] bg-[#837FFB]" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background text-white overflow-x-hidden selection:bg-[#837FFB]/30">
