@@ -19,9 +19,10 @@ import TextStyleEditor from "@/components/admin/TextStyleEditor";
 import WordHighlightPicker from "@/components/admin/WordHighlightPicker";
 
 const TABS = [
-  { id: "hero",      label: "Hero Section", icon: Type,   hint: "Page title & highlight" },
-  { id: "sectors",   label: "Globe Sectors", icon: Globe2, hint: "Industry accordion items" },
-  { id: "deepdive",  label: "Deep Dive",     icon: Eye,    hint: "Detailed sector cards" },
+  { id: "hero",      label: "Hero Section",    icon: Type,   hint: "Page title & highlight" },
+  { id: "sectors",   label: "Globe Sectors",   icon: Globe2, hint: "Industry accordion items" },
+  { id: "dd-title",  label: "Deep Dive Title", icon: Type,   hint: "Title font & color" },
+  { id: "dd-cards",  label: "Deep Dive Cards", icon: Eye,    hint: "Detailed sector cards" },
 ] as const;
 
 type TabId = (typeof TABS)[number]["id"];
@@ -243,7 +244,7 @@ export default function IndustriesEditor() {
           </SectionPanel>
         )}
 
-        {activeTab === "deepdive" && (
+        {activeTab === "dd-title" && (
           <div className="space-y-6">
             <SectionPanel title="Deep Dive Header" subtitle="Title for the detailed sector section." icon={Type}>
                <FieldGroup legend="Headline">
@@ -277,7 +278,11 @@ export default function IndustriesEditor() {
                  />
                </FieldGroup>
             </SectionPanel>
+          </div>
+        )}
 
+        {activeTab === "dd-cards" && (
+          <div className="space-y-6">
             {draft.deepDiveSectors.map((s, i) => (
               <SectionPanel 
                 key={i} 
