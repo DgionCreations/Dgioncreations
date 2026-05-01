@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
-  Briefcase, BarChart3, Server,
+  Briefcase, BarChart3, Server, Cloud,
   ArrowUpRight, TrendingUp, Shield, Users,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
