@@ -1,0 +1,192 @@
+/* 3D industry card — adapted from Uiverse.io (by Smit-Prajapati).
+   Striped/checker background behind a tinted content box, 3D hover tilt,
+   and layered depth on title/body/CTA via translate3d. Palette retuned to
+   the Dgion dark/purple theme. */
+
+.ind-parent {
+  perspective: 1200px;
+  width: 100%;
+}
+
+.ind-card {
+  position: relative;
+  padding-top: 50px;
+  border: 2px solid rgba(131, 127, 251, 0.55);
+  border-radius: 22px;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  background:
+    linear-gradient(135deg, transparent 18.75%, rgba(131, 127, 251, 0.18) 0 31.25%, transparent 0),
+    repeating-linear-gradient(45deg, rgba(131, 127, 251, 0.08) -6.25% 6.25%, rgba(26, 20, 71, 0.9) 0 18.75%);
+  background-size: 60px 60px;
+  background-position: 0 0, 0 0;
+  background-color: #0F0B35;
+  box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.55);
+  transition: transform 0.6s ease, background-position 0.6s ease, box-shadow 0.6s ease;
+  will-change: transform, background-position;
+}
+
+.ind-card:hover {
+  background-position: -100px 100px, -100px 100px;
+  transform: rotate3d(0.5, 1, 0, 18deg);
+  box-shadow:
+    0 40px 80px -20px rgba(131, 127, 251, 0.35),
+    0 30px 60px -15px rgba(0, 0, 0, 0.6);
+}
+
+.ind-content-box {
+  position: relative;
+  background: linear-gradient(135deg, rgba(105, 100, 245, 0.98), rgba(70, 65, 230, 0.98));
+  padding: 56px 28px 28px 28px;
+  transform-style: preserve-3d;
+  transition: background 0.5s ease;
+}
+
+/* Label, title and description sizes match the left column's Tailwind
+   text-sm / text-3xl md:text-4xl / text-base so both sides read at the
+   same hierarchy. */
+.ind-label {
+  display: inline-block;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.5s ease;
+  transform: translate3d(0, 0, 30px);
+}
+
+.ind-title {
+  display: block;
+  color: #ffffff;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+  margin-top: 16px;
+  transition: transform 0.5s ease;
+  transform: translate3d(0, 0, 50px);
+}
+@media (min-width: 768px) {
+  .ind-title { font-size: 36px; }
+}
+.ind-card:hover .ind-title {
+  transform: translate3d(0, 0, 65px);
+}
+
+.ind-desc {
+  margin-top: 16px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  transition: transform 0.5s ease;
+  transform: translate3d(0, 0, 25px);
+}
+.ind-card:hover .ind-desc {
+  transform: translate3d(0, 0, 45px);
+}
+
+.ind-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+  transition: transform 0.5s ease;
+  transform: translate3d(0, 0, 20px);
+}
+.ind-card:hover .ind-pills {
+  transform: translate3d(0, 0, 40px);
+}
+
+/* Glassmorphism pill — frosted glass look:
+    - translucent white base + heavy backdrop blur
+    - top edge highlight (inset border) gives a lit-glass feel
+    - soft drop shadow + outer glow on hover */
+.ind-pill {
+  padding: 9px 16px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.08),
+    0 4px 14px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.ind-pill:hover {
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    0 6px 20px rgba(0, 0, 0, 0.25),
+    0 0 18px rgba(255, 255, 255, 0.18);
+  transform: translateY(-1px);
+}
+
+.ind-cta {
+  cursor: pointer;
+  margin-top: 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 900;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #837FFB;
+  background: #ffffff;
+  padding: 10px 14px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  transform: translate3d(0, 0, 20px);
+  box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.4);
+}
+.ind-card:hover .ind-cta {
+  transform: translate3d(0, 0, 60px);
+  box-shadow: 0 14px 28px -10px rgba(131, 127, 251, 0.6);
+}
+
+/* Count badge — replaces the date box in the original design */
+.ind-count-box {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  height: 64px;
+  width: 64px;
+  background: #ffffff;
+  border: 1px solid rgba(131, 127, 251, 0.6);
+  border-radius: 14px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: translate3d(0, 0, 80px);
+  box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.4);
+}
+
+.ind-count-box .count-label {
+  color: #837FFB;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.ind-count-box .count-value {
+  font-size: 22px;
+  font-weight: 900;
+  color: #837FFB;
+  line-height: 1;
+  margin-top: 2px;
+}

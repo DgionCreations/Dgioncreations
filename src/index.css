@@ -1,0 +1,537 @@
+/* Font families are loaded in index.html — single source of truth. */
+
+/* The Seasons — full TTF files in /public/fonts/the-seasons/.
+   No demo watermark — hyphens, apostrophes, all special chars render normally. */
+@font-face {
+  font-family: "The Seasons";
+  src: url("/fonts/the-seasons/The%20Seasons%20Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "The Seasons";
+  src: url("/fonts/the-seasons/The%20Seasons%20Light%20Italic.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "The Seasons";
+  src: url("/fonts/the-seasons/The%20Seasons%20Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "The Seasons";
+  src: url("/fonts/the-seasons/The%20Seasons%20Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "The Seasons";
+  src: url("/fonts/the-seasons/The%20Seasons%20Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "The Seasons";
+  src: url("/fonts/the-seasons/The%20Seasons%20Bold%20Italic.ttf") format("truetype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Single typeface across the whole site — The Seasons for headings AND body.
+   --site-display + --site-body both point to The Seasons so buttons, labels,
+   paragraphs, and headings all share one consistent style.
+   To swap, change here AND update tailwind.config.ts + SITE_DISPLAY_FONT
+   in src/content/typography.ts. */
+:root {
+  --site-display: "The Seasons", "Italiana", Georgia, serif;
+  --site-body: "The Seasons", "Italiana", Georgia, serif;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── PROFESSIONAL TYPE SYSTEM ────────────────────────────────────────────
+   Single source of truth for typography across the whole site.
+   Enforced with !important so per-style inline sizes can't break the rhythm.
+   ─────────────────────────────────────────────────────────────────────── */
+
+html, body {
+  font-family: var(--site-body);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+p {
+  font-size: 1rem !important;
+  line-height: 1.7 !important;
+  letter-spacing: 0.005em;
+}
+
+/* All headings — The Seasons display, consistent rhythm */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--site-display) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.005em;
+  word-spacing: normal;
+  line-height: 1.25 !important;
+  margin: 0;
+}
+
+/* Type scale — fluid sizes that look good on every viewport */
+h1 {
+  font-size: clamp(2.75rem, 5.5vw, 4.5rem) !important;  /* hero titles ~44–72px */
+  line-height: 1.15 !important;
+}
+h2 {
+  font-size: clamp(2.25rem, 4vw, 3.25rem) !important;   /* section titles ~36–52px */
+  line-height: 1.2 !important;
+}
+h3 {
+  font-size: clamp(1.5rem, 2.5vw, 2.125rem) !important; /* sub-section ~24–34px */
+}
+h4 {
+  font-size: clamp(1.25rem, 2vw, 1.5rem) !important;    /* card titles ~20–24px */
+}
+h5 {
+  font-size: clamp(1.125rem, 1.5vw, 1.25rem) !important;/* small headings ~18–20px */
+}
+h6 {
+  font-size: 1rem !important;                           /* mini headings ~16px */
+}
+
+/* Buttons / CTAs — clean, confident */
+button, .btn, [role="button"] {
+  letter-spacing: 0.01em;
+}
+
+/* Form inputs — consistent body sizing */
+input, textarea, select {
+  font-family: var(--site-body);
+  font-size: 1rem;
+}
+
+/* Small / micro labels (kickers, tags, badges) */
+small, .text-xs, .text-sm {
+  letter-spacing: 0.04em;
+}
+
+/* Code blocks — monospace */
+code, pre, kbd, samp {
+  font-family: ui-monospace, "JetBrains Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.9em;
+}
+
+/* ─── ADMIN PANEL — Compact font scale ────────────────────────────────────
+   Scoped to .admin-shell only so the live page is untouched. Shrinks every
+   common Tailwind text-* utility by ~15% inside the admin chrome. */
+.admin-shell {
+  font-size: 13px;
+}
+.admin-shell p {
+  font-size: 0.85rem !important;
+  line-height: 1.55 !important;
+}
+.admin-shell .text-\[8px\]     { font-size: 7px !important; }
+.admin-shell .text-\[9px\]     { font-size: 8px !important; }
+.admin-shell .text-\[10px\]    { font-size: 9px !important; }
+.admin-shell .text-\[11px\]    { font-size: 10px !important; }
+.admin-shell .text-\[12px\]    { font-size: 11px !important; }
+.admin-shell .text-xs          { font-size: 0.65rem !important; }
+.admin-shell .text-sm          { font-size: 0.78rem !important; }
+.admin-shell .text-base        { font-size: 0.85rem !important; }
+.admin-shell .text-lg          { font-size: 0.95rem !important; }
+.admin-shell .text-xl          { font-size: 1.05rem !important; }
+.admin-shell .text-2xl         { font-size: 1.2rem !important; }
+.admin-shell .text-3xl         { font-size: 1.5rem !important; }
+.admin-shell .text-4xl         { font-size: 1.75rem !important; }
+.admin-shell input,
+.admin-shell textarea,
+.admin-shell select {
+  font-size: 0.8rem !important;
+}
+/* Admin headings stay snappy too — override the global type scale */
+.admin-shell h1 { font-size: 1.65rem !important; line-height: 1.2 !important; }
+.admin-shell h2 { font-size: 1.35rem !important; line-height: 1.25 !important; }
+.admin-shell h3 { font-size: 1.05rem !important; }
+.admin-shell h4 { font-size: 0.9rem !important; }
+.admin-shell h5 { font-size: 0.85rem !important; }
+.admin-shell h6 { font-size: 0.78rem !important; }
+
+@layer base {
+  :root {
+    --background: 250 59% 22%;
+    --foreground: 210 40% 98%;
+
+    --card: 250 59% 25%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 230 25% 8%;
+    --popover-foreground: 210 40% 95%;
+
+    --primary: 242 94% 74%;
+    --primary-foreground: 230 25% 5%;
+
+    --secondary: 242 94% 64%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 230 20% 14%;
+    --muted-foreground: 215 20% 55%;
+
+    --accent: 242 94% 74%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 230 20% 18%;
+    --input: 230 20% 18%;
+    --ring: 242 94% 74%;
+
+    --radius: 0.75rem;
+
+    /* Custom tokens — unified to #837FFB */
+    --neon-blue: 242 94% 74%;
+    --neon-purple: 252 94% 64%;
+    --neon-cyan: 242 70% 80%;
+    --glass-bg: 230 25% 10%;
+    --glass-border: 230 20% 22%;
+
+    --gradient-neon: linear-gradient(135deg, hsl(var(--neon-blue)), hsl(var(--neon-purple)));
+    --gradient-glow: linear-gradient(135deg, hsl(var(--neon-blue) / 0.4), hsl(var(--neon-purple) / 0.4));
+    --shadow-neon-blue: 0 0 30px hsl(var(--neon-blue) / 0.3), 0 0 60px hsl(var(--neon-blue) / 0.1);
+    --shadow-neon-purple: 0 0 30px hsl(var(--neon-purple) / 0.3), 0 0 60px hsl(var(--neon-purple) / 0.1);
+
+    --sidebar-background: 230 25% 8%;
+    --sidebar-foreground: 210 40% 95%;
+    --sidebar-primary: 242 94% 74%;
+    --sidebar-primary-foreground: 230 25% 5%;
+    --sidebar-accent: 242 94% 74%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 230 20% 18%;
+    --sidebar-ring: 242 94% 74%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  /* Global scale-down — 14px root makes every rem-based size smaller
+     (headings, body, paddings) for a tighter, more editorial feel. */
+  html {
+    font-size: 87.5%;
+  }
+
+  @media (min-width: 1536px) {
+    html { font-size: 93.75%; }
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -0.01em;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', sans-serif;
+    @apply font-bold;
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl;
+  }
+
+  .glass-hover {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl transition-all duration-500;
+  }
+
+  .glass-hover:hover {
+    @apply border-[#837FFB]/30 bg-white/10 -translate-y-2;
+    box-shadow: 0 0 30px rgba(131,127,241,0.2);
+  }
+
+  .neon-text {
+    @apply text-white drop-shadow-[0_0_10px_rgba(131,127,241,0.5)];
+  }
+
+  .neon-glow-blue {
+    box-shadow: 0 0 30px rgba(131,127,241,0.3);
+  }
+
+  .neon-glow-purple {
+    box-shadow: 0 0 30px rgba(131,127,241,0.3);
+  }
+
+  .neon-border {
+    @apply border border-[#837FFB]/30;
+  }
+
+  .glow-button {
+    @apply relative overflow-hidden px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 bg-[#837FFB] text-white shadow-[0_0_20px_rgba(131,127,241,0.4)];
+  }
+
+  .glow-button:hover {
+    @apply scale-105 bg-[#837FFB]/90;
+    box-shadow: 0 0 40px rgba(131,127,241,0.6);
+  }
+
+  .section-padding {
+    @apply py-24 px-6 md:px-12 lg:px-20;
+  }
+
+  /* Custom cursor */
+  .custom-cursor {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid hsl(var(--neon-blue));
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease-out, width 0.2s, height 0.2s, border-color 0.2s;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: difference;
+  }
+
+  .custom-cursor-dot {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: hsl(var(--neon-blue));
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px hsl(var(--neon-blue) / 0.6);
+  }
+
+  .cursor-hover .custom-cursor {
+    width: 40px;
+    height: 40px;
+    border-color: hsl(var(--neon-purple));
+  }
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-pulse-glow {
+    animation: pulseGlow 3s ease-in-out infinite;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.8s ease-out forwards;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+html {
+  /* Lenis handles smooth scrolling via JS — disable native so it doesn't fight */
+  scroll-behavior: auto;
+}
+
+/* Hide custom cursor on touch devices */
+@media (pointer: coarse) {
+  * { cursor: auto !important; }
+  .custom-cursor, .custom-cursor-dot { display: none; }
+}
+
+/* ── Lenis smooth-scroll integration ──
+   When Lenis is active it sets `data-lenis-prevent` and toggles `lenis-scrolling` on <html>.
+   Keep overflow normal — Lenis does NOT require overflow:hidden on body since it virtualises scroll on <html>. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+/* .gpu — promote heavy elements to their own compositor layer so paints/transforms don't
+   trigger layout on the rest of the page. Apply sparingly (only to large, animated, or
+   backdrop-filter-heavy elements) since each layer costs GPU memory. */
+.gpu {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Spline loading spinner */
+.loader {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #837FFB;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  animation: loaderSpin 1s linear infinite;
+}
+
+@keyframes loaderSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+/* ── Glass Button System ── */
+.glass-button-wrap {
+  position: relative;
+  display: inline-flex;
+  padding: 4px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.1) 100%);
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.2), 0 10px 20px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+.glass-button-wrap:hover {
+  transform: translateY(-2px);
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.3), 0 15px 30px rgba(131,127,251,0.2);
+}
+
+.glass-button {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+  color: white;
+}
+
+.glass-button:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+.glass-button-shadow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(circle at 50% 0%, rgba(131,127,251,0.4) 0%, transparent 70%);
+  filter: blur(15px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.glass-button-wrap:hover .glass-button-shadow {
+  opacity: 1;
+}
+
+/* ── Orbital Timeline Animations ── */
+@keyframes orbital-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes orbital-ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.animate-orbital-pulse {
+  animation: orbital-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-orbital-ping {
+  animation: orbital-ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.duration-300 { transition-duration: 300ms; }
+.duration-700 { transition-duration: 700ms; }
+.duration-1000 { transition-duration: 1000ms; }
+
+
+
+
+/* IMAGE PARALLAX + MARKER HEADLINES */
+[data-img-frame] {
+  /* ensure these — add if missing */
+  position: relative;
+  overflow: hidden;
+}
+[data-img] {
+  width: 100%;
+  height: 140% !important;          /* extra height to prevent gaps during translation */
+  object-fit: cover;
+  transform: translateY(var(--parallax-y, -15%));
+  will-change: transform;
+}
+
+@supports (animation-timeline: view()) {
+  [data-img] {
+    animation: parallax-shift linear both;
+    animation-timeline: view();
+    animation-range: cover 0% cover 100%;
+  }
+  @keyframes parallax-shift {
+    from { transform: translateY(0%); }
+    to   { transform: translateY(-25%); }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-img] {
+    animation: none !important;
+    transform: none !important;
+    height: 100% !important;
+  }
+}
+
+[data-title] {
+  display: block;
+  line-height: 1.45;     /* gap between consecutive marker lines */
+}
+.marker {
+  background: var(--marker-bg, #0e0e0e);
+  color: var(--marker-fg, #f6f4ee);
+  padding: 0.06em 0.34em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.marker--sub {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 0.78em;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.25em 0.6em;
+}
+
+
+
