@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
-  Heart, DollarSign, ShoppingCart, GraduationCap, Truck, Cloud,
+  Activity, DollarSign, ShoppingCart, GraduationCap, Truck, Cloud,
   ArrowUpRight, TrendingUp, Shield, Users,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -27,37 +27,37 @@ const strengths = [
 
 const sectors = [
   {
-    icon: Heart, label: "Healthcare", tag: "MedTech",
+    icon: Activity, label: "Future Health", tag: "MedTech",
     desc: "HIPAA-compliant platforms, telemedicine, EHR systems, AI diagnostics and patient-management tooling.",
     color: "#f43f5e",
     wins: ["500K+ patients served", "99.99% uptime SLA", "12 countries"],
   },
   {
-    icon: DollarSign, label: "Finance", tag: "FinTech",
+    icon: DollarSign, label: "Digital Capital", tag: "FinTech",
     desc: "Trading platforms, payment gateways, risk-modelling engines and regulatory-compliance dashboards.",
     color: "#10b981",
     wins: ["2M+ daily transactions", "<50ms latency", "Tier-1 institutions"],
   },
   {
-    icon: ShoppingCart, label: "E-commerce", tag: "Retail",
+    icon: ShoppingCart, label: "Next Retail", tag: "E-comm",
     desc: "Scalable storefronts, AI-personalised recommendations, inventory sync and friction-free checkout.",
     color: "#f59e0b",
     wins: ["3.2× conversion boost", "120K+ products", "<1.2s load"],
   },
   {
-    icon: GraduationCap, label: "Education", tag: "EdTech",
+    icon: GraduationCap, label: "Deep Learning", tag: "EdTech",
     desc: "LMS platforms, adaptive learning engines, virtual classrooms and student analytics dashboards.",
     color: "#3b82f6",
     wins: ["150K+ students", "89% completion", "200+ subjects"],
   },
   {
-    icon: Truck, label: "Logistics", tag: "Supply Chain",
+    icon: Truck, label: "Smart Supply", tag: "Logistics",
     desc: "Fleet tracking, AI route optimisation, predictive maintenance and end-to-end supply-chain automation.",
     color: "#8b5cf6",
     wins: ["35% fuel savings", "8K+ vehicles", "60% less downtime"],
   },
   {
-    icon: Cloud, label: "SaaS", tag: "B2B Software",
+    icon: Cloud, label: "Agentic SaaS", tag: "B2B",
     desc: "Multi-tenant platforms, billing engines, admin dashboards and integration ecosystems.",
     color: "#06b6d4",
     wins: ["50+ SaaS shipped", "99.9% SLA", "Stripe-native"],
