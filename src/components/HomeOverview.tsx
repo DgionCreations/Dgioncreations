@@ -167,11 +167,15 @@ export default function HomeOverview() {
                       top: 0,
                       left: 0,
                       width: "100%",
+                      height: "100%",
                     }}
                   />
 
+                  {/* Mobile-first dark overlay for readability */}
+                  <div className="absolute inset-0 bg-black/60 md:hidden" />
+
                   <div
-                    className="absolute inset-0 pointer-events-none"
+                    className="absolute inset-0 pointer-events-none hidden md:block"
                     style={{
                       background: textLeft
                         ? `linear-gradient(90deg, ${item.tint}ee 0%, ${item.tint}88 42%, transparent 78%)`
@@ -181,24 +185,24 @@ export default function HomeOverview() {
                   <div
                     className="absolute inset-0 pointer-events-none"
                     style={{
-                      background: "linear-gradient(180deg, rgba(10,8,24,0.3) 0%, transparent 22%, transparent 78%, rgba(10,8,24,0.55) 100%)",
+                      background: "linear-gradient(180deg, rgba(10,8,24,0.4) 0%, transparent 22%, transparent 78%, rgba(10,8,24,0.7) 100%)",
                     }}
                   />
 
                   <div className="relative z-10 h-full flex items-center">
-                    <div className="max-w-7xl mx-auto w-full px-6 md:px-10 lg:px-16">
-                      <div data-content className={`max-w-xl ${textLeft ? "" : "ml-auto text-right"}`} style={{ willChange: "transform, opacity" }}>
-                        <span className="inline-block text-white text-[11px] md:text-xs font-bold tracking-[0.25em] uppercase px-3 py-1.5 rounded-sm" style={{ background: item.accent, color: "#fff" }}>
+                    <div className="max-w-7xl mx-auto w-full px-4 md:px-10 lg:px-16">
+                      <div data-content className={`max-w-xl ${textLeft ? "" : "md:ml-auto md:text-right"} text-center md:text-left mx-auto md:mx-0`} style={{ willChange: "transform, opacity" }}>
+                        <span className="inline-block text-white text-[10px] md:text-xs font-bold tracking-[0.25em] uppercase px-3 py-1.5 rounded-sm" style={{ background: item.accent, color: "#fff" }}>
                           {item.badge}
                         </span>
-                        <h3 data-title className="mt-6" style={{ letterSpacing: "-0.02em", ...textStyleToCss(item.titleStyle, DEFAULT_CARD_TITLE_STYLE) }}>
+                        <h3 data-title className="mt-4 md:mt-6 text-3xl md:text-4xl" style={{ letterSpacing: "-0.02em", ...textStyleToCss(item.titleStyle, DEFAULT_CARD_TITLE_STYLE) }}>
                           <span className="marker">{item.title}</span><br />
-                          <span className="marker marker--sub">{item.badge}</span>
+                          <span className="marker marker--sub hidden md:inline">{item.badge}</span>
                         </h3>
-                        <p className="mt-6 leading-relaxed max-w-md" style={{ ...textStyleToCss(item.summaryStyle, DEFAULT_CARD_SUMMARY_STYLE), ...(textLeft ? {} : { marginLeft: "auto" }) }}>
+                        <p className="mt-4 md:mt-6 leading-relaxed max-w-md mx-auto md:mx-0 text-sm md:text-base opacity-90" style={{ ...textStyleToCss(item.summaryStyle, DEFAULT_CARD_SUMMARY_STYLE), ...(textLeft ? {} : { md:marginLeft: "auto" }) }}>
                           {item.summary}
                         </p>
-                        <Link to={item.url} className="mt-8 inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-bold tracking-wide text-black bg-white transition-all duration-300 hover:pr-9 hover:shadow-[0_10px_30px_rgba(255,255,255,0.25)] hover:-translate-y-0.5">
+                        <Link to={item.url} className="mt-7 md:mt-8 inline-flex items-center gap-2 px-6 md:px-7 py-3 md:py-3.5 rounded-full text-xs md:text-sm font-bold tracking-wide text-black bg-white transition-all duration-300 hover:pr-9 hover:shadow-[0_10px_30px_rgba(255,255,255,0.25)] hover:-translate-y-0.5">
                           VIEW {item.eyebrow.toUpperCase()}
                           <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                         </Link>
@@ -206,7 +210,7 @@ export default function HomeOverview() {
                     </div>
                   </div>
 
-                  <div className="absolute top-5 right-5 md:top-8 md:right-8 text-white/80 text-xs md:text-sm font-mono tracking-widest pointer-events-none" style={{ textShadow: "0 1px 8px rgba(0,0,0,0.5)" }}>
+                  <div className="absolute top-5 right-5 md:top-8 md:right-8 text-white/80 text-[10px] md:text-sm font-mono tracking-widest pointer-events-none" style={{ textShadow: "0 1px 8px rgba(0,0,0,0.5)" }}>
                     <span className="opacity-60">0<StatCounter value={(i + 1).toString()} duration={0.8} /></span>
                     <span className="mx-1 opacity-30">/</span>
                     <span className="opacity-30">0{items.length}</span>
