@@ -8,7 +8,7 @@ import {
   type LucideIcon,
   Target, Lightbulb, Rocket, BarChart3, CheckCircle2, Users, Award,
   Search, Share2, FileText, Fingerprint, Layout, LineChart, Brain,
-  Heart, Globe, ShoppingCart, GraduationCap, Truck, Code2, Briefcase,
+  Heart, Globe, ShoppingCart, GraduationCap, Truck, Code2, Briefcase, Server,
   Zap, Star, TrendingUp, DollarSign, Building2, Sparkles, Shield,
   Layers, Workflow, Mail, Compass, Palette, Clock, Calendar, MessageCircle, Send,
   Twitter, Github, Linkedin, Instagram, Phone, MapPin, Link,
@@ -21,7 +21,7 @@ export type IconKey =
   | "heart" | "globe" | "shopping-cart" | "graduation-cap" | "truck" | "code" | "briefcase"
   | "zap" | "star" | "trending-up" | "dollar-sign" | "building" | "sparkles" | "shield"
   | "layers" | "workflow" | "mail" | "compass" | "palette" | "clock"
-  | "calendar" | "message-circle" | "send"
+  | "calendar" | "message-circle" | "send" | "server"
   | "twitter" | "github" | "linkedin" | "instagram" | "phone" | "map-pin" | "link";
 
 export interface IconEntry {
@@ -51,6 +51,7 @@ export const ICONS: Record<IconKey, IconEntry> = {
   "truck":          { label: "Truck",          component: Truck },
   "code":           { label: "Code",           component: Code2 },
   "briefcase":      { label: "Briefcase",      component: Briefcase },
+  "server":         { label: "Server",         component: Server },
   "zap":            { label: "Zap / bolt",     component: Zap },
   "star":           { label: "Star",           component: Star },
   "trending-up":    { label: "Trending up",    component: TrendingUp },
