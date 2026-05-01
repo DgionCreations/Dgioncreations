@@ -97,8 +97,8 @@ export default function HomeOverview() {
 
   return (
     <section className="relative overflow-hidden bg-background">
-      {/* Background Heading */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pt-28 md:pt-32 pb-16">
+      {/* Background Heading - Hidden on mobile to prevent overlap with pinned stack */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pt-20 md:pt-32 pb-8 md:pb-16 hidden md:block">
         <motion.div
           className="text-center"
           initial={{ opacity: 0, y: 30 }}
@@ -130,19 +130,30 @@ export default function HomeOverview() {
         </motion.div>
       </div>
 
-      {/* Pinned stack */}
-      <div ref={pinRef} className="relative h-screen overflow-hidden">
+      {/* Pinned stack - Adjusted height for mobile */}
+      <div ref={pinRef} className="relative h-[80vh] md:h-screen overflow-hidden mt-20 md:mt-0">
         <div ref={stackRef} className="absolute inset-0">
           {items.map((item, i) => {
             const textLeft = i % 2 === 0;
             const markerBg = i === 0 ? "#0e0e0e" : i === 1 ? "#c45c2e" : i === 2 ? "#d4a541" : i === 3 ? "#1d2c4d" : i === 4 ? "#ff5a1f" : item.accent;
             const markerFg = i === 0 ? "#f6f4ee" : i === 1 ? "#ffffff" : i === 2 ? "#0e0e0e" : i === 3 ? "#f6f4ee" : i === 4 ? "#ffffff" : "#ffffff";
 
+            // Mobile-specific style overrides to prevent overflow
+            const mobileTitleCss: React.CSSProperties = {
+               ...textStyleToCss(item.titleStyle, DEFAULT_CARD_TITLE_STYLE),
+               fontSize: "clamp(24px, 8vw, 36px)", // Force smaller size on mobile
+               lineHeight: "1.1"
+            };
+            const desktopTitleCss: React.CSSProperties = {
+               ...textStyleToCss(item.titleStyle, DEFAULT_CARD_TITLE_STYLE),
+               letterSpacing: "-0.02em"
+            };
+
             return (
               <article
                 key={item.id}
                 data-section
-                className="group absolute inset-0 w-full h-full p-4 md:p-12 lg:p-16"
+                className="group absolute inset-0 w-full h-full p-2 md:p-12 lg:p-16"
                 style={{ 
                   zIndex: i + 1, 
                   willChange: "transform, opacity",
@@ -152,7 +163,7 @@ export default function HomeOverview() {
               >
                 <div
                   data-img-frame
-                  className="relative h-full w-full rounded-3xl overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.5),0_0_0_1px_rgba(255,255,255,0.05)_inset]"
+                  className="relative h-full w-full rounded-2xl md:rounded-3xl overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.5),0_0_0_1px_rgba(255,255,255,0.05)_inset]"
                   style={{ background: item.tint }}
                 >
                   <div
@@ -172,7 +183,7 @@ export default function HomeOverview() {
                   />
 
                   {/* Mobile-first dark overlay for readability */}
-                  <div className="absolute inset-0 bg-black/60 md:hidden" />
+                  <div className="absolute inset-0 bg-black/50 md:hidden" />
 
                   <div
                     className="absolute inset-0 pointer-events-none hidden md:block"
@@ -192,17 +203,23 @@ export default function HomeOverview() {
                   <div className="relative z-10 h-full flex items-center">
                     <div className="max-w-7xl mx-auto w-full px-4 md:px-10 lg:px-16">
                       <div data-content className={`max-w-xl ${textLeft ? "" : "md:ml-auto md:text-right"} text-center md:text-left mx-auto md:mx-0`} style={{ willChange: "transform, opacity" }}>
-                        <span className="inline-block text-white text-[10px] md:text-xs font-bold tracking-[0.25em] uppercase px-3 py-1.5 rounded-sm" style={{ background: item.accent, color: "#fff" }}>
+                        <span className="inline-block text-white text-[10px] md:text-xs font-bold tracking-[0.25em] uppercase px-3 py-1.5 rounded-sm mb-2" style={{ background: item.accent, color: "#fff" }}>
                           {item.badge}
                         </span>
-                        <h3 data-title className="mt-4 md:mt-6 text-3xl md:text-4xl" style={{ letterSpacing: "-0.02em", ...textStyleToCss(item.titleStyle, DEFAULT_CARD_TITLE_STYLE) }}>
-                          <span className="marker">{item.title}</span><br />
-                          <span className="marker marker--sub hidden md:inline">{item.badge}</span>
+                        <h3 data-title className="mt-2 md:mt-6">
+                           {/* Use CSS logic to switch between mobile and desktop styles */}
+                           <div className="md:hidden" style={mobileTitleCss}>
+                              <span className="marker">{item.title}</span>
+                           </div>
+                           <div className="hidden md:block" style={desktopTitleCss}>
+                              <span className="marker">{item.title}</span><br />
+                              <span className="marker marker--sub">{item.badge}</span>
+                           </div>
                         </h3>
-                        <p className="mt-4 md:mt-6 leading-relaxed max-w-md mx-auto md:mx-0 text-sm md:text-base opacity-90" style={textStyleToCss(item.summaryStyle, DEFAULT_CARD_SUMMARY_STYLE)}>
+                        <p className="mt-4 md:mt-6 leading-relaxed max-w-md mx-auto md:mx-0 text-xs md:text-base opacity-90" style={textStyleToCss(item.summaryStyle, DEFAULT_CARD_SUMMARY_STYLE)}>
                           {item.summary}
                         </p>
-                        <Link to={item.url} className="mt-7 md:mt-8 inline-flex items-center gap-2 px-6 md:px-7 py-3 md:py-3.5 rounded-full text-xs md:text-sm font-bold tracking-wide text-black bg-white transition-all duration-300 hover:pr-9 hover:shadow-[0_10px_30px_rgba(255,255,255,0.25)] hover:-translate-y-0.5">
+                        <Link to={item.url} className="mt-6 md:mt-8 inline-flex items-center gap-2 px-6 md:px-7 py-3 md:py-3.5 rounded-full text-xs md:text-sm font-bold tracking-wide text-black bg-white transition-all duration-300 hover:pr-9 hover:shadow-[0_10px_30px_rgba(255,255,255,0.25)] hover:-translate-y-0.5">
                           VIEW {item.eyebrow.toUpperCase()}
                           <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                         </Link>
@@ -210,7 +227,7 @@ export default function HomeOverview() {
                     </div>
                   </div>
 
-                  <div className="absolute top-5 right-5 md:top-8 md:right-8 text-white/80 text-[10px] md:text-sm font-mono tracking-widest pointer-events-none" style={{ textShadow: "0 1px 8px rgba(0,0,0,0.5)" }}>
+                  <div className="absolute top-4 right-4 md:top-8 md:right-8 text-white/80 text-[10px] md:text-sm font-mono tracking-widest pointer-events-none" style={{ textShadow: "0 1px 8px rgba(0,0,0,0.5)" }}>
                     <span className="opacity-60">0<StatCounter value={(i + 1).toString()} duration={0.8} /></span>
                     <span className="mx-1 opacity-30">/</span>
                     <span className="opacity-30">0{items.length}</span>
