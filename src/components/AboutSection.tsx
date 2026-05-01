@@ -235,10 +235,11 @@ export default function AboutSection() {
                 transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
                 style={{
                   top: `${topPct}%`,
-                  left: isRight ? `${((m.x + 50) / VB_W) * 100}%` : undefined,
-                  right: !isRight ? `${((VB_W - m.x + 50) / VB_W) * 100}%` : undefined,
-                  width: "80vw",
-                  maxWidth: 320,
+                  left: isRight ? "calc(50% + 20px)" : undefined,
+                  right: !isRight ? "calc(50% + 20px)" : undefined,
+                  transform: isActive ? "translateY(-50%)" : "translateY(-40%)",
+                  width: "45vw",
+                  maxWidth: 280,
                   textAlign: isRight ? "left" : "right",
                   pointerEvents: isActive ? "auto" : "none",
                 }}

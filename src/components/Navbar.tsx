@@ -41,7 +41,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-8 left-0 right-0 z-50 flex justify-center w-full px-6">
+    <nav className="fixed top-4 md:top-8 left-0 right-0 z-50 flex justify-center w-full px-4 md:px-6">
       <LiquidGlassFilter />
       <motion.div
         onMouseMove={handleMouseMove}

@@ -56,7 +56,7 @@ export default function HeroSection() {
 
         {/* ── Left: Text ────────────────────────────────────────────── */}
         <div className="w-full lg:w-[48%] xl:w-[44%] flex flex-col justify-center items-center lg:items-start text-center lg:text-left
-                        pt-32 md:pt-36 lg:pt-32 pb-16 px-6 md:px-14 lg:pl-20 lg:pr-12
+                        pt-40 md:pt-48 lg:pt-32 pb-16 px-6 md:px-14 lg:pl-20 lg:pr-12
                         shrink-0 relative z-10">
 
           <div

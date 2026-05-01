@@ -139,7 +139,7 @@ export default function Portfolio() {
                 <ScrollStackItem key={o.title}>
                   <Tilt3DCard accent={o.color} className="rounded-3xl p-8 md:p-12 overflow-hidden w-full max-w-4xl mx-auto shadow-[0_15px_45px_rgba(0,0,0,0.5)]" style={{ background: "rgba(27, 20, 74, 0.85)", backdropFilter: "blur(20px)", border: "1px solid rgba(255,255,255,0.15)" }}>
                     <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
-                      <div className="text-6xl md:text-8xl font-black leading-none" style={{ color: o.color, textShadow: `0 0 40px ${o.color}40` }}>
+                      <div className="text-5xl md:text-8xl font-black leading-none" style={{ color: o.color, textShadow: `0 0 40px ${o.color}40` }}>
                         <StatCounter value={o.metric} />
                       </div>
                       <span className="text-sm font-bold uppercase tracking-[0.18em]" style={{ color: o.color }}>{o.tag}</span>

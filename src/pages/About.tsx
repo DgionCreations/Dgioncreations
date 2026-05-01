@@ -232,7 +232,14 @@ export default function About() {
       {/* CTA */}
       <section className="relative py-40 z-10">
         <div className="max-w-5xl mx-auto px-6 lg:px-10 text-center">
-          <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="relative rounded-[60px] p-20 overflow-hidden border border-white/5" style={{ background: "rgba(131,127,251,0.03)" }}>
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }} 
+            whileInView={{ opacity: 1, scale: 1 }} 
+            viewport={{ once: true }} 
+            transition={{ duration: 0.8 }} 
+            className="relative rounded-[30px] md:rounded-[60px] p-8 md:p-20 overflow-hidden border border-white/5" 
+            style={{ background: "rgba(131,127,251,0.03)" }}
+          >
             <div className="absolute inset-0 bg-[#837FFB]/5 blur-[120px] rounded-full translate-y-1/2" />
             
             <div className="relative z-10">
