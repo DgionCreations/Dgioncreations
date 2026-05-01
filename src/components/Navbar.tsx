@@ -5,10 +5,7 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import GooeyNav from "./GooeyNav";
 import { LiquidButton, LiquidGlassFilter } from "@/components/ui/liquid-glass-button";
 import { useContent } from "@/lib/use-content";
-import { NAVBAR_CONTENT_KEY, defaultNavbarContent, type NavbarContent } from "@/content/navbar";
-import { textStyleToCss } from "@/content/typography";
 import { PremiumButton } from "@/components/ui/PremiumButton";
-import { DgionLogo } from "./DgionLogo";
 
 export default function Navbar() {
   const { data } = useContent<NavbarContent>(NAVBAR_CONTENT_KEY, defaultNavbarContent);
@@ -58,8 +55,7 @@ export default function Navbar() {
         <div className="relative w-full px-5 md:px-10 py-2 bg-[#22175A]/80 backdrop-blur-3xl rounded-[100px] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-center justify-between min-h-[70px] md:min-h-[80px]">
           
           {/* Logo Section - New Dgion Logo */}
-          <Link to={data.logoHref} className="flex items-center gap-2 group shrink-0 min-w-[140px] md:min-w-[160px]">
-            <DgionLogo size={32} className="shrink-0" />
+          <Link to={data.logoHref} className="flex items-center group shrink-0 min-w-[100px] md:min-w-[120px]">
             <motion.span
               whileHover={{ scale: 1.05 }}
               className="text-white tracking-tight text-xl md:text-2xl"
@@ -67,7 +63,7 @@ export default function Navbar() {
             >
               {data.logoText}
             </motion.span>
-            <div className="ml-0.5 w-1 h-1 md:w-1.5 md:h-1.5 rounded-full bg-[#837FFB] opacity-0 group-hover:opacity-100 transition-opacity self-end mb-2 md:mb-2.5" />
+            <div className="ml-1 w-1 h-1 md:w-1.5 md:h-1.5 rounded-full bg-[#837FFB] opacity-0 group-hover:opacity-100 transition-opacity self-end mb-2 md:mb-2.5" />
           </Link>
 
           {/* Desktop Links - Flex Centered to prevent overlap */}

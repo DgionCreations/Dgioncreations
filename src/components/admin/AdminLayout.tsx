@@ -6,7 +6,6 @@ import {
   LogOut, Shield, LayoutDashboard, Layout
 } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
-import { DgionLogo } from "../DgionLogo";
 
 /**
  * Shared admin chrome: the left-hand sidebar persists across every admin
@@ -52,14 +51,8 @@ export default function AdminLayout() {
         {/* Toggle & Logo */}
         <div className={`flex items-center px-6 py-5 border-b border-white/5 ${collapsed ? "justify-center" : "justify-between"}`}>
           {!collapsed && (
-            <Link to="/admin" className="flex items-center gap-3 text-white font-bold text-lg tracking-tight truncate">
-              <DgionLogo size={28} />
-              <span>Dgion <span className="text-[#837FFB]">Admin</span></span>
-            </Link>
-          )}
-          {collapsed && (
-            <Link to="/admin" className="flex items-center justify-center">
-              <DgionLogo size={28} />
+            <Link to="/admin" className="text-white font-bold text-lg tracking-tight truncate">
+              Dgion <span className="text-[#837FFB]">Admin</span>
             </Link>
           )}
           <button 
