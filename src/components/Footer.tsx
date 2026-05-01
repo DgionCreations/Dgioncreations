@@ -12,6 +12,7 @@ import { useContent } from "@/lib/use-content";
 import { FOOTER_CONTENT_KEY, defaultFooterContent, type FooterContent } from "@/content/footer";
 import { textStyleToCss } from "@/content/typography";
 import { resolveIcon } from "@/content/icons";
+import { DgionLogo } from "./DgionLogo";
 
 export default function Footer() {
   const { data } = useContent<FooterContent>(FOOTER_CONTENT_KEY, defaultFooterContent);
@@ -43,13 +44,15 @@ export default function Footer() {
           {/* brand */}
           <div>
             {data.brandHref.startsWith("http") ? (
-              <a href={data.brandHref} target="_blank" rel="noopener noreferrer" className="inline-flex items-center mb-5">
+              <a href={data.brandHref} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 mb-5">
+                <DgionLogo size={36} />
                 <span className="tracking-tight" style={brandTitleCss}>
                   {data.brandName}
                 </span>
               </a>
             ) : (
-              <Link to={data.brandHref} className="inline-flex items-center mb-5">
+              <Link to={data.brandHref} className="inline-flex items-center gap-3 mb-5">
+                <DgionLogo size={36} />
                 <span className="tracking-tight" style={brandTitleCss}>
                   {data.brandName}
                 </span>
