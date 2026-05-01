@@ -97,8 +97,8 @@ export default function HomeOverview() {
 
   return (
     <section className="relative overflow-hidden bg-background">
-      {/* Background Heading - Hidden on mobile to prevent overlap with pinned stack */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pt-20 md:pt-32 pb-8 md:pb-16 hidden md:block">
+      {/* Background Heading - Subtle ghost effect to prevent overlap with card content */}
+      <div className="relative z-0 max-w-7xl mx-auto px-6 lg:px-10 pt-16 md:pt-20 pb-4 hidden md:block opacity-[0.08]">
         <motion.div
           className="text-center"
           initial={{ opacity: 0, y: 30 }}
@@ -106,7 +106,7 @@ export default function HomeOverview() {
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease }}
         >
-          <span className="text-sm font-bold tracking-[0.3em] uppercase" style={{ color: "#837FFB" }}>
+          <span className="text-[10px] font-bold tracking-[0.5em] uppercase" style={{ color: "#837FFB" }}>
             {data.kicker}
           </span>
           <h2 className="mt-4" style={textStyleToCss(data.headingStyle, DEFAULT_HEADING_STYLE)}>
