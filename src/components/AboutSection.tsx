@@ -223,6 +223,10 @@ export default function AboutSection() {
             // Check if this specific item is the active one
             const isActive = i === activeIdx;
             
+            // Calculate horizontal position relative to the actual dot (m.x)
+            const dotXPercent = (m.x / VB_W) * 100;
+            const horizontalGap = 40; // Pixels away from the dot
+
             return (
               <motion.div
                 key={i}
@@ -235,17 +239,17 @@ export default function AboutSection() {
                 transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
                 style={{
                   top: `${topPct}%`,
-                  left: isRight ? "calc(50% + 20px)" : undefined,
-                  right: !isRight ? "calc(50% + 20px)" : undefined,
+                  left: isRight ? `calc(${dotXPercent}% + ${horizontalGap}px)` : undefined,
+                  right: !isRight ? `calc(${100 - dotXPercent}% + ${horizontalGap}px)` : undefined,
                   transform: isActive ? "translateY(-50%)" : "translateY(-40%)",
-                  width: "45vw",
-                  maxWidth: 280,
+                  width: "40vw",
+                  maxWidth: 320,
                   textAlign: isRight ? "left" : "right",
                   pointerEvents: isActive ? "auto" : "none",
                 }}
               >
                 <div
-                  className="mb-2"
+                  className="mb-4"
                   style={{
                     display: "flex",
                     justifyContent: isRight ? "flex-start" : "flex-end",
