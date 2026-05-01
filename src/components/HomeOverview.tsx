@@ -203,19 +203,13 @@ export default function HomeOverview() {
                   <div className="relative z-10 h-full flex items-end md:items-center pb-12 md:pb-0">
                     <div className="max-w-7xl mx-auto w-full px-6 md:px-10 lg:px-16">
                       <div data-content className={`max-w-xl ${textLeft ? "" : "md:ml-auto md:text-right"} text-left mx-0`} style={{ willChange: "transform, opacity" }}>
-                        <span className="inline-block text-white text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase px-3 py-1 rounded-sm mb-5 shadow-lg" style={{ background: item.accent, color: "#fff" }}>
-                          {item.badge}
-                        </span>
                         <h3 data-title className="mt-2 md:mt-6">
                            <div className="font-sans font-extrabold tracking-tight text-white drop-shadow-[0_2px_15px_rgba(0,0,0,0.8)]" style={{ fontSize: "clamp(32px, 5vw, 64px)", lineHeight: "1" }}>
                               {item.title}
                            </div>
                         </h3>
-                        <p className="mt-5 md:mt-6 leading-relaxed max-w-sm md:max-w-md text-sm md:text-base text-white/90 drop-shadow-[0_1px_8px_rgba(0,0,0,0.5)]" style={textStyleToCss(item.summaryStyle, DEFAULT_CARD_SUMMARY_STYLE)}>
-                          {item.summary}
-                        </p>
                         <Link to={item.url} className="mt-8 md:mt-10 inline-flex items-center gap-2 px-7 md:px-8 py-3 md:py-4 rounded-full text-xs md:text-sm font-bold tracking-widest uppercase text-black bg-white transition-all duration-300 hover:pr-10 hover:shadow-[0_10px_40px_rgba(255,255,255,0.3)] hover:-translate-y-1">
-                          EXPLORE {item.eyebrow}
+                          EXPLORE
                           <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
                         </Link>
                       </div>
