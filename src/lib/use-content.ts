@@ -10,8 +10,22 @@ import { db, isFirebaseConfigured } from "./firebase";
  * publishes anything. Updates stream in real-time via onSnapshot.
  */
 export function useContent<T extends object>(sectionKey: string, defaults: T) {
-  const [data, setData] = useState<T>(defaults);
-  const [loading, setLoading] = useState(true);
+  // Initialize from cache if possible
+  const getCache = (): T => {
+    try {
+      const cached = localStorage.getItem(`content_cache_${sectionKey}`);
+      if (cached) return { ...defaults, ...JSON.parse(cached) };
+    } catch (e) {
+      console.warn(`[useContent] Cache read error for ${sectionKey}:`, e);
+    }
+    return defaults;
+  };
+
+  const [data, setData] = useState<T>(getCache);
+  // If we have cached data, we can consider it "not loading" for the UI immediately
+  const [loading, setLoading] = useState(() => {
+    return !localStorage.getItem(`content_cache_${sectionKey}`);
+  });
 
   useEffect(() => {
     if (!isFirebaseConfigured || !db) {
@@ -24,7 +38,14 @@ export function useContent<T extends object>(sectionKey: string, defaults: T) {
       ref,
       (snap) => {
         if (snap.exists()) {
-          setData({ ...defaults, ...(snap.data() as Partial<T>) });
+          const freshData = { ...defaults, ...(snap.data() as Partial<T>) };
+          setData(freshData);
+          // Save to cache
+          try {
+            localStorage.setItem(`content_cache_${sectionKey}`, JSON.stringify(freshData));
+          } catch (e) {
+            console.warn(`[useContent] Cache write error for ${sectionKey}:`, e);
+          }
         } else {
           setData(defaults);
         }
