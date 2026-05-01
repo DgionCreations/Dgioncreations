@@ -22,8 +22,17 @@ import { MarkupText } from "@/lib/markup-text";
 const ease = [0.25, 0.46, 0.45, 0.94] as const;
 
 export default function IndustriesSection() {
-  const { data } = useContent<IndustriesContent>(INDUSTRIES_CONTENT_KEY, defaultIndustriesContent);
+  const { data, loading } = useContent<IndustriesContent>(INDUSTRIES_CONTENT_KEY, defaultIndustriesContent);
   const industries = data.industries;
+
+  if (loading) {
+    return (
+      <section
+        className="relative py-28 min-h-[600px]"
+        style={{ background: "linear-gradient(160deg, #08061A 0%, #0D0B24 50%, #08061A 100%)" }}
+      />
+    );
+  }
   const [active, setActive] = useState<number | null>(null);
 
   /* ── mouse parallax for the globe ── */

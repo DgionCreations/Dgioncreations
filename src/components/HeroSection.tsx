@@ -24,11 +24,24 @@ export default function HeroSection() {
   const headlineRef = useRef<HTMLHeadingElement>(null);
 
   // Firestore-backed content — falls back to defaults until admin publishes.
-  const { data: content } = useContent<HeroContent>(HERO_CONTENT_KEY, defaultHeroContent);
+  const { data: content, loading } = useContent<HeroContent>(HERO_CONTENT_KEY, defaultHeroContent);
 
   useEffect(() => {
-    headlineRef.current?.classList.add("animate-slide-up");
-  }, []);
+    if (!loading) {
+      headlineRef.current?.classList.add("animate-slide-up");
+    }
+  }, [loading]);
+
+  if (loading) {
+    return (
+      <section className="relative w-full min-h-screen overflow-hidden bg-background">
+        <div className="absolute inset-0 pointer-events-none z-0">
+          <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full opacity-20 blur-[120px] bg-[#837FFB]" />
+          <div className="absolute bottom-[10%] right-[-5%] w-[40%] h-[40%] rounded-full opacity-10 blur-[100px] bg-[#5B57F5]" />
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="relative w-full min-h-screen overflow-hidden bg-background">

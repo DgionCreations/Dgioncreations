@@ -9,6 +9,8 @@ import {
   Phone,
 } from "lucide-react";
 import { useContent } from "@/lib/use-content";
+import { FOOTER_CONTENT_KEY, defaultFooterContent, type FooterContent } from "@/content/footer";
+import { textStyleToCss } from "@/content/typography";
 import { resolveIcon } from "@/content/icons";
 
 export default function Footer() {

@@ -5,6 +5,8 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import GooeyNav from "./GooeyNav";
 import { LiquidButton, LiquidGlassFilter } from "@/components/ui/liquid-glass-button";
 import { useContent } from "@/lib/use-content";
+import { NAVBAR_CONTENT_KEY, defaultNavbarContent, type NavbarContent } from "@/content/navbar";
+import { textStyleToCss } from "@/content/typography";
 import { PremiumButton } from "@/components/ui/PremiumButton";
 
 export default function Navbar() {
