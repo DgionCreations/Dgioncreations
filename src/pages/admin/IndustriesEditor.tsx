@@ -11,7 +11,9 @@ import {
   type IndustriesContent,
   type Industry,
   DEFAULT_INDUSTRIES_TITLE_STYLE,
-  DEFAULT_INDUSTRIES_HIGHLIGHT_STYLE
+  DEFAULT_INDUSTRIES_HIGHLIGHT_STYLE,
+  DEFAULT_DEEPDIVE_TITLE_STYLE,
+  DEFAULT_DEEPDIVE_HIGHLIGHT_STYLE
 } from "@/content/industries";
 import TextStyleEditor from "@/components/admin/TextStyleEditor";
 import WordHighlightPicker from "@/components/admin/WordHighlightPicker";
@@ -244,11 +246,36 @@ export default function IndustriesEditor() {
         {activeTab === "deepdive" && (
           <div className="space-y-6">
             <SectionPanel title="Deep Dive Header" subtitle="Title for the detailed sector section." icon={Type}>
-               <Field 
-                 label="Section Title" 
-                 value={draft.deepDiveTitle} 
-                 onChange={(v: string) => setDraft(d => ({ ...d, deepDiveTitle: v }))} 
-               />
+               <FieldGroup legend="Headline">
+                 <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-3 items-start">
+                   <Field 
+                     label="Section Title" 
+                     multiline
+                     value={draft.deepDiveTitle} 
+                     onChange={(v: string) => setDraft(d => ({ ...d, deepDiveTitle: v }))} 
+                   />
+                   <WordHighlightPicker
+                     value={draft.deepDiveTitle}
+                     onChange={(v: string) => setDraft(d => ({ ...d, deepDiveTitle: v }))}
+                     baseStyle={draft.deepDiveTitleStyle ?? DEFAULT_DEEPDIVE_TITLE_STYLE}
+                     highlightStyle={draft.deepDiveHighlightStyle ?? DEFAULT_DEEPDIVE_HIGHLIGHT_STYLE}
+                   />
+                 </div>
+                 <TextStyleEditor
+                   label="Title Style"
+                   value={draft.deepDiveTitleStyle ?? DEFAULT_DEEPDIVE_TITLE_STYLE}
+                   fallback={DEFAULT_DEEPDIVE_TITLE_STYLE}
+                   onChange={v => setDraft(d => ({ ...d, deepDiveTitleStyle: v }))}
+                   previewText={(draft.deepDiveTitle.split("\n")[0] || "Title").replace(/\*\*([^*\n]+?)(?:\|[^*\n]*)?\*\*/g, "$1")}
+                 />
+                 <TextStyleEditor
+                   label="Highlight Style"
+                   value={draft.deepDiveHighlightStyle ?? DEFAULT_DEEPDIVE_HIGHLIGHT_STYLE}
+                   fallback={DEFAULT_DEEPDIVE_HIGHLIGHT_STYLE}
+                   onChange={v => setDraft(d => ({ ...d, deepDiveHighlightStyle: v }))}
+                   previewText={(draft.deepDiveTitle.match(/\*\*([^*\n|]+?)(?:\|[^*\n]*)?\*\*/)?.[1]) || draft.deepDiveHighlight || "Highlight"}
+                 />
+               </FieldGroup>
             </SectionPanel>
 
             {draft.deepDiveSectors.map((s, i) => (

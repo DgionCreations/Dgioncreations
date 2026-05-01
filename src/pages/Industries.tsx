@@ -12,8 +12,16 @@ import PixelCard from "@/components/ui/PixelCard";
 import GridDistortion from "@/components/ui/GridDistortion";
 import { StatCounter } from "@/components/ui/StatCounter";
 import { useContent } from "@/lib/use-content";
-import { INDUSTRIES_CONTENT_KEY, defaultIndustriesContent, type IndustriesContent } from "@/content/industries";
+import { 
+  INDUSTRIES_CONTENT_KEY, 
+  defaultIndustriesContent, 
+  type IndustriesContent,
+  DEFAULT_DEEPDIVE_TITLE_STYLE,
+  DEFAULT_DEEPDIVE_HIGHLIGHT_STYLE
+} from "@/content/industries";
 import { resolveIcon } from "@/content/icons";
+import { textStyleToCss } from "@/content/typography";
+import { MarkupText } from "@/lib/markup-text";
 
 
 
@@ -102,10 +110,12 @@ export default function Industries() {
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
           <motion.div className="text-center mb-20" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, ease }}>
             <span className="text-[#837FFB] text-sm font-bold tracking-[0.3em] uppercase">Deep Dive</span>
-            <h2 className="mt-4 text-white text-4xl md:text-5xl font-bold">
-              <span className="text-[#837FFB] drop-shadow-[0_0_20px_rgba(131,127,251,0.5)]">
-                {data.deepDiveTitle || "Where we've won"}
-              </span>
+            <h2 className="mt-4" style={textStyleToCss(data.deepDiveTitleStyle, DEFAULT_DEEPDIVE_TITLE_STYLE)}>
+              <MarkupText
+                text={data.deepDiveTitle}
+                baseStyle={data.deepDiveTitleStyle ?? DEFAULT_DEEPDIVE_TITLE_STYLE}
+                highlightStyle={data.deepDiveHighlightStyle ?? DEFAULT_DEEPDIVE_HIGHLIGHT_STYLE}
+              />
             </h2>
           </motion.div>
 
