@@ -241,9 +241,6 @@ export default function IndustriesEditor() {
           </SectionPanel>
         )}
 
-          </div>
-        )}
-
         {activeTab === "deepdive" && (
           <div className="space-y-6">
             <SectionPanel title="Deep Dive Header" subtitle="Title for the detailed sector section." icon={Type}>
