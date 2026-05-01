@@ -13,6 +13,15 @@ export interface Industry {
   tag: string;
 }
 
+export interface DeepDiveSector {
+  iconKey: string;
+  label: string;
+  desc: string;
+  tag: string;
+  color: string;
+  wins: string[];
+}
+
 export interface IndustriesContent {
   // Hero
   heroTitle: string;
@@ -22,6 +31,10 @@ export interface IndustriesContent {
 
   // Industries
   industries: Industry[];
+
+  // Deep Dive
+  deepDiveTitle: string;
+  deepDiveSectors: DeepDiveSector[];
 }
 
 export const DEFAULT_INDUSTRIES_TITLE_STYLE: TextStyle = { fontSize: 48, fontFamily: "inter", bold: true, color: "#FFFFFF" };
@@ -61,6 +74,34 @@ export const defaultIndustriesContent: IndustriesContent = {
       glassBg: "rgba(6,182,212,0.07)",
       glassBorder: "rgba(6,182,212,0.25)",
       tag: "Infrastructure",
+    },
+  ],
+
+  deepDiveTitle: "Where we've won",
+  deepDiveSectors: [
+    {
+      iconKey: "briefcase",
+      label: "Strategic Business",
+      tag: "Enterprise",
+      desc: "End-to-end operational scaling, AI-driven resource planning, and bespoke workflow automation for modern enterprises.",
+      color: "#837FFB",
+      wins: ["45% efficiency gain", "12+ Fortune 500s", "Global scale"],
+    },
+    {
+      iconKey: "bar-chart",
+      label: "Digital Markets",
+      tag: "Growth",
+      desc: "High-performance trading environments, automated market making, and real-time data analytics for the digital economy.",
+      color: "#10B981",
+      wins: ["$2B+ processed", "<10ms latency", "24/7 reliability"],
+    },
+    {
+      iconKey: "server",
+      label: "IT Industries",
+      tag: "Infrastructure",
+      desc: "Next-gen cloud architecture, cybersecurity hardening, and AI-native toolchains for heavy-duty IT environments.",
+      color: "#06B6D4",
+      wins: ["Zero-trust security", "99.999% uptime", "AI-optimized"],
     },
   ],
 };

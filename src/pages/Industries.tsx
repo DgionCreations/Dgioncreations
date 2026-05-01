@@ -11,6 +11,9 @@ import Footer from "@/components/Footer";
 import PixelCard from "@/components/ui/PixelCard";
 import GridDistortion from "@/components/ui/GridDistortion";
 import { StatCounter } from "@/components/ui/StatCounter";
+import { useContent } from "@/lib/use-content";
+import { INDUSTRIES_CONTENT_KEY, defaultIndustriesContent, type IndustriesContent } from "@/content/industries";
+import { resolveIcon } from "@/content/icons";
 
 
 
@@ -25,28 +28,10 @@ const strengths = [
   { value: "500K+", label: "End-Users Reached",    icon: Users },
 ];
 
-const sectors = [
-  {
-    icon: Briefcase, label: "Strategic Business", tag: "Enterprise",
-    desc: "End-to-end operational scaling, AI-driven resource planning, and bespoke workflow automation for modern enterprises.",
-    color: "#837FFB",
-    wins: ["45% efficiency gain", "12+ Fortune 500s", "Global scale"],
-  },
-  {
-    icon: BarChart3, label: "Digital Markets", tag: "Growth",
-    desc: "High-performance trading environments, automated market making, and real-time data analytics for the digital economy.",
-    color: "#10b981",
-    wins: ["$2B+ processed", "<10ms latency", "24/7 reliability"],
-  },
-  {
-    icon: Server, label: "IT Industries", tag: "Infrastructure",
-    desc: "Next-gen cloud architecture, cybersecurity hardening, and AI-native toolchains for heavy-duty IT environments.",
-    color: "#06b6d4",
-    wins: ["Zero-trust security", "99.999% uptime", "AI-optimized"],
-  },
-];
+
 
 export default function Industries() {
+  const { data } = useContent<IndustriesContent>(INDUSTRIES_CONTENT_KEY, defaultIndustriesContent);
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   return (
@@ -118,14 +103,15 @@ export default function Industries() {
           <motion.div className="text-center mb-20" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, ease }}>
             <span className="text-[#837FFB] text-sm font-bold tracking-[0.3em] uppercase">Deep Dive</span>
             <h2 className="mt-4 text-white text-4xl md:text-5xl font-bold">
-              Where we've{" "}
-              <span className="text-[#837FFB] drop-shadow-[0_0_20px_rgba(131,127,251,0.5)]">won</span>
+              <span className="text-[#837FFB] drop-shadow-[0_0_20px_rgba(131,127,251,0.5)]">
+                {data.deepDiveTitle || "Where we've won"}
+              </span>
             </h2>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {sectors.map((s, i) => {
-              const Icon = s.icon;
+            {data.deepDiveSectors.map((s, i) => {
+              const Icon = resolveIcon(s.iconKey);
               const palette = `${s.color},${s.color}dd,${s.color}88`;
               
               return (

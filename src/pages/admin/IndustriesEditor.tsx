@@ -17,8 +17,9 @@ import TextStyleEditor from "@/components/admin/TextStyleEditor";
 import WordHighlightPicker from "@/components/admin/WordHighlightPicker";
 
 const TABS = [
-  { id: "hero",    label: "Hero Section", icon: Type,   hint: "Page title & highlight" },
-  { id: "sectors", label: "Sectors",      icon: Globe2, hint: "Industry accordion items" },
+  { id: "hero",      label: "Hero Section", icon: Type,   hint: "Page title & highlight" },
+  { id: "sectors",   label: "Globe Sectors", icon: Globe2, hint: "Industry accordion items" },
+  { id: "deepdive",  label: "Deep Dive",     icon: Eye,    hint: "Detailed sector cards" },
 ] as const;
 
 type TabId = (typeof TABS)[number]["id"];
@@ -240,52 +241,82 @@ export default function IndustriesEditor() {
           </SectionPanel>
         )}
 
-        {activeTab === "sectors" && (
+          </div>
+        )}
+
+        {activeTab === "deepdive" && (
           <div className="space-y-6">
-            {draft.industries.map((ind, i) => (
+            <SectionPanel title="Deep Dive Header" subtitle="Title for the detailed sector section." icon={Type}>
+               <Field 
+                 label="Section Title" 
+                 value={draft.deepDiveTitle} 
+                 onChange={(v: string) => setDraft(d => ({ ...d, deepDiveTitle: v }))} 
+               />
+            </SectionPanel>
+
+            {draft.deepDiveSectors.map((s, i) => (
               <SectionPanel 
                 key={i} 
-                title={ind.label || "New Sector"} 
-                subtitle={`Configure the ${ind.label?.toLowerCase() || "industry"} details and glassmorphism accents.`} 
-                icon={Globe2}
+                title={s.label || "New Card"} 
+                subtitle={`Configure the ${s.label?.toLowerCase() || "card"} details.`} 
+                icon={Eye}
               >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-4">
-                    <FieldGroup legend="Content">
-                      <div className="grid grid-cols-2 gap-4">
-                        <Field label="Label" value={ind.label} onChange={v => setDraft(d => ({ ...d, industries: d.industries.map((s, idx) => idx === i ? { ...s, label: v } : s) }))} />
-                        <Field label="Tag (e.g. FinTech)" value={ind.tag} onChange={v => setDraft(d => ({ ...d, industries: d.industries.map((s, idx) => idx === i ? { ...s, tag: v } : s) }))} />
-                      </div>
-                      <Field label="Icon Key" value={ind.iconKey} onChange={v => setDraft(d => ({ ...d, industries: d.industries.map((s, idx) => idx === i ? { ...s, iconKey: v } : s) }))} />
-                      <Field label="Description" multiline value={ind.desc} onChange={v => setDraft(d => ({ ...d, industries: d.industries.map((s, idx) => idx === i ? { ...s, desc: v } : s) }))} />
-                    </FieldGroup>
-                  </div>
-                  <div className="space-y-4">
-                    <FieldGroup legend="Glassmorphism Styles">
-                      <Field label="Accent Color" value={ind.accent} onChange={v => setDraft(d => ({ ...d, industries: d.industries.map((s, idx) => idx === i ? { ...s, accent: v } : s) }))} />
-                      <Field label="Glow Color (rgba)" value={ind.glow} onChange={v => setDraft(d => ({ ...d, industries: d.industries.map((s, idx) => idx === i ? { ...s, glow: v } : s) }))} />
-                      <div className="grid grid-cols-2 gap-4">
-                        <Field label="Glass Bg (rgba)" value={ind.glassBg} onChange={v => setDraft(d => ({ ...d, industries: d.industries.map((s, idx) => idx === i ? { ...s, glassBg: v } : s) }))} />
-                        <Field label="Glass Border (rgba)" value={ind.glassBorder} onChange={v => setDraft(d => ({ ...d, industries: d.industries.map((s, idx) => idx === i ? { ...s, glassBorder: v } : s) }))} />
-                      </div>
-                    </FieldGroup>
-                  </div>
+                   <div className="space-y-4">
+                     <FieldGroup legend="Content">
+                        <div className="grid grid-cols-2 gap-4">
+                          <Field label="Label" value={s.label} onChange={(v: string) => setDraft(d => ({ ...d, deepDiveSectors: d.deepDiveSectors.map((card, idx) => idx === i ? { ...card, label: v } : card) }))} />
+                          <Field label="Tag" value={s.tag} onChange={(v: string) => setDraft(d => ({ ...d, deepDiveSectors: d.deepDiveSectors.map((card, idx) => idx === i ? { ...card, tag: v } : card) }))} />
+                        </div>
+                        <Field label="Icon Key" value={s.iconKey} onChange={(v: string) => setDraft(d => ({ ...d, deepDiveSectors: d.deepDiveSectors.map((card, idx) => idx === i ? { ...card, iconKey: v } : card) }))} />
+                        <Field label="Description" multiline value={s.desc} onChange={(v: string) => setDraft(d => ({ ...d, deepDiveSectors: d.deepDiveSectors.map((card, idx) => idx === i ? { ...card, desc: v } : card) }))} />
+                     </FieldGroup>
+                   </div>
+                   <div className="space-y-4">
+                     <FieldGroup legend="Stats & Color">
+                        <Field label="Accent Color" value={s.color} onChange={(v: string) => setDraft(d => ({ ...d, deepDiveSectors: d.deepDiveSectors.map((card, idx) => idx === i ? { ...card, color: v } : card) }))} />
+                        <div className="space-y-3">
+                          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40 block">Statistical Wins</span>
+                          {s.wins.map((w, wi) => (
+                            <div key={wi} className="flex gap-2">
+                              <Field 
+                                label="" 
+                                value={w} 
+                                onChange={(v: string) => setDraft(d => ({ ...d, deepDiveSectors: d.deepDiveSectors.map((card, idx) => idx === i ? { ...card, wins: card.wins.map((stat, sidx) => sidx === wi ? v : stat) } : card) }))} 
+                              />
+                              <button 
+                                onClick={() => setDraft(d => ({ ...d, deepDiveSectors: d.deepDiveSectors.map((card, idx) => idx === i ? { ...card, wins: card.wins.filter((_, sidx) => sidx !== wi) } : card) }))}
+                                className="p-2.5 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500/20 transition-colors self-end mb-0.5"
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                          ))}
+                          <button 
+                            onClick={() => setDraft(d => ({ ...d, deepDiveSectors: d.deepDiveSectors.map((card, idx) => idx === i ? { ...card, wins: [...card.wins, "New Stat"] } : card) }))}
+                            className="w-full py-2 rounded-lg bg-white/5 border border-dashed border-white/10 text-[10px] font-bold uppercase tracking-wider text-white/40 hover:text-white transition-colors"
+                          >
+                            <Plus className="w-3 h-3 inline mr-1" /> Add Stat
+                          </button>
+                        </div>
+                     </FieldGroup>
+                   </div>
                 </div>
-                <div className="flex justify-end pt-2">
-                  <button 
-                    onClick={() => setDraft(d => ({ ...d, industries: d.industries.filter((_, idx) => idx !== i) }))}
-                    className="flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold text-red-400 hover:bg-red-400/10 transition-colors"
-                  >
-                    <Trash2 className="w-3.5 h-3.5" /> Remove Sector
-                  </button>
+                <div className="flex justify-end pt-4">
+                   <button 
+                     onClick={() => setDraft(d => ({ ...d, deepDiveSectors: d.deepDiveSectors.filter((_, idx) => idx !== i) }))}
+                     className="flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold text-red-400 hover:bg-red-400/10 transition-colors"
+                   >
+                     <Trash2 className="w-3.5 h-3.5" /> Remove Card
+                   </button>
                 </div>
               </SectionPanel>
             ))}
             <button 
-              onClick={() => setDraft(d => ({ ...d, industries: [...d.industries, { label: "New Industry", tag: "Tech", iconKey: "code", desc: "Description here...", accent: "#837FFB", glow: "rgba(131,127,251,0.35)", glassBg: "rgba(131,127,251,0.07)", glassBorder: "rgba(131,127,251,0.25)" }] }))}
+              onClick={() => setDraft(d => ({ ...d, deepDiveSectors: [...d.deepDiveSectors, { label: "New Sector", tag: "Tech", iconKey: "code", desc: "Description here...", color: "#837FFB", wins: ["New Stat"] }] }))}
               className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl bg-white/5 border border-dashed border-white/20 text-white/50 hover:text-white transition-colors"
             >
-              <Plus className="w-4 h-4" /> Add New Industry
+              <Plus className="w-4 h-4" /> Add New Deep Dive Card
             </button>
           </div>
         )}
