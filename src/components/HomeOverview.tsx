@@ -96,7 +96,7 @@ export default function HomeOverview() {
   }, [items]);
 
   return (
-    <section className="relative overflow-hidden" style={{ background: "#08061A" }}>
+    <section className="relative overflow-hidden bg-background">
       {/* Background Heading */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pt-28 md:pt-32 pb-16">
         <motion.div

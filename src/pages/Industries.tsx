@@ -74,7 +74,7 @@ export default function Industries() {
       {/* HERO */}
       <section
         className="relative pt-40 pb-24 overflow-hidden"
-        style={{ background: "linear-gradient(160deg, #08061A 0%, #0D0B24 50%, #08061A 100%)" }}
+        style={{ background: "linear-gradient(160deg, hsl(var(--background)) 0%, #0D0B24 50%, hsl(var(--background)) 100%)" }}
       >
         <div className="relative z-10 max-w-6xl mx-auto px-6 lg:px-10">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease }} className="max-w-3xl">
@@ -94,7 +94,7 @@ export default function Industries() {
       </section>
 
       {/* STATS */}
-      <section className="relative py-16 bg-[#08061A] border-y border-white/5">
+      <section className="relative py-16 bg-background border-y border-white/5">
         <div className="max-w-7xl mx-auto px-6 lg:px-10 grid grid-cols-2 md:grid-cols-4 gap-8">
           {strengths.map((s, i) => {
             const Icon = s.icon;
@@ -119,7 +119,7 @@ export default function Industries() {
       <IndustriesSection />
 
       {/* SECTOR DEEP-DIVE CARDS */}
-      <section className="relative py-28 overflow-hidden" style={{ background: "#08061A" }}>
+      <section className="relative py-28 overflow-hidden bg-background">
         
         {/* Section-wide Grid Distortion Background */}
         <div className="absolute inset-0 z-0 opacity-30">
@@ -196,7 +196,7 @@ export default function Industries() {
 
 
       {/* CTA */}
-      <section className="relative py-28" style={{ background: "#08061A" }}>
+      <section className="relative py-28 bg-background">
         <div className="max-w-4xl mx-auto px-6 lg:px-10 text-center">
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, ease }}>
             <h2 className="text-white text-4xl md:text-5xl font-bold leading-tight">

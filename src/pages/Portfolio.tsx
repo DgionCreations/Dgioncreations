@@ -39,7 +39,7 @@ export default function Portfolio() {
       <Navbar />
 
       {/* HERO */}
-      <section className="relative pt-40 pb-24 overflow-hidden" style={{ background: "linear-gradient(160deg, #08061A 0%, #0D0B24 50%, #08061A 100%)" }}>
+      <section className="relative pt-40 pb-24 overflow-hidden" style={{ background: "linear-gradient(160deg, hsl(var(--background)) 0%, #0D0B24 50%, hsl(var(--background)) 100%)" }}>
         <div className="relative z-10 max-w-6xl mx-auto px-6 lg:px-10">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease }} className="max-w-3xl">
             <span 
@@ -90,7 +90,7 @@ export default function Portfolio() {
       </section>
 
       {/* METRICS */}
-      <section className="relative py-16 bg-[#08061A] border-y border-white/5">
+      <section className="relative py-16 bg-background border-y border-white/5">
         <div className="max-w-7xl mx-auto px-6 lg:px-10 grid grid-cols-2 md:grid-cols-4 gap-8">
           {data.metrics.map((m, i) => {
             const Icon = resolveIcon(m.iconKey);
@@ -115,7 +115,7 @@ export default function Portfolio() {
       <PortfolioSection />
 
       {/* OUTCOMES BY NUMBERS */}
-      <section className="relative py-28" style={{ background: "linear-gradient(180deg, #08061A 0%, #0D0B24 100%)" }}>
+      <section className="relative py-28" style={{ background: "linear-gradient(180deg, hsl(var(--background)) 0%, #0D0B24 100%)" }}>
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
           <motion.div className="text-center mb-20" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, ease }}>
             <span className="text-[#837FFB] text-sm font-bold tracking-[0.3em] uppercase">Outcomes</span>
@@ -170,7 +170,7 @@ export default function Portfolio() {
               <motion.div key={t.author} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.55, ease, delay: i * 0.1 }} className="h-full">
                 <ParticleCard 
                   className="rounded-2xl p-7 h-full w-full flex flex-col" 
-                  style={{ background: "#08061A", border: "1px solid rgba(255,255,255,0.08)" }}
+                  style={{ background: "hsl(var(--background))", border: "1px solid rgba(255,255,255,0.08)" }}
                   disableAnimations={isMobile}
                   glowColor="131, 127, 251"
                   enableTilt={true}
@@ -195,7 +195,7 @@ export default function Portfolio() {
       </section>
 
       {/* CTA */}
-      <section className="relative py-28" style={{ background: "linear-gradient(160deg, #0D0B24 0%, #08061A 100%)" }}>
+      <section className="relative py-28" style={{ background: "linear-gradient(160deg, #0D0B24 0%, hsl(var(--background)) 100%)" }}>
         <div className="max-w-4xl mx-auto px-6 lg:px-10 text-center">
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, ease }}>
             <h2 className="text-white text-4xl md:text-5xl font-bold leading-tight">

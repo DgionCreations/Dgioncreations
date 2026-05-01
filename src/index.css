@@ -52,7 +52,7 @@
    in src/content/typography.ts. */
 :root {
   --site-display: "The Seasons", "Italiana", Georgia, serif;
-  --site-body: "The Seasons", "Italiana", Georgia, serif;
+  --site-body: "Inter", system-ui, sans-serif;
 }
 
 @tailwind base;
@@ -81,7 +81,7 @@ p {
 
 /* All headings — The Seasons display, consistent rhythm */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--site-display) !important;
+  font-family: var(--site-display);
   font-weight: 600 !important;
   letter-spacing: 0.005em;
   word-spacing: normal;
@@ -171,7 +171,7 @@ code, pre, kbd, samp {
 
 @layer base {
   :root {
-    --background: 250 59% 22%;
+    --background: 246 62% 6%;
     --foreground: 210 40% 98%;
 
     --card: 250 59% 25%;
@@ -241,12 +241,10 @@ code, pre, kbd, samp {
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Inter', sans-serif;
     letter-spacing: -0.01em;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Inter', sans-serif;
     @apply font-bold;
     letter-spacing: -0.02em;
   }

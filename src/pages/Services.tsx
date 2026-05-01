@@ -230,7 +230,7 @@ export default function Services() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#08061A] text-white overflow-x-hidden selection:bg-[#837FFB]/30">
+    <div className="min-h-screen bg-background text-white overflow-x-hidden selection:bg-[#837FFB]/30">
       <Navbar />
 
       {/* Background Texture & Glows */}

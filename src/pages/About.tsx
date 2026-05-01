@@ -82,7 +82,7 @@ export default function About() {
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   return (
-    <div className="min-h-screen bg-[#08061A] text-white overflow-x-hidden selection:bg-[#837FFB]/30">
+    <div className="min-h-screen bg-background text-white overflow-x-hidden selection:bg-[#837FFB]/30">
       <Navbar />
 
       {/* Background Texture & Glows */}

@@ -59,6 +59,8 @@ export default function AboutSection() {
     if (pathMainRef.current) {
       const len = Math.ceil(pathMainRef.current.getTotalLength()) + 4;
       setPathLen(len);
+      // Refresh ScrollTrigger once length is measured so markers land correctly
+      ScrollTrigger.refresh();
     }
   }, []);
 
@@ -115,7 +117,7 @@ export default function AboutSection() {
       id="about"
       className="relative overflow-hidden"
       style={{
-        background: "linear-gradient(160deg, #08061A 0%, #0D0B24 50%, #08061A 100%)",
+        background: "linear-gradient(160deg, hsl(var(--background)) 0%, #0D0B24 50%, hsl(var(--background)) 100%)",
         paddingTop: 100,
         paddingBottom: 100,
       }}
