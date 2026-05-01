@@ -113,7 +113,6 @@ export default function Industries() {
             <h2 className="mt-4" style={textStyleToCss(data.deepDiveTitleStyle, DEFAULT_DEEPDIVE_TITLE_STYLE)}>
               <MarkupText
                 text={data.deepDiveTitle}
-                baseStyle={data.deepDiveTitleStyle ?? DEFAULT_DEEPDIVE_TITLE_STYLE}
                 highlightStyle={data.deepDiveHighlightStyle ?? DEFAULT_DEEPDIVE_HIGHLIGHT_STYLE}
               />
             </h2>
