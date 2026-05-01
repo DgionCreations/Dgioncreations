@@ -199,7 +199,7 @@ export default function HomeOverview() {
                           <span className="marker">{item.title}</span><br />
                           <span className="marker marker--sub hidden md:inline">{item.badge}</span>
                         </h3>
-                        <p className="mt-4 md:mt-6 leading-relaxed max-w-md mx-auto md:mx-0 text-sm md:text-base opacity-90" style={{ ...textStyleToCss(item.summaryStyle, DEFAULT_CARD_SUMMARY_STYLE), ...(textLeft ? {} : { md:marginLeft: "auto" }) }}>
+                        <p className="mt-4 md:mt-6 leading-relaxed max-w-md mx-auto md:mx-0 text-sm md:text-base opacity-90" style={textStyleToCss(item.summaryStyle, DEFAULT_CARD_SUMMARY_STYLE)}>
                           {item.summary}
                         </p>
                         <Link to={item.url} className="mt-7 md:mt-8 inline-flex items-center gap-2 px-6 md:px-7 py-3 md:py-3.5 rounded-full text-xs md:text-sm font-bold tracking-wide text-black bg-white transition-all duration-300 hover:pr-9 hover:shadow-[0_10px_30px_rgba(255,255,255,0.25)] hover:-translate-y-0.5">
