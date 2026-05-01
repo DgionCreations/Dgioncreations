@@ -182,8 +182,8 @@ export default function HomeOverview() {
                     }}
                   />
 
-                  {/* Mobile-first bottom gradient for readability - keeps top of image clear */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent md:hidden" />
+                  {/* Professional bottom-fade for high-end readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent md:hidden" />
 
                   <div
                     className="absolute inset-0 pointer-events-none hidden md:block"
@@ -196,32 +196,33 @@ export default function HomeOverview() {
                   <div
                     className="absolute inset-0 pointer-events-none"
                     style={{
-                      background: "linear-gradient(180deg, rgba(10,8,24,0.2) 0%, transparent 22%, transparent 78%, rgba(10,8,24,0.6) 100%)",
+                      background: "linear-gradient(180deg, rgba(10,8,24,0.15) 0%, transparent 22%, transparent 78%, rgba(10,8,24,0.5) 100%)",
                     }}
                   />
 
-                  <div className="relative z-10 h-full flex items-end md:items-center pb-8 md:pb-0">
-                    <div className="max-w-7xl mx-auto w-full px-5 md:px-10 lg:px-16">
+                  <div className="relative z-10 h-full flex items-end md:items-center pb-12 md:pb-0">
+                    <div className="max-w-7xl mx-auto w-full px-6 md:px-10 lg:px-16">
                       <div data-content className={`max-w-xl ${textLeft ? "" : "md:ml-auto md:text-right"} text-left mx-0`} style={{ willChange: "transform, opacity" }}>
-                        <span className="inline-block text-white text-[9px] md:text-xs font-bold tracking-[0.25em] uppercase px-2.5 py-1 rounded-sm mb-3" style={{ background: item.accent, color: "#fff" }}>
+                        <span className="inline-block text-white text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase px-3 py-1 rounded-sm mb-5 shadow-lg" style={{ background: item.accent, color: "#fff" }}>
                           {item.badge}
                         </span>
-                        <h3 data-title className="mt-1 md:mt-6">
-                           {/* Mobile: Smaller, no marker sub. Desktop: Original marker style */}
-                           <div className="md:hidden" style={{ ...mobileTitleCss, fontSize: "28px" }}>
-                              <span className="marker !py-1 !px-2">{item.title}</span>
+                        <h3 data-title className="mt-2 md:mt-6">
+                           {/* Mobile: Clean, Modern, Professional (No boxes) */}
+                           <div className="md:hidden font-sans font-extrabold tracking-tight text-white drop-shadow-[0_2px_15px_rgba(0,0,0,0.8)]" style={{ fontSize: "clamp(32px, 10vw, 42px)", lineHeight: "1" }}>
+                              {item.title}
                            </div>
+                           {/* Desktop: Keep the original editorial marker style */}
                            <div className="hidden md:block" style={desktopTitleCss}>
                               <span className="marker">{item.title}</span><br />
                               <span className="marker marker--sub">{item.badge}</span>
                            </div>
                         </h3>
-                        <p className="mt-4 md:mt-6 leading-relaxed max-w-sm md:max-w-md text-xs md:text-base opacity-80" style={textStyleToCss(item.summaryStyle, DEFAULT_CARD_SUMMARY_STYLE)}>
+                        <p className="mt-5 md:mt-6 leading-relaxed max-w-sm md:max-w-md text-sm md:text-base text-white/90 drop-shadow-[0_1px_8px_rgba(0,0,0,0.5)]" style={textStyleToCss(item.summaryStyle, DEFAULT_CARD_SUMMARY_STYLE)}>
                           {item.summary}
                         </p>
-                        <Link to={item.url} className="mt-6 md:mt-8 inline-flex items-center gap-2 px-5 md:px-7 py-2.5 md:py-3.5 rounded-full text-[11px] md:text-sm font-bold tracking-wide text-black bg-white transition-all duration-300 hover:pr-9 hover:shadow-[0_10px_30px_rgba(255,255,255,0.25)] hover:-translate-y-0.5">
-                          VIEW {item.eyebrow.toUpperCase()}
-                          <ArrowUpRight className="w-3.5 h-3.5 md:w-4 md:h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                        <Link to={item.url} className="mt-8 md:mt-10 inline-flex items-center gap-2 px-7 md:px-8 py-3 md:py-4 rounded-full text-xs md:text-sm font-bold tracking-widest uppercase text-black bg-white transition-all duration-300 hover:pr-10 hover:shadow-[0_10px_40px_rgba(255,255,255,0.3)] hover:-translate-y-1">
+                          EXPLORE {item.eyebrow}
+                          <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
                         </Link>
                       </div>
                     </div>
