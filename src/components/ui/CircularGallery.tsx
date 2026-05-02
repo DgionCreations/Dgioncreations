@@ -320,10 +320,10 @@ class Media {
       }
     }
     
-    // Smaller, more elegant scale for 100% zoom
-    const cardHeightPercent = this.screen.width < 768 ? 0.3 : 0.35; 
+    // Taller cards but slightly reduced for safe fit
+    const cardHeightPercent = this.screen.width < 768 ? 0.36 : 0.43; 
     this.plane.scale.y = this.viewport.height * cardHeightPercent;
-    this.plane.scale.x = this.plane.scale.y * 0.75; // Maintain 3:4 aspect ratio
+    this.plane.scale.x = this.plane.scale.y * 0.65; // Taller aspect ratio
     
     this.plane.program.uniforms.uPlaneSizes.value = [this.plane.scale.x, this.plane.scale.y];
     this.padding = 1.5; // Slightly less padding

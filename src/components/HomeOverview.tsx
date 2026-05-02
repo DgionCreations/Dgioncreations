@@ -28,7 +28,7 @@ export default function HomeOverview() {
   };
 
   return (
-    <section ref={containerRef} className="relative z-0 bg-[#0A0818] pt-8 pb-20 md:py-32 overflow-hidden min-h-screen flex flex-col">
+    <section ref={containerRef} className="relative z-0 bg-[#0A0818] pt-0 pb-32 md:pt-12 md:pb-48 min-h-screen flex flex-col">
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-16 md:mb-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -63,7 +63,7 @@ export default function HomeOverview() {
              <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-[150px] opacity-20 animate-pulse bg-[#837FFB]/30" />
              <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full blur-[180px] opacity-10 bg-white/5" />
 
-             <div className="relative w-full h-[600px] md:h-[700px] mt-20 md:mt-32">
+             <div className="relative w-full h-[850px] md:h-[950px] mt-12 md:mt-20">
                 <CircularGallery 
                   bend={1.2} 
                   textColor="#ffffff" 
