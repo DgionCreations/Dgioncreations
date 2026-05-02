@@ -45,7 +45,7 @@ export default function HomeOverview() {
           transformOrigin: "center center",
         });
         const img = s.querySelector<HTMLElement>("[data-img]");
-        if (img) gsap.set(img, { scale: 1.15 });
+        if (img) gsap.set(img, { scale: 1 });
         const content = s.querySelector<HTMLElement>("[data-content]");
         if (content) gsap.set(content, { opacity: i === 0 ? 1 : 0, y: i === 0 ? 0 : 40 });
       });
@@ -202,7 +202,7 @@ export default function HomeOverview() {
                     <div className="max-w-7xl mx-auto w-full px-6 md:px-12 lg:px-20">
                       <div data-content className="max-w-xl ml-auto text-right" style={{ willChange: "transform, opacity" }}>
                         <h3 data-title className="mt-2 md:mt-6">
-                           <div className="font-sans font-extrabold tracking-tight text-white drop-shadow-[0_2px_15px_rgba(0,0,0,0.8)]" style={{ fontSize: "clamp(32px, 5vw, 64px)", lineHeight: "1" }}>
+                           <div className="font-sans font-extrabold tracking-tight text-white drop-shadow-[0_2px_15px_rgba(0,0,0,0.8)]" style={{ fontSize: "clamp(28px, 4.5vw, 54px)", lineHeight: "1" }}>
                               {item.title}
                            </div>
                         </h3>
