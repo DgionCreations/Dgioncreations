@@ -182,8 +182,8 @@ export default function HomeOverview() {
                     }}
                   />
 
-                  {/* Professional bottom-fade for high-end readability */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent md:hidden" />
+                  {/* Professional bottom-right fade for high-end readability */}
+                  <div className="absolute inset-0 bg-gradient-to-tl from-black/90 via-black/30 to-transparent md:hidden" />
 
                   <div
                     className="absolute inset-0 pointer-events-none hidden md:block"
@@ -196,15 +196,16 @@ export default function HomeOverview() {
                   <div
                     className="absolute inset-0 pointer-events-none"
                     style={{
-                      background: "linear-gradient(180deg, rgba(10,8,24,0.15) 0%, transparent 22%, transparent 78%, rgba(10,8,24,0.5) 100%)",
+                      background: "linear-gradient(180deg, rgba(10,8,24,0.1) 0%, transparent 22%, transparent 78%, rgba(10,8,24,0.4) 100%)",
                     }}
                   />
 
                   <div className="relative z-10 h-full flex items-end md:items-center pb-12 md:pb-0">
                     <div className="max-w-7xl mx-auto w-full px-6 md:px-10 lg:px-16">
-                      <div data-content className={`max-w-xl ${textLeft ? "" : "md:ml-auto md:text-right"} text-left mx-0`} style={{ willChange: "transform, opacity" }}>
+                      <div data-content className={`max-w-xl ml-auto text-right md:${textLeft ? "ml-0 text-left" : "ml-auto text-right"}`} style={{ willChange: "transform, opacity" }}>
                         <h3 data-title className="mt-2 md:mt-6">
-                           <div className="font-sans font-extrabold tracking-tight text-white drop-shadow-[0_2px_15px_rgba(0,0,0,0.8)]" style={{ fontSize: "clamp(32px, 5vw, 64px)", lineHeight: "1" }}>
+                           {/* Mobile: Clean, Modern, Professional (Right Aligned) */}
+                           <div className="md:hidden font-sans font-extrabold tracking-tight text-white drop-shadow-[0_2px_15px_rgba(0,0,0,0.8)]" style={{ fontSize: "clamp(32px, 10vw, 42px)", lineHeight: "1" }}>
                               {item.title}
                            </div>
                         </h3>
