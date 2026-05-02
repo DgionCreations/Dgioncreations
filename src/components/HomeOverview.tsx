@@ -130,6 +130,11 @@ export default function HomeOverview() {
         </motion.div>
       </div>
 
+      {/* Cinematic Particles Overlay */}
+      <div className="absolute inset-0 pointer-events-none z-10 opacity-30">
+        <div className="absolute inset-0" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`, opacity: 0.2 }} />
+      </div>
+
       {/* Pinned stack - Adjusted height for better vertical balance */}
       <div ref={pinRef} className="relative h-screen overflow-hidden mt-0">
         <div ref={stackRef} className="absolute inset-0">
@@ -161,59 +166,52 @@ export default function HomeOverview() {
                   "--marker-fg": markerFg
                 } as React.CSSProperties}
               >
-                <div
-                  data-img-frame
-                  className="relative h-[70vh] md:h-[75vh] top-1/2 -translate-y-1/2 w-full rounded-2xl md:rounded-3xl overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.5),0_0_0_1px_rgba(255,255,255,0.05)_inset]"
-                  style={{ background: item.tint }}
-                >
-                  <div
-                    data-img
-                    className="will-change-transform"
-                    style={{
-                      backgroundImage: `url(${item.image})`,
-                      backgroundSize: "contain",
-                      backgroundRepeat: "no-repeat",
-                      backgroundPosition: "center center",
-                      transformOrigin: "center center",
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  />
-
-                  {/* Professional bottom-right fade for high-end readability */}
-                  <div className="absolute inset-0 bg-gradient-to-tl from-black/90 via-black/20 to-transparent" />
+                <div className="absolute inset-0 flex items-center justify-center p-6 md:p-16 lg:p-24">
+                  {/* Floating Glow Blobs */}
+                  <div className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full blur-[120px] opacity-20 animate-pulse" style={{ background: item.tint }} />
+                  <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full blur-[150px] opacity-10" style={{ background: "#837FFB" }} />
 
                   <div
-                    className="absolute inset-0 pointer-events-none hidden md:block"
-                    style={{
-                      background: `linear-gradient(270deg, ${item.tint}ee 0%, ${item.tint}88 32%, transparent 72%)`,
-                    }}
-                  />
-                  <div
-                    className="absolute inset-0 pointer-events-none"
-                    style={{
-                      background: "linear-gradient(180deg, rgba(10,8,24,0.05) 0%, transparent 22%, transparent 78%, rgba(10,8,24,0.3) 100%)",
-                    }}
-                  />
+                    data-img-frame
+                    className="relative h-full w-full rounded-3xl md:rounded-[40px] overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.7)] border border-white/10 backdrop-blur-sm bg-black/20"
+                  >
+                    <div
+                      data-img
+                      className="will-change-transform"
+                      style={{
+                        backgroundImage: `url(${item.image})`,
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "center center",
+                        transformOrigin: "center center",
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                      }}
+                    />
 
-                  <div className="relative z-10 h-full flex items-end justify-end pb-12 md:pb-20">
-                    <div className="max-w-7xl mx-auto w-full px-6 md:px-12 lg:px-20">
-                      <div data-content className="max-w-xl ml-auto text-right" style={{ willChange: "transform, opacity" }}>
-                        <h3 data-title className="mt-2 md:mt-6">
-                           <div className="font-sans font-extrabold tracking-tight text-white drop-shadow-[0_2px_15px_rgba(0,0,0,0.8)]" style={{ fontSize: "clamp(28px, 4.5vw, 54px)", lineHeight: "1" }}>
+                    {/* Premium Glass Gradient Overlays */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-black/60 via-transparent to-white/5 opacity-40" />
+                    <div className="absolute inset-0 bg-gradient-to-tl from-black/90 via-transparent to-transparent opacity-60" />
+                    
+                    {/* Floating Content Layout */}
+                    <div className="relative z-10 h-full flex items-end justify-end p-8 md:p-16">
+                      <div data-content className="max-w-xl text-right" style={{ willChange: "transform, opacity" }}>
+                        <h3 data-title className="mb-8">
+                           <div className="font-sans font-extrabold tracking-tight text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]" style={{ fontSize: "clamp(32px, 5.5vw, 68px)", lineHeight: "1" }}>
                               {item.title}
                            </div>
                         </h3>
-                        <Link to={item.url} className="mt-8 md:mt-10 inline-flex items-center gap-2 px-7 md:px-9 py-3 md:py-4 rounded-full text-xs md:text-sm font-bold tracking-widest uppercase text-black bg-white transition-all duration-300 hover:pr-10 hover:shadow-[0_10px_40px_rgba(255,255,255,0.3)] hover:-translate-y-1">
-                          EXPLORE
-                          <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                        <Link to={item.url} className="group relative inline-flex items-center gap-4 px-10 py-5 rounded-full text-sm font-black tracking-widest uppercase text-white bg-[#837FFB] transition-all duration-500 hover:scale-105 hover:shadow-[0_20px_60px_rgba(131,127,251,0.4)]">
+                          <span className="relative z-10">EXPLORE</span>
+                          <ArrowUpRight className="relative z-10 w-5 h-5 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
                         </Link>
                       </div>
                     </div>
                   </div>
+                </div>
 
                   <div className="absolute top-4 right-4 md:top-8 md:right-8 text-white/80 text-[10px] md:text-sm font-mono tracking-widest pointer-events-none" style={{ textShadow: "0 1px 8px rgba(0,0,0,0.5)" }}>
                     <span className="opacity-60">0<StatCounter value={(i + 1).toString()} duration={0.8} /></span>
