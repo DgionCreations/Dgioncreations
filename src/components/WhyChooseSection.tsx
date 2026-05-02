@@ -75,7 +75,7 @@ function Pillar3D({
     >
       {/* ── circular image container ── */}
       <div
-        className="relative mx-auto w-[240px] h-[240px] md:w-[270px] md:h-[270px] mb-10"
+        className="relative mx-auto w-[180px] h-[180px] sm:w-[220px] sm:h-[220px] md:w-[270px] md:h-[270px] mb-8 sm:mb-10"
         style={{ transformStyle: "preserve-3d", transform: "translateZ(50px)" }}
       >
         {/* back glow */}

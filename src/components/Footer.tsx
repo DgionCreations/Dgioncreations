@@ -37,9 +37,9 @@ export default function Footer() {
         <div className="absolute right-1/4 -bottom-24 h-80 w-80 rounded-full bg-[#5B57F5]/8 blur-[120px]" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pt-16 pb-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 lg:px-10 pt-12 sm:pt-14 md:pt-16 pb-8" style={{ paddingBottom: "max(2rem, env(safe-area-inset-bottom))" }}>
         {/* main grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 sm:gap-12">
           {/* brand */}
           <div>
             {data.brandHref.startsWith("http") ? (
@@ -70,7 +70,7 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={s.label}
-                    className="w-9 h-9 rounded-lg flex items-center justify-center text-white/50 hover:text-[#837FFB] transition-all duration-300 hover:bg-[#837FFB]/10"
+                    className="w-11 h-11 rounded-lg flex items-center justify-center text-white/50 hover:text-[#837FFB] transition-all duration-300 hover:bg-[#837FFB]/10 active:bg-[#837FFB]/20"
                     style={{ border: "1px solid rgba(131,127,251,0.12)" }}
                   >
                     <Icon className="h-4 w-4" />
@@ -81,9 +81,9 @@ export default function Footer() {
           </div>
 
           {/* link columns */}
-          <div className="lg:col-span-2 grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="lg:col-span-2 grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
             <div>
-              <h4 className="uppercase mb-5" style={titleCss}>
+              <h4 className="uppercase mb-4 sm:mb-5" style={titleCss}>
                 {data.servicesTitle}
               </h4>
               <ul className="space-y-3">
@@ -107,7 +107,7 @@ export default function Footer() {
             </div>
 
             <div>
-              <h4 className="uppercase mb-5" style={titleCss}>
+              <h4 className="uppercase mb-4 sm:mb-5" style={titleCss}>
                 {data.companyTitle}
               </h4>
               <ul className="space-y-3">
@@ -149,7 +149,7 @@ export default function Footer() {
             </div>
 
             <div>
-              <h4 className="uppercase mb-5" style={titleCss}>
+              <h4 className="uppercase mb-4 sm:mb-5" style={titleCss}>
                 {data.resourcesTitle}
               </h4>
               <ul className="space-y-3">
@@ -183,7 +183,7 @@ export default function Footer() {
             </div>
 
             <div>
-              <h4 className="uppercase mb-5" style={titleCss}>
+              <h4 className="uppercase mb-4 sm:mb-5" style={titleCss}>
                 {data.contactTitle}
               </h4>
               <ul className="space-y-3">
@@ -204,11 +204,11 @@ export default function Footer() {
         </div>
 
         {/* divider + bottom */}
-        <div className="mt-14 pt-6 border-t border-white/8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="mt-10 sm:mt-12 md:mt-14 pt-6 border-t border-white/8 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
           <p style={copyrightCss}>
             {data.copyrightText.replace("{year}", new Date().getFullYear().toString())}
           </p>
-          <div className="flex gap-6">
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
             {data.bottomLinks.map((l) => (
               <a key={l.text} href={l.href} className="hover:text-white/50 transition-colors" style={bottomLinkCss}>
                 {l.text}

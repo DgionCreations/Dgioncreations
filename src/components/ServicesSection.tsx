@@ -212,7 +212,7 @@ export default function ServicesSection() {
   return (
     <section
       id="services"
-      className="relative overflow-hidden py-28"
+      className="relative overflow-hidden py-16 sm:py-20 md:py-28"
       style={{ background: "linear-gradient(160deg, #0B0F2A 0%, #141A42 30%, #1A1F4F 60%, #0B0F2A 100%)" }}
     >
       {/* floating lines background */}
@@ -232,10 +232,10 @@ export default function ServicesSection() {
         />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
         {/* header */}
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-12 md:mb-16"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -252,8 +252,8 @@ export default function ServicesSection() {
           </h2>
         </motion.div>
 
-        {/* ── horizontal expand cards ── */}
-        <div className="flex gap-2 h-[420px]" style={{ perspective: 1200 }}>
+        {/* ── horizontal expand cards (desktop / tablet) ── */}
+        <div className="hidden md:flex gap-2 h-[420px]" style={{ perspective: 1200 }}>
           {servicesData.map((svc, i) => (
             <ServiceCardItem
               key={svc.id}
@@ -269,7 +269,61 @@ export default function ServicesSection() {
           ))}
         </div>
 
-        <div className="h-[120px] mt-10 relative pointer-events-none">
+        {/* ── mobile vertical stack — touch-first cards with full label & icon visible ── */}
+        <div className="md:hidden flex flex-col gap-3 sm:gap-4">
+          {servicesData.map((svc, i) => {
+            const Icon = resolveIcon(svc.iconKey);
+            return (
+              <motion.button
+                key={svc.id}
+                onClick={() => navigate(`/service/${svc.id}`)}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.45, delay: i * 0.04, ease }}
+                className="group relative w-full text-left rounded-2xl overflow-hidden p-5 flex items-center gap-4 active:scale-[0.98] transition-transform"
+                style={{
+                  background:
+                    "linear-gradient(145deg, rgba(131,127,251,0.12) 0%, rgba(15,12,40,0.95) 100%)",
+                  border: "1px solid rgba(131,127,251,0.25)",
+                  boxShadow: "0 16px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.08)",
+                }}
+              >
+                <div
+                  className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
+                  style={{
+                    background: "rgba(131,127,251,0.15)",
+                    border: "1px solid rgba(131,127,251,0.3)",
+                  }}
+                >
+                  <Icon className="w-5 h-5 text-white" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-[#837FFB]/40 text-[10px] font-bold tracking-widest">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <h3
+                      className="uppercase tracking-wide leading-tight text-sm font-bold truncate"
+                      style={textStyleToCss(data.serviceCardTitleStyle, DEFAULT_SERVICE_CARD_TITLE_STYLE)}
+                    >
+                      {svc.full}
+                    </h3>
+                  </div>
+                  <p
+                    className="text-white/55 text-[11px] sm:text-xs leading-snug line-clamp-2"
+                    style={textStyleToCss(data.serviceCardDescStyle, DEFAULT_SERVICE_CARD_DESC_STYLE)}
+                  >
+                    {svc.desc}
+                  </p>
+                </div>
+                <span className="text-[#837FFB] text-base shrink-0 group-active:translate-x-0.5 transition-transform">→</span>
+              </motion.button>
+            );
+          })}
+        </div>
+
+        <div className="hidden md:block h-[120px] mt-10 relative pointer-events-none">
           <AnimatePresence mode="wait">
             {hoveredService ? (
               <motion.div
