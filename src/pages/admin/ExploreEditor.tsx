@@ -16,6 +16,7 @@ import {
   Loader2,
   Plus,
   Trash2,
+  X,
 } from "lucide-react";
 import { useContent, saveContent } from "@/lib/use-content";
 import {
@@ -35,7 +36,8 @@ import WordHighlightPicker from "@/components/admin/WordHighlightPicker";
 /* Tab registry — sidebar nav and content rendering both reference this. */
 const TABS = [
   { id: "section-heading", label: "Section Heading", icon: Type,       hint: "Kicker + 3-part heading" },
-  { id: "cards",           label: "Cards",           icon: LayoutGrid, hint: "Reorder & edit 6 panels" },
+  { id: "cards",           label: "Gallery Cards",   icon: LayoutGrid, hint: "Reorder & edit top 6 cards" },
+  { id: "pillars",         label: "Pillars List",    icon: LayoutGrid, hint: "Edit alternating rows below" },
 ] as const;
 type TabId = (typeof TABS)[number]["id"];
 
@@ -46,6 +48,7 @@ export default function ExploreEditor() {
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<TabId>(TABS[0].id);
 
   const dirty = JSON.stringify(draft) !== JSON.stringify(data);
@@ -111,6 +114,54 @@ export default function ExploreEditor() {
     setDraft(d => ({
       ...d,
       cards: d.cards.filter(c => c.id !== id)
+    }));
+    if (expandedId === id) setExpandedId(null);
+  };
+
+  /* Pillar Cards (Bottom alternating section) */
+  const updatePillar = (id: string, patch: Partial<ExploreCard>) =>
+    setDraft((d) => ({ ...d, pillarCards: (d.pillarCards || []).map((c) => (c.id === id ? { ...c, ...patch } : c)) }));
+
+  const movePillar = (id: string, dir: -1 | 1) =>
+    setDraft((d) => {
+      const pillars = d.pillarCards || [];
+      const idx = pillars.findIndex((c) => c.id === id);
+      const target = idx + dir;
+      if (idx < 0 || target < 0 || target >= pillars.length) return d;
+      const next = [...pillars];
+      [next[idx], next[target]] = [next[target], next[idx]];
+      return { ...d, pillarCards: next };
+    });
+
+  const resetPillar = (id: string) => {
+    const original = defaultExploreContent.pillarCards.find((c) => c.id === id);
+    if (!original) return;
+    updatePillar(id, original);
+  };
+
+  const addPillar = () => {
+    const nextId = `pillar-${Date.now()}`;
+    setDraft(d => ({
+      ...d,
+      pillarCards: [...(d.pillarCards || []), {
+        id: nextId,
+        eyebrow: "VIEW DETAILS",
+        title: "New Pillar",
+        summary: "Description...",
+        badge: "NEW",
+        url: "/services",
+        image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000",
+        accent: "#837FFB",
+        tint: "#0D0B24"
+      }]
+    }));
+    setExpandedId(nextId);
+  };
+
+  const removePillar = (id: string) => {
+    setDraft(d => ({
+      ...d,
+      pillarCards: (d.pillarCards || []).filter(c => c.id !== id)
     }));
     if (expandedId === id) setExpandedId(null);
   };
@@ -320,6 +371,185 @@ export default function ExploreEditor() {
             </SectionCard>
             )}
 
+            {activeTab === "pillars" && (
+            <SectionCard
+              id="pillars"
+              index={3}
+              total={TABS.length}
+              title="Pillars Section Heading"
+              subtitle="Edit the kicker and main heading for the detailed alternating section below the gallery."
+              icon={Type}
+            >
+              <FieldGroup legend="Introduction">
+                <Field
+                  label="Kicker (e.g. EXPLORE DGION)"
+                  value={draft.detailsKicker}
+                  onChange={(v) => setDraft((d) => ({ ...d, detailsKicker: v }))}
+                />
+              </FieldGroup>
+
+              <FieldGroup legend="Main Heading (3 parts)">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <Field
+                    label="Part 1 (Before Highlight)"
+                    value={draft.detailsHeadingBefore}
+                    onChange={(v) => setDraft((d) => ({ ...d, detailsHeadingBefore: v }))}
+                  />
+                  <Field
+                    label="Part 2 (Highlighted)"
+                    value={draft.detailsHeadingHighlight}
+                    onChange={(v) => setDraft((d) => ({ ...d, detailsHeadingHighlight: v }))}
+                  />
+                  <Field
+                    label="Part 3 (After Highlight)"
+                    value={draft.detailsHeadingAfter}
+                    onChange={(v) => setDraft((d) => ({ ...d, detailsHeadingAfter: v }))}
+                  />
+                </div>
+                <p className="text-[10px] text-white/30 italic">
+                  Example: "The Pillars of" + "Excellence" + "" (Part 3 can be empty).
+                </p>
+              </FieldGroup>
+
+              <div className="mt-8 pt-8 border-t border-white/5 space-y-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-white font-bold">Pillar Rows</h3>
+                    <p className="text-white/40 text-xs mt-1">Manage the 4 detailed alternating rows below the gallery.</p>
+                  </div>
+                  <button
+                    onClick={addPillar}
+                    className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#837FFB]/10 border border-[#837FFB]/30 text-[#837FFB] text-xs font-bold uppercase tracking-widest hover:bg-[#837FFB]/20 transition-all"
+                  >
+                    <Plus className="w-3.5 h-3.5" /> Add Row
+                  </button>
+                </div>
+
+                <div className="space-y-3">
+                  {(draft.pillarCards || []).map((card, i) => {
+                    const isOpen = expandedId === card.id;
+                    return (
+                      <div
+                        key={card.id}
+                        className="rounded-xl overflow-hidden transition-all"
+                        style={{
+                          background: "rgba(255,255,255,0.025)",
+                          border: `1px solid ${isOpen ? "rgba(131,127,251,0.25)" : "rgba(255,255,255,0.08)"}`,
+                        }}
+                      >
+                        {/* Row header */}
+                        <div className="flex items-center gap-3 px-4 py-3.5">
+                          {/* Reorder */}
+                          <div className="flex flex-col shrink-0">
+                            <button
+                              type="button"
+                              onClick={() => movePillar(card.id, -1)}
+                              disabled={i === 0}
+                              className="p-0.5 rounded text-white/50 hover:text-white hover:bg-white/5 disabled:opacity-25"
+                            >
+                              <ChevronUp className="w-4 h-4" />
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => movePillar(card.id, 1)}
+                              disabled={i === (draft.pillarCards?.length ?? 0) - 1}
+                              className="p-0.5 rounded text-white/50 hover:text-white hover:bg-white/5 disabled:opacity-25"
+                            >
+                              <ChevronDown className="w-4 h-4" />
+                            </button>
+                          </div>
+
+                          <div
+                            className="w-10 h-10 rounded-lg shrink-0 flex items-center justify-center text-[10px] font-bold tracking-widest"
+                            style={{ background: `linear-gradient(135deg, ${card.accent}, ${card.tint})`, color: "#fff" }}
+                          >
+                            0{i + 1}
+                          </div>
+
+                          <div className="flex-1 min-w-0">
+                            <p className="text-white text-sm font-semibold truncate">{card.title}</p>
+                            <p className="text-white/40 text-[10px] uppercase tracking-widest font-bold">{card.badge}</p>
+                          </div>
+
+                          <button
+                            type="button"
+                            onClick={() => resetPillar(card.id)}
+                            className="p-2 text-white/40 hover:text-white"
+                            title="Reset Row"
+                          >
+                            <RotateCcw className="w-3.5 h-3.5" />
+                          </button>
+                          
+                          {confirmDeleteId === card.id ? (
+                            <div className="flex items-center gap-2">
+                              <button onClick={() => { removePillar(card.id); setConfirmDeleteId(null); }} className="p-1.5 rounded bg-red-500 text-white"><Check className="w-3 h-3" /></button>
+                              <button onClick={() => setConfirmDeleteId(null)} className="p-1.5 rounded bg-white/10 text-white"><X className="w-3 h-3" /></button>
+                            </div>
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={() => setConfirmDeleteId(card.id)}
+                              className="p-2 text-white/40 hover:text-red-400"
+                              title="Remove Row"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
+                          )}
+
+                          <button
+                            type="button"
+                            onClick={() => setExpandedId(isOpen ? null : card.id)}
+                            className="text-[10px] font-bold uppercase tracking-widest text-[#837FFB] hover:text-white px-3 py-1.5 rounded-md hover:bg-white/5"
+                          >
+                            {isOpen ? "Close" : "Edit"}
+                          </button>
+                        </div>
+
+                        {/* Expanded editor */}
+                        {isOpen && (
+                          <div className="px-5 pb-6 pt-4 space-y-5 bg-black/20 border-t border-white/5">
+                            <FieldGroup legend="Copy">
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <Field label="Title" value={card.title} onChange={(v) => updatePillar(card.id, { title: v })} />
+                                <Field label="Badge" value={card.badge} onChange={(v) => updatePillar(card.id, { badge: v })} />
+                              </div>
+                              <Field label="Summary" multiline value={card.summary} onChange={(v) => updatePillar(card.id, { summary: v })} />
+                            </FieldGroup>
+                            <FieldGroup legend="Visual">
+                              <ImageField
+                                label="Row Image"
+                                value={card.image}
+                                onChange={(v) => updatePillar(card.id, { image: v })}
+                                folder="pillars"
+                              />
+                            </FieldGroup>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <FieldGroup legend="Typography">
+                <TextStyleEditor
+                  label="Plain heading"
+                  value={draft.detailsHeadingStyle ?? DEFAULT_HEADING_STYLE}
+                  fallback={DEFAULT_HEADING_STYLE}
+                  onChange={(v) => setDraft((d) => ({ ...d, detailsHeadingStyle: v }))}
+                  previewText={draft.detailsHeadingBefore || "The Pillars of"}
+                />
+                <TextStyleEditor
+                  label="Highlighted word"
+                  value={draft.detailsHighlightStyle ?? DEFAULT_HIGHLIGHT_STYLE}
+                  fallback={DEFAULT_HIGHLIGHT_STYLE}
+                  onChange={(v) => setDraft((d) => ({ ...d, detailsHighlightStyle: v }))}
+                  previewText={draft.detailsHeadingHighlight || "Excellence"}
+                />
+              </FieldGroup>
+            </SectionCard>
+            )}
+
             {activeTab === "cards" && (
             <SectionCard
               id="cards"
@@ -403,14 +633,41 @@ export default function ExploreEditor() {
                         >
                           <RotateCcw className="w-3.5 h-3.5" />
                         </button>
-                        <button
-                          type="button"
-                          onClick={() => removeCard(card.id)}
-                          className="p-2 rounded-lg text-white/40 hover:text-red-400 hover:bg-red-500/10 transition-colors"
-                          title="Remove card"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
+                        
+                        {confirmDeleteId === card.id ? (
+                          <div className="flex items-center gap-2 px-1 bg-red-500/10 rounded-lg border border-red-500/20 py-1">
+                            <span className="text-[10px] font-bold text-red-400 uppercase tracking-widest pl-2">Sure?</span>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                removeCard(card.id);
+                                setConfirmDeleteId(null);
+                              }}
+                              className="p-1.5 rounded-md bg-red-500 text-white hover:bg-red-600 transition-colors"
+                              title="Yes, delete"
+                            >
+                              <Check className="w-3 h-3" />
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => setConfirmDeleteId(null)}
+                              className="p-1.5 rounded-md bg-white/10 text-white/70 hover:text-white transition-colors"
+                              title="Cancel"
+                            >
+                              <X className="w-3 h-3" />
+                            </button>
+                          </div>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => setConfirmDeleteId(card.id)}
+                            className="p-2 rounded-lg text-white/40 hover:text-red-400 hover:bg-red-500/10 transition-colors"
+                            title="Remove card"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        )}
+
                         <button
                           type="button"
                           onClick={() => setExpandedId(isOpen ? null : card.id)}
@@ -463,14 +720,24 @@ export default function ExploreEditor() {
                           </FieldGroup>
 
                           <FieldGroup legend="Visual">
-                            <ImageField
-                              label="Background image"
-                              value={card.image}
-                              onChange={(v) => updateCard(card.id, { image: v })}
-                              folder="cards"
-                              placeholder="https://images.unsplash.com/... or upload"
-                              previewHeight="h-40"
-                            />
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                              <ImageField
+                                label="Gallery Image (Top 3D section)"
+                                value={card.image}
+                                onChange={(v) => updateCard(card.id, { image: v })}
+                                folder="cards"
+                                placeholder="https://images.unsplash.com/... or upload"
+                                previewHeight="h-40"
+                              />
+                              <ImageField
+                                label="Details Image (Bottom alternating section)"
+                                value={card.detailsImage || ""}
+                                onChange={(v) => updateCard(card.id, { detailsImage: v })}
+                                folder="cards/details"
+                                placeholder="Leave empty to use Gallery Image"
+                                previewHeight="h-40"
+                              />
+                            </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                               <ColorField
                                 label="Accent color (badge + brand touches)"

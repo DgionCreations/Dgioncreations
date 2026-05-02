@@ -76,7 +76,13 @@ export default function Navbar() {
                 : [...data.links, { label: "Reviews", href: "/reviews" }]
               ).map(l => ({
                 ...l,
-                href: l.href.startsWith("http") || l.href.startsWith("/") ? l.href : (l.href.startsWith("#") ? `/${l.href}` : `/${l.href}`)
+                href: l.href.startsWith("http") || l.href.startsWith("/") ? l.href : (l.href.startsWith("#") ? `/${l.href}` : `/${l.href}`),
+                subItems: l.label.toLowerCase() === "about" ? [
+                  { label: "Our Story",  href: "/about#story" },
+                  { label: "Our Team",   href: "/about#team" },
+                  { label: "Our Values", href: "/about#values" },
+                  { label: "Milestones", href: "/about#timeline" },
+                ] : undefined
               }))} 
               textStyle={data.linksStyle} 
             />

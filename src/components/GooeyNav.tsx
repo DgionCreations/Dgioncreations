@@ -6,6 +6,7 @@ import { type TextStyle, textStyleToCss } from '@/content/typography';
 interface NavItem {
   label: string;
   href: string;
+  subItems?: NavItem[];
 }
 
 interface GooeyNavProps {
@@ -200,15 +201,45 @@ const GooeyNav = ({
       <nav>
         <ul ref={navRef}>
           {items.map((item, index) => (
-            <li key={index} className={activeIndex === index ? 'active' : ''}>
+            <li 
+              key={index} 
+              className={`relative group/nav-item ${activeIndex === index ? 'active' : ''}`}
+            >
               <a 
                 href={item.href} 
                 onClick={e => handleClick(e, index)} 
                 onKeyDown={e => handleKeyDown(e, index)}
                 style={customStyles}
+                className="flex items-center gap-1"
               >
                 {item.label}
+                {item.subItems && (
+                  <svg className="w-3 h-3 opacity-30 group-hover/nav-item:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" />
+                  </svg>
+                )}
               </a>
+
+              {/* Dropdown Menu */}
+              {item.subItems && (
+                <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 opacity-0 invisible group-hover/nav-item:opacity-100 group-hover/nav-item:visible transition-all duration-300 transform scale-95 group-hover/nav-item:scale-100">
+                  <div className="bg-[#1A1440]/90 backdrop-blur-2xl border border-white/10 rounded-2xl p-2 min-w-[200px] shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                    {item.subItems.map((sub, si) => (
+                      <button
+                        key={si}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigate(sub.href);
+                        }}
+                        className="w-full text-left px-4 py-3 rounded-xl text-white/60 hover:text-white hover:bg-white/5 transition-all text-xs font-bold uppercase tracking-widest flex items-center justify-between group/sub"
+                      >
+                        {sub.label}
+                        <div className="w-1 h-1 rounded-full bg-[#837FFB] opacity-0 group-hover/sub:opacity-100 transition-opacity" />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
             </li>
           ))}
         </ul>

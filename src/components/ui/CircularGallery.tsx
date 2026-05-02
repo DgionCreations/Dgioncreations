@@ -26,7 +26,30 @@ function autoBind(instance) {
   });
 }
 
-function createTextTexture(gl, text, font = 'bold 42px Figtree', color = 'white') {
+function wrapText(context, text, x, y, maxWidth, lineHeight) {
+  const words = text.split(' ');
+  let line = '';
+  let lines = [];
+  
+  for (let n = 0; n < words.length; n++) {
+    const testLine = line + words[n] + ' ';
+    const metrics = context.measureText(testLine);
+    const testWidth = metrics.width;
+    if (testWidth > maxWidth && n > 0) {
+      lines.push(line);
+      line = words[n] + ' ';
+    } else {
+      line = testLine;
+    }
+  }
+  lines.push(line);
+  
+  for (let i = lines.length - 1; i >= 0; i--) {
+    context.fillText(lines[i].trim(), x, y - (lines.length - 1 - i) * lineHeight);
+  }
+}
+
+function createTextTexture(gl, text, summary = '', font = 'bold 42px Figtree', color = 'white') {
   const canvas = document.createElement('canvas');
   const context = canvas.getContext('2d');
   if (!context) return { texture: new Texture(gl), width: 1, height: 1 };
@@ -36,27 +59,26 @@ function createTextTexture(gl, text, font = 'bold 42px Figtree', color = 'white'
   
   context.clearRect(0, 0, canvas.width, canvas.height);
   
-  // 1. Bottom Gradient for Readability
-  const grad = context.createLinearGradient(0, canvas.height * 0.5, 0, canvas.height);
+  const grad = context.createLinearGradient(0, canvas.height * 0.3, 0, canvas.height);
   grad.addColorStop(0, 'rgba(0,0,0,0)');
-  grad.addColorStop(1, 'rgba(0,0,0,0.8)');
+  grad.addColorStop(1, 'rgba(0,0,0,0.85)');
   context.fillStyle = grad;
-  context.fillRect(0, canvas.height * 0.5, canvas.width, canvas.height * 0.5);
+  context.fillRect(0, canvas.height * 0.3, canvas.width, canvas.height);
   
-  // 2. Text Label - Near Bottom
+  // 2. Main Title - Near Bottom
   context.font = font;
   context.fillStyle = color;
   context.textBaseline = 'middle';
   context.textAlign = 'center';
   context.shadowColor = 'rgba(0,0,0,0.5)';
   context.shadowBlur = 10;
-  context.fillText(text.toUpperCase(), canvas.width / 2, canvas.height - 130);
+  context.fillText(text.toUpperCase(), canvas.width / 2, canvas.height - 150);
   
   // 3. Explore Button Pill - Bottom Center
   const btnWidth = 180;
   const btnHeight = 54;
   const btnX = (canvas.width - btnWidth) / 2;
-  const btnY = canvas.height - 80;
+  const btnY = canvas.height - 90;
   
   context.shadowBlur = 0;
   context.fillStyle = '#837FFB';
@@ -75,9 +97,9 @@ function createTextTexture(gl, text, font = 'bold 42px Figtree', color = 'white'
   context.closePath();
   context.fill();
   
-  context.font = '900 16px Inter, sans-serif';
+  context.font = '900 15px Inter, sans-serif';
   context.fillStyle = 'white';
-  context.letterSpacing = '2px';
+  context.letterSpacing = '1px';
   context.fillText('EXPLORE SECTOR', canvas.width / 2, btnY + btnHeight / 2 + 2);
 
   const texture = new Texture(gl, { generateMipmaps: false });
@@ -86,18 +108,19 @@ function createTextTexture(gl, text, font = 'bold 42px Figtree', color = 'white'
 }
 
 class Title {
-  constructor({ gl, plane, renderer, text, textColor = '#ffffff', font = 'bold 30px Figtree' }) {
+  constructor({ gl, plane, renderer, text, summary = '', textColor = '#ffffff', font = 'bold 30px Figtree' }) {
     autoBind(this);
     this.gl = gl;
     this.plane = plane;
     this.renderer = renderer;
     this.text = text;
+    this.summary = summary;
     this.textColor = textColor;
     this.font = font;
     this.createMesh();
   }
   createMesh() {
-    const { texture, width, height } = createTextTexture(this.gl, this.text, this.font, this.textColor);
+    const { texture, width, height } = createTextTexture(this.gl, this.text, this.summary, this.font, this.textColor);
     const geometry = new Plane(this.gl);
     const program = new Program(this.gl, {
       vertex: `
@@ -148,6 +171,7 @@ class Media {
     scene,
     screen,
     text,
+    summary = '',
     viewport,
     bend,
     textColor,
@@ -164,6 +188,7 @@ class Media {
     this.scene = scene;
     this.screen = screen;
     this.text = text;
+    this.summary = summary;
     this.viewport = viewport;
     this.bend = bend;
     this.textColor = textColor;
@@ -266,6 +291,7 @@ class Media {
       plane: this.plane,
       renderer: this.renderer,
       text: this.text,
+      summary: this.summary,
       textColor: this.textColor,
       font: this.font
     });
@@ -406,6 +432,7 @@ class App {
         scene: this.scene,
         screen: this.screen,
         text: data.text,
+        summary: data.summary,
         viewport: this.viewport,
         bend,
         textColor,
@@ -418,6 +445,7 @@ class App {
     this.isDown = true;
     this.scroll.position = this.scroll.current;
     this.start = e.touches ? e.touches[0].clientX : e.clientX;
+    this.startY = e.touches ? e.touches[0].clientY : e.clientY;
     this.startTime = Date.now();
   }
   onTouchMove(e) {
@@ -428,19 +456,24 @@ class App {
     this.scroll.target = this.scroll.position - distance;
   }
   onTouchUp(e) {
+    if (!this.isDown) return;
     this.isDown = false;
     this.onCheck();
     
     // Check for click/tap
+    const x = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+    const y = e.changedTouches ? e.changedTouches[0].clientY : e.clientY;
     const duration = Date.now() - this.startTime;
-    if (duration < 200) {
+    const dist = Math.hypot(x - this.start, y - this.startY);
+
+    // If tap is fast OR they didn't move much (tolerance for slight finger shake)
+    if (duration < 300 || dist < 5) {
       this.handleClick(e);
     }
   }
   handleClick(e) {
     if (!this.onItemClick || !this.medias) return;
     
-    // Get mouse position in viewport
     const x = e.clientX || (e.changedTouches ? e.changedTouches[0].clientX : 0);
     const y = e.clientY || (e.changedTouches ? e.changedTouches[0].clientY : 0);
     
@@ -448,18 +481,34 @@ class App {
     const mouseX = ((x - rect.left) / rect.width) * 2 - 1;
     const mouseY = -((y - rect.top) / rect.height) * 2 + 1;
     
-    // Simple intersection check based on screen position
-    this.medias.forEach((media, index) => {
+    let clickedItem = null;
+    let clickedIndex = -1;
+
+    // Check all cards for intersection
+    for (let i = 0; i < this.medias.length; i++) {
+      const media = this.medias[i];
       const plane = media.plane;
-      // Convert plane position to screen space (simplified)
-      const screenX = (plane.position.x / (this.viewport.width / 2));
-      const width = (plane.scale.x / (this.viewport.width / 2));
       
-      if (Math.abs(mouseX - screenX) < width / 2) {
-        const realIndex = index % this.galleryItems.length;
-        this.onItemClick(this.galleryItems[realIndex], realIndex);
+      // Normalized screen coordinates of the card
+      const screenX = (plane.position.x / (this.viewport.width / 2));
+      const screenY = (plane.position.y / (this.viewport.height / 2));
+      const width = (plane.scale.x / (this.viewport.width / 2));
+      const height = (plane.scale.y / (this.viewport.height / 2));
+      
+      // Check if mouse is within card bounds
+      if (
+        Math.abs(mouseX - screenX) < width / 2 &&
+        Math.abs(mouseY - screenY) < height / 2
+      ) {
+        clickedIndex = i % this.galleryItems.length;
+        clickedItem = this.galleryItems[clickedIndex];
+        break; // Only trigger for the first (topmost) match
       }
-    });
+    }
+
+    if (clickedItem) {
+      this.onItemClick(clickedItem, clickedIndex);
+    }
   }
   onWheel(e) {
     const delta = e.deltaY || e.wheelDelta || e.detail;

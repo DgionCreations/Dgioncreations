@@ -25,6 +25,8 @@ export interface ExploreCard {
   url: string;
   /** Background image URL for the panel (full-bleed, ken-burns zoomed) */
   image: string;
+  /** NEW: Optimized image URL specifically for the alternating details section below */
+  detailsImage?: string;
   /** Accent color — badge background + brand touches (hex) */
   accent: string;
   /** Deep base tint behind the image — controls gradient + fallback (hex) */
@@ -50,6 +52,20 @@ export interface ExploreContent {
   highlightStyle?: TextStyle;
   /** Ordered list of 6 cards shown in the stacked pin */
   cards: ExploreCard[];
+  /** NEW: Kicker for the alternating details section below */
+  detailsKicker: string;
+  /** NEW: Details heading line 1 */
+  detailsHeadingBefore: string;
+  /** NEW: Details heading highlighted word */
+  detailsHeadingHighlight: string;
+  /** NEW: Details heading line continuation */
+  detailsHeadingAfter: string;
+  /** NEW: Typography for the plain-text portions of the details heading */
+  detailsHeadingStyle?: TextStyle;
+  /** NEW: Typography for the highlighted word in the details heading */
+  detailsHighlightStyle?: TextStyle;
+  /** NEW: Independent list of 4 cards specifically for the alternating pillars section */
+  pillarCards: ExploreCard[];
 }
 
 /** Firestore document key — `content/{EXPLORE_CONTENT_KEY}` */
@@ -186,4 +202,56 @@ export const defaultExploreContent: ExploreContent = {
       summaryStyle: DEFAULT_CARD_SUMMARY_STYLE,
     },
   ],
+  detailsKicker: "EXPLORE DGION",
+  detailsHeadingBefore: "The Pillars of ",
+  detailsHeadingHighlight: "Excellence",
+  detailsHeadingAfter: "",
+  detailsHeadingStyle: DEFAULT_HEADING_STYLE,
+  detailsHighlightStyle: DEFAULT_HIGHLIGHT_STYLE,
+  pillarCards: [
+    {
+      id: "services",
+      eyebrow: "VIEW DETAILS",
+      title: "Services",
+      summary: "SEO, performance marketing, brand identity, UX — eight specialist practices, one team.",
+      badge: "CAPABILITIES",
+      url: "/services",
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426",
+      accent: "#837FFB",
+      tint: "#0D0B24"
+    },
+    {
+      id: "industries",
+      eyebrow: "VIEW DETAILS",
+      title: "Industries",
+      summary: "Specialized solutions for finance, healthcare, e-commerce, and high-growth technology sectors.",
+      badge: "SECTORS WE SERVE",
+      url: "/industries",
+      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070",
+      accent: "#00E599",
+      tint: "#081A14"
+    },
+    {
+      id: "process",
+      eyebrow: "VIEW DETAILS",
+      title: "Process",
+      summary: "A battle-tested methodology focused on rapid iteration, transparency, and measurable results.",
+      badge: "HOW WE WORK",
+      url: "/process",
+      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070",
+      accent: "#00C2FF",
+      tint: "#08131A"
+    },
+    {
+      id: "portfolio",
+      eyebrow: "VIEW DETAILS",
+      title: "Portfolio",
+      summary: "Real projects shipped across 5 industries with numbers that moved and clients who came back.",
+      badge: "CASE STUDIES",
+      url: "/portfolio",
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426",
+      accent: "#FF3366",
+      tint: "#1A080C"
+    }
+  ]
 };

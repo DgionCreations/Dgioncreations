@@ -41,14 +41,14 @@ export default function HomeOverview() {
             className="text-xs md:text-sm font-black tracking-[0.4em] uppercase text-[#837FFB] block mb-4"
             style={textStyleToCss(data.highlightStyle, DEFAULT_HIGHLIGHT_STYLE)}
           >
-            {data.highlight || "OUR FOCUS"}
+            {data.kicker || "OUR FOCUS"}
           </span>
           <h2 
             className="text-white font-sans font-extrabold leading-[1.1] tracking-tight mb-8"
             style={textStyleToCss(data.headingStyle, DEFAULT_HEADING_STYLE)}
           >
             <MarkupText 
-               text={data.heading || "Crafting Digital Products That Drive Growth"} 
+               text={`${data.headingBefore} **${data.headingHighlight}** ${data.headingAfter}`} 
                highlightStyle={data.highlightStyle || DEFAULT_HIGHLIGHT_STYLE}
                highlightClassName="text-[#837FFB]"
             />
@@ -73,13 +73,13 @@ export default function HomeOverview() {
                   items={items.map(item => ({
                     image: item.image,
                     text: item.title,
+                    summary: item.summary,
                     url: item.url
                   }))}
                 />
              </div>
         </div>
       </div>
-
     </section>
   );
 }
