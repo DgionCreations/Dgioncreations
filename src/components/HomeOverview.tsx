@@ -131,7 +131,7 @@ export default function HomeOverview() {
       </div>
 
       {/* Pinned stack - Adjusted height for better vertical balance */}
-      <div ref={pinRef} className="relative h-[75vh] md:h-[85vh] overflow-hidden mt-12 md:mt-20">
+      <div ref={pinRef} className="relative h-screen overflow-hidden mt-0">
         <div ref={stackRef} className="absolute inset-0">
           {items.map((item, i) => {
             const textLeft = i % 2 === 0;
@@ -163,7 +163,7 @@ export default function HomeOverview() {
               >
                 <div
                   data-img-frame
-                  className="relative h-full w-full rounded-2xl md:rounded-3xl overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.5),0_0_0_1px_rgba(255,255,255,0.05)_inset]"
+                  className="relative h-[70vh] md:h-[75vh] top-1/2 -translate-y-1/2 w-full rounded-2xl md:rounded-3xl overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.5),0_0_0_1px_rgba(255,255,255,0.05)_inset]"
                   style={{ background: item.tint }}
                 >
                   <div
@@ -171,7 +171,8 @@ export default function HomeOverview() {
                     className="will-change-transform"
                     style={{
                       backgroundImage: `url(${item.image})`,
-                      backgroundSize: "cover",
+                      backgroundSize: "contain",
+                      backgroundRepeat: "no-repeat",
                       backgroundPosition: "center center",
                       transformOrigin: "center center",
                       position: "absolute",
