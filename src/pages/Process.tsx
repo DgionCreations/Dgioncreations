@@ -64,20 +64,20 @@ export default function Process() {
       </div>
 
       {/* PRINCIPLES */}
-      <section className="relative py-16 overflow-hidden bg-transparent">
+      <section className="relative py-12 sm:py-14 md:py-16 overflow-hidden bg-transparent">
         <SpaceWavesBackground />
 
-        <div className="relative z-10 max-w-6xl mx-auto px-6 lg:px-10">
+        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-10">
           <motion.div className="text-center mb-6" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, ease }}>
-            <span className="text-[#837FFB] text-sm font-bold tracking-[0.3em] uppercase">Operating Principles</span>
-            <h2 className="mt-4 text-white text-4xl md:text-5xl font-bold">
+            <span className="text-[#837FFB] text-xs sm:text-sm font-bold tracking-[0.3em] uppercase">Operating Principles</span>
+            <h2 className="mt-3 sm:mt-4 text-white text-3xl sm:text-4xl md:text-5xl font-bold">
               How we{" "}
               <span className="text-[#837FFB] drop-shadow-[0_0_20px_rgba(131,127,251,0.5)]">actually</span>{" "}
               work
             </h2>
           </motion.div>
-          
-          <div className="relative min-h-[500px] flex items-center justify-center">
+
+          <div className="relative min-h-[360px] sm:min-h-[420px] md:min-h-[500px] flex items-center justify-center">
             <RadialOrbitalTimeline 
               timelineData={principles.map((p, i) => ({
                 id: i + 1,
@@ -96,11 +96,11 @@ export default function Process() {
       </section>
 
       {/* FAQ */}
-      <section className="relative py-28" style={{ background: "#1B144A" }}>
-        <div className="max-w-4xl mx-auto px-6 lg:px-10">
-          <motion.div className="text-center mb-16" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, ease }}>
-            <span className="text-[#837FFB] text-sm font-bold tracking-[0.3em] uppercase">FAQ</span>
-            <h2 className="mt-4 text-white text-4xl md:text-5xl font-bold">
+      <section className="relative py-16 sm:py-20 md:py-28" style={{ background: "#1B144A" }}>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-10">
+          <motion.div className="text-center mb-10 sm:mb-12 md:mb-16" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, ease }}>
+            <span className="text-[#837FFB] text-xs sm:text-sm font-bold tracking-[0.3em] uppercase">FAQ</span>
+            <h2 className="mt-3 sm:mt-4 text-white text-3xl sm:text-4xl md:text-5xl font-bold">
               Questions, answered{" "}
               <span className="text-[#837FFB] drop-shadow-[0_0_20px_rgba(131,127,251,0.5)]">straight</span>
             </h2>

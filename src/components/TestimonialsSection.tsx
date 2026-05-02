@@ -17,12 +17,12 @@ const ease = [0.25, 0.46, 0.45, 0.94] as const;
 function ReviewCard({ t }: { t: any }) {
   return (
     <div
-      className="flex flex-col justify-between select-none"
+      className="review-card flex flex-col justify-between select-none"
       style={{
-        width: 360,
+        width: "min(360px, 86vw)",
         height: 240,
         borderRadius: 20,
-        padding: "28px 28px 24px",
+        padding: "clamp(18px, 4vw, 28px) clamp(18px, 4vw, 28px) clamp(16px, 3.5vw, 24px)",
         background:
           "linear-gradient(145deg, rgba(131,127,251,0.2) 0%, rgba(27,20,74,0.95) 100%)",
         border: "1px solid rgba(131,127,251,0.4)",
@@ -105,7 +105,7 @@ export default function TestimonialsSection({ hideHeader = false }: { hideHeader
       {/* header */}
       {!hideHeader && (
         <motion.div
-          className="text-center pt-24 pb-6 relative z-10"
+          className="text-center pt-16 sm:pt-20 md:pt-24 pb-6 px-4 relative z-10"
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -133,7 +133,7 @@ export default function TestimonialsSection({ hideHeader = false }: { hideHeader
       )}
 
       {/* full-screen 3D marquee */}
-      <ThreeDMarquee items={cardItems} className="h-[100vh]" />
+      <ThreeDMarquee items={cardItems} className="h-[70vh] sm:h-[80vh] md:h-[100vh]" />
     </section>
   );
 }

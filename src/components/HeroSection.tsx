@@ -56,13 +56,13 @@ export default function HeroSection() {
 
         {/* ── Left: Text ────────────────────────────────────────────── */}
         <div className="w-full lg:w-[48%] xl:w-[44%] flex flex-col justify-center items-center lg:items-start text-center lg:text-left
-                        pt-40 md:pt-48 lg:pt-32 pb-16 px-6 md:px-14 lg:pl-20 lg:pr-12
+                        pt-24 sm:pt-32 md:pt-44 lg:pt-32 pb-12 sm:pb-16 px-5 sm:px-8 md:px-14 lg:pl-20 lg:pr-12
                         shrink-0 relative z-10">
 
           <div
-            className="inline-flex w-fit glass px-4 py-2 mb-8
+            className="inline-flex w-fit glass px-3 sm:px-4 py-1.5 sm:py-2 mb-6 sm:mb-8
                        tracking-wider uppercase rounded-full
-                       border border-[#837FFB]/25"
+                       border border-[#837FFB]/25 text-[10px] sm:text-xs"
             style={textStyleToCss(content.badgeStyle, DEFAULT_BADGE_STYLE)}
           >
             {content.badge}
@@ -98,7 +98,7 @@ export default function HeroSection() {
           </h1>
 
           <p
-            className="max-w-md mb-10 leading-relaxed"
+            className="max-w-md mb-8 sm:mb-10 leading-relaxed text-sm sm:text-base"
             style={textStyleToCss(content.descriptionStyle, DEFAULT_DESCRIPTION_STYLE)}
           >
             {content.description}
@@ -110,8 +110,9 @@ export default function HeroSection() {
             </PremiumButton>
             <Link
               to="/services"
-              className="glass-hover px-10 py-3 rounded-full
-                         text-center hover:text-[#837FFB] transition-all
+              className="glass-hover w-full sm:w-auto px-8 sm:px-10 py-3.5 sm:py-3 rounded-full
+                         text-center hover:text-[#837FFB] transition-all min-h-[44px]
+                         flex items-center justify-center
                          text-[11px] font-black uppercase tracking-[0.25em]"
               style={textStyleToCss(content.ctaSecondaryStyle, DEFAULT_CTA_SECONDARY_STYLE)}
             >
@@ -120,7 +121,7 @@ export default function HeroSection() {
           </div>
 
           {/* Stats — now driven by Firestore content */}
-          <div className="flex flex-wrap justify-center lg:justify-start gap-8 md:gap-10 mt-12 pt-8 border-t border-white/10 w-full">
+          <div className="flex flex-wrap justify-center lg:justify-start gap-6 sm:gap-8 md:gap-10 mt-10 sm:mt-12 pt-6 sm:pt-8 border-t border-white/10 w-full">
             {content.stats.map((stat) => (
               <div key={stat.label}>
                 <div
@@ -141,7 +142,7 @@ export default function HeroSection() {
         </div>
 
         {/* ── Right: Spline 3D robot ──────────────────────────── */}
-        <div className="flex-1 relative min-h-[500px] lg:min-h-0">
+        <div className="flex-1 relative min-h-[320px] sm:min-h-[400px] md:min-h-[480px] lg:min-h-0">
           <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-px
                           bg-gradient-to-b from-transparent via-[#837FFB]/25 to-transparent z-20" />
 
@@ -167,7 +168,7 @@ export default function HeroSection() {
         </div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2">
+      <div className="hidden sm:flex absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex-col items-center gap-2">
         <span className="text-xs text-gray-500 tracking-widest uppercase font-bold">Scroll</span>
         <div className="w-px h-8 bg-gradient-to-b from-[#837FFB]/60 to-transparent animate-pulse-glow" />
       </div>

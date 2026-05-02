@@ -97,11 +97,11 @@ export default function IndustriesSection() {
       </div>
 
       {/* ── content ── */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
 
         {/* header */}
         <motion.div
-          className="text-center mb-20"
+          className="text-center mb-10 sm:mb-14 md:mb-20"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -137,7 +137,7 @@ export default function IndustriesSection() {
         </motion.div>
 
         {/* 2-column: globe + accordion */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1.25fr_1fr] gap-8 xl:gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.25fr_1fr] gap-6 sm:gap-8 xl:gap-12 items-center">
 
           {/* ── LEFT — globe with parallax ── */}
           <motion.div
@@ -158,7 +158,7 @@ export default function IndustriesSection() {
 
           {/* ── RIGHT — accordion ── */}
           <motion.div
-            className="flex flex-col gap-5 lg:pl-12 xl:pl-20"
+            className="flex flex-col gap-3 sm:gap-4 lg:gap-5 lg:pl-12 xl:pl-20"
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -224,7 +224,7 @@ export default function IndustriesSection() {
                         )}
 
                         {/* header row */}
-                        <div className="flex items-center gap-6 px-9 py-7">
+                        <div className="flex items-center gap-4 sm:gap-6 px-5 sm:px-7 lg:px-9 py-5 sm:py-6 lg:py-7">
                           {/* icon */}
                           <CardItem translateZ={50}>
                             <div
@@ -246,7 +246,7 @@ export default function IndustriesSection() {
                           <CardItem translateZ={40} className="flex-1 min-w-0">
                             <div>
                               <p
-                                className="font-bold text-[19px] leading-none transition-colors duration-300"
+                                className="font-bold text-[15px] sm:text-[17px] lg:text-[19px] leading-none transition-colors duration-300"
                                 style={{ color: isActive ? "#fff" : "rgba(255,255,255,0.75)" }}
                               >
                                 {ind.label}
@@ -285,7 +285,7 @@ export default function IndustriesSection() {
                             >
                               <CardItem translateZ={20}>
                                 <p
-                                  className="px-9 pb-7 text-[15px] leading-relaxed pl-[5.5rem]"
+                                  className="px-5 sm:px-7 lg:px-9 pb-5 sm:pb-6 lg:pb-7 text-[13px] sm:text-[14px] lg:text-[15px] leading-relaxed pl-[4rem] sm:pl-[4.75rem] lg:pl-[5.5rem]"
                                   style={{ color: "rgba(255,255,255,0.65)" }}
                                 >
                                   {ind.desc}

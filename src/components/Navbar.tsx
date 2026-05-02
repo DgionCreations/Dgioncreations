@@ -41,7 +41,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-4 md:top-8 left-0 right-0 z-50 flex justify-center w-full px-4 md:px-6">
+    <nav className="fixed top-3 sm:top-4 md:top-8 left-0 right-0 z-50 flex justify-center w-full px-3 sm:px-4 md:px-6">
       <LiquidGlassFilter />
       <motion.div
         onMouseMove={handleMouseMove}
@@ -54,13 +54,13 @@ export default function Navbar() {
         className="w-full"
       >
         {/* Main Body - Stretched Oval with background RESTORED for readability */}
-        <div className="relative w-full px-5 md:px-10 py-2 bg-[#22175A]/80 backdrop-blur-3xl rounded-[100px] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-center justify-between min-h-[70px] md:min-h-[80px]">
-          
+        <div className="relative w-full px-4 sm:px-5 md:px-10 py-2 bg-[#22175A]/80 backdrop-blur-3xl rounded-[100px] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-center justify-between min-h-[60px] sm:min-h-[70px] md:min-h-[80px]">
+
           {/* Logo Section - New Dgion Logo */}
-          <Link to={data.logoHref} className="flex items-center group shrink-0 min-w-[100px] md:min-w-[120px]">
+          <Link to={data.logoHref} className="flex items-center group shrink-0">
             <motion.span
               whileHover={{ scale: 1.05 }}
-              className="text-white tracking-tight text-xl md:text-2xl"
+              className="text-white tracking-tight text-base sm:text-xl md:text-2xl whitespace-nowrap"
               style={textStyleToCss(data.logoStyle)}
             >
               {data.logoText}
@@ -83,24 +83,29 @@ export default function Navbar() {
           </div>
  
           {/* Action Button - Right Corner */}
-          <div className="hidden md:flex items-center justify-end gap-4 shrink-0 relative z-20 min-w-[150px] md:min-w-[180px]">
+          <div className="hidden md:flex items-center justify-end gap-4 shrink-0 relative z-20">
             <PremiumButton href={data.ctaHref} className="!h-9 md:!h-10 !px-4 md:!px-5 whitespace-nowrap text-xs md:text-sm">
               {data.ctaText}
             </PremiumButton>
           </div>
 
-          {/* Mobile Toggle */}
-          <button onClick={() => setOpen(!open)} className="xl:hidden text-white p-2">
+          {/* Mobile Toggle — 44pt minimum touch target */}
+          <button
+            onClick={() => setOpen(!open)}
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            className="xl:hidden text-white p-2 -mr-1 inline-flex items-center justify-center min-w-[44px] min-h-[44px] rounded-full hover:bg-white/5 active:bg-white/10 transition-colors"
+          >
             {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
 
         {/* Mobile Menu */}
         {open && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: -20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            className="absolute top-full left-0 right-0 mt-4 bg-[#22175A]/98 backdrop-blur-3xl rounded-[50px] border border-[#837FFB]/20 p-10 flex flex-col gap-6 shadow-2xl z-[100]"
+            className="absolute top-full left-0 right-0 mt-3 sm:mt-4 bg-[#22175A]/98 backdrop-blur-3xl rounded-[28px] sm:rounded-[40px] border border-[#837FFB]/20 p-5 sm:p-7 md:p-10 flex flex-col gap-2 sm:gap-3 shadow-2xl z-[100]"
           >
             {(data.links.some(l => l.href === "/reviews") 
               ? data.links 
@@ -110,18 +115,18 @@ export default function Navbar() {
                 key={l.label}
                 to={l.href}
                 onClick={() => setOpen(false)}
-                className="transition-colors py-3 font-black text-xl flex justify-between items-center"
+                className="transition-colors py-3 sm:py-4 font-black text-base sm:text-lg md:text-xl flex justify-between items-center min-h-[44px]"
                 style={textStyleToCss(data.linksStyle)}
               >
                 {l.label}
                 <span className="opacity-30">→</span>
               </Link>
             ))}
-            <div className="flex flex-col gap-4 pt-6 border-t border-white/10">
+            <div className="flex flex-col gap-4 pt-4 sm:pt-6 mt-2 border-t border-white/10">
                 <Link
                   to={data.ctaHref}
                   onClick={() => setOpen(false)}
-                  className="glow-button text-center !py-4 rounded-3xl"
+                  className="glow-button text-center !py-3 sm:!py-4 rounded-3xl text-sm sm:text-base"
                   style={textStyleToCss(data.ctaStyle)}
                 >
                   {data.ctaText}
