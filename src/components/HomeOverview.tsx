@@ -130,8 +130,8 @@ export default function HomeOverview() {
         </motion.div>
       </div>
 
-      {/* Pinned stack - Adjusted height for mobile */}
-      <div ref={pinRef} className="relative h-[80vh] md:h-screen overflow-hidden mt-20 md:mt-0">
+      {/* Pinned stack - Adjusted height for better vertical balance */}
+      <div ref={pinRef} className="relative h-[75vh] md:h-[85vh] overflow-hidden mt-12 md:mt-20">
         <div ref={stackRef} className="absolute inset-0">
           {items.map((item, i) => {
             const textLeft = i % 2 === 0;
@@ -153,7 +153,7 @@ export default function HomeOverview() {
               <article
                 key={item.id}
                 data-section
-                className="group absolute inset-0 w-full h-full p-2 md:p-12 lg:p-16"
+                className="group absolute inset-0 w-full h-full p-4 md:p-16 lg:p-20"
                 style={{ 
                   zIndex: i + 1, 
                   willChange: "transform, opacity",
