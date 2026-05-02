@@ -385,7 +385,7 @@ export default function ContactSection() {
         </span>
 
         {/* Right — animated form */}
-        <span className="w-1/2 min-h-screen flex flex-col justify-center items-center max-lg:w-full max-lg:px-[8%] py-16">
+        <span className="w-1/2 min-h-screen flex flex-col justify-center items-center max-lg:w-full max-lg:px-5 sm:max-lg:px-8 md:max-lg:px-12 max-lg:pt-28 max-lg:pb-20 py-16">
           <AnimatedForm
             {...formFields}
             onSubmit={handleSubmit}
@@ -395,7 +395,7 @@ export default function ContactSection() {
       </div>
 
       {/* decorative send icon floating bottom right */}
-      <div className="absolute bottom-10 right-10 z-10 opacity-10 pointer-events-none">
+      <div className="hidden md:block absolute bottom-10 right-10 z-10 opacity-10 pointer-events-none">
         <Send className="w-40 h-40 text-[#837FFB]" />
       </div>
 
@@ -404,7 +404,7 @@ export default function ContactSection() {
         className="relative z-10 w-full"
         style={{ background: "linear-gradient(180deg, #1B1A4E 0%, #13113A 100%)" }}
       >
-        <div className="w-full max-w-7xl mx-auto px-6 lg:px-10 py-20">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-16 md:py-20">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -444,7 +444,7 @@ export default function ContactSection() {
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             allowFullScreen
-            className="w-full h-[420px] md:h-[500px] block"
+            className="w-full h-[280px] sm:h-[360px] md:h-[440px] lg:h-[500px] block"
             style={{ border: 0, filter: "saturate(1.1) contrast(1.05)" }}
           />
 

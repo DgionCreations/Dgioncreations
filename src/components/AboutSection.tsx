@@ -115,16 +115,14 @@ export default function AboutSection() {
     <section
       ref={sectionRef}
       id="about"
-      className="relative overflow-hidden"
+      className="relative overflow-hidden py-16 sm:py-20 md:py-[100px]"
       style={{
         background: "linear-gradient(160deg, hsl(var(--background)) 0%, #0D0B24 50%, hsl(var(--background)) 100%)",
-        paddingTop: 100,
-        paddingBottom: 100,
       }}
     >
       {/* Header — one-shot entrance, not scroll-tied. Framer-motion is fine here. */}
       <motion.div
-        className="text-center mb-16 relative z-20 px-6"
+        className="text-center mb-10 sm:mb-12 md:mb-16 relative z-20 px-5 sm:px-6"
         initial={{ opacity: 0, y: 28 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -158,7 +156,51 @@ export default function AboutSection() {
         </p>
       </motion.div>
 
-      <div className="relative max-w-4xl mx-auto px-6">
+      {/* ── Mobile vertical timeline (md and below) ── */}
+      <div className="md:hidden relative max-w-xl mx-auto px-5 sm:px-6">
+        <div className="absolute left-[18px] top-2 bottom-2 w-px bg-gradient-to-b from-[#837FFB]/60 via-[#837FFB]/30 to-transparent" />
+        <ol className="space-y-10 sm:space-y-12">
+          {timeline.map((item, i) => (
+            <motion.li
+              key={i}
+              className="relative pl-12"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.5, delay: i * 0.05, ease }}
+            >
+              <span
+                className="absolute left-0 top-1.5 w-[18px] h-[18px] rounded-full flex items-center justify-center"
+                style={{ background: "#837FFB", boxShadow: "0 0 16px rgba(131,127,251,0.6)" }}
+              >
+                <span className="w-2 h-2 rounded-full bg-white" />
+              </span>
+              <p className="font-mono font-black text-xl tracking-tighter text-[#837FFB]">
+                {item.year}
+              </p>
+              <h3
+                className="text-white font-bold mt-1.5 leading-tight text-lg"
+                style={textStyleToCss(item.titleStyle || data.spiralItemTitleStyle)}
+              >
+                {item.title}
+              </h3>
+              <p
+                className="text-white/55 leading-relaxed mt-2 text-sm"
+                style={textStyleToCss(item.descStyle || data.spiralItemDescStyle)}
+              >
+                {item.desc}
+              </p>
+              {item.images && item.images.length > 0 && (
+                <div className="mt-4 -mx-1">
+                  <CreativeCarousel images={item.images} autoplay={true} showPagination={true} />
+                </div>
+              )}
+            </motion.li>
+          ))}
+        </ol>
+      </div>
+
+      <div className="hidden md:block relative max-w-4xl mx-auto px-6">
         <svg
           className="absolute left-0 top-0 w-full h-full pointer-events-none z-0"
           preserveAspectRatio="none"

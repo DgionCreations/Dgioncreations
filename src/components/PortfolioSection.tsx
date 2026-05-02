@@ -57,16 +57,16 @@ export default function PortfolioSection() {
   return (
     <section
       id="portfolio"
-      className="relative bg-[#0A0818] overflow-hidden py-24"
+      className="relative bg-[#0A0818] overflow-hidden py-16 sm:py-20 md:py-24"
     >
       {/* Ambient glows */}
       <div className="pointer-events-none absolute top-0 right-0 w-[600px] h-[600px] bg-[#837FFB]/10 rounded-full blur-[180px]" />
       <div className="pointer-events-none absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#5B57F5]/8 rounded-full blur-[120px]" />
 
       {/* Section header */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
         <motion.div
-          className="text-center mb-20"
+          className="text-center mb-10 sm:mb-14 md:mb-20"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -75,7 +75,7 @@ export default function PortfolioSection() {
           <span className="text-[#837FFB] text-sm font-bold tracking-[0.3em] uppercase">
             Portfolio
           </span>
-          <h2 className="mt-4 text-white text-4xl md:text-5xl font-bold">
+          <h2 className="mt-3 sm:mt-4 text-white text-3xl sm:text-4xl md:text-5xl font-bold">
             Our{" "}
             <span className="text-[#837FFB] drop-shadow-[0_0_20px_rgba(131,127,251,0.5)]">
               Work
@@ -264,7 +264,7 @@ export default function PortfolioSection() {
       </div>
 
       {/* ── Mobile ScrollStack Gallery ── */}
-      <div className="lg:hidden w-full h-[85vh] relative px-4">
+      <div className="lg:hidden w-full h-[70vh] sm:h-[78vh] md:h-[85vh] relative px-3 sm:px-4">
         <ScrollStack 
           className="w-full h-full"
           itemDistance={30}

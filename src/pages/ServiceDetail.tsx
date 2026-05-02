@@ -222,7 +222,7 @@ export default function ServiceDetail() {
                   <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/30">Service Detail</span>
                 </div>
 
-                <h1 className="text-6xl md:text-8xl font-bold leading-[0.9] tracking-tighter mb-8 italic">
+                <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold leading-[0.9] tracking-tighter mb-6 sm:mb-8 italic">
                   {service.full.split(' ').map((word, i) => (
                     <span key={i} className="inline-block mr-4">
                       {word === 'SEO' || word === 'Search' ? <span style={{ color: service.color }}>{word}</span> : word}

@@ -307,13 +307,13 @@ export default function ProcessSection() {
   return (
     <section
       id="process"
-      className="relative overflow-hidden py-28"
+      className="relative overflow-hidden py-16 sm:py-20 md:py-28"
       style={{ background: "#08061A" }}
     >
       <ProcessThreeDBackground />
-      <div className="relative z-10 max-w-6xl mx-auto px-6 lg:px-10">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-10">
         <motion.div
-          className="text-center mb-20"
+          className="text-center mb-10 sm:mb-14 md:mb-20"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -367,7 +367,7 @@ export default function ProcessSection() {
           ))}
         </div>
 
-        <div className="lg:hidden flex flex-col gap-6">
+        <div className="lg:hidden flex flex-col gap-4 sm:gap-5 md:gap-6">
           {steps.map((step, i) => {
             const Icon = resolveIcon(step.iconKey);
             return (
@@ -427,7 +427,7 @@ export default function ProcessSection() {
         </div>
 
         <motion.div
-          className="flex flex-wrap justify-center gap-4 mt-16"
+          className="flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4 mt-10 sm:mt-12 md:mt-16"
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -436,7 +436,7 @@ export default function ProcessSection() {
           {data.badges.map((label) => (
             <div
               key={label}
-              className="px-6 py-2.5 rounded-full text-sm font-semibold text-white/70"
+              className="px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 md:py-2.5 rounded-full text-xs sm:text-sm font-semibold text-white/70"
               style={{
                 background: "rgba(255,255,255,0.04)",
                 border: "1px solid rgba(131,127,251,0.2)",

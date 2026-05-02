@@ -271,7 +271,7 @@ export default function Services() {
             </div>
 
             <h1
-              className="text-7xl md:text-9xl font-bold leading-[0.85] tracking-tighter italic mb-8"
+              className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-bold leading-[0.85] tracking-tighter italic mb-6 sm:mb-8"
               style={textStyleToCss(data.heroHeadlineStyle, DEFAULT_HERO_HEADLINE_STYLE)}
             >
               {data.heroHeadlineLine1.includes("**") ? (

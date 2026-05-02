@@ -175,7 +175,7 @@ export default function ClientsSection() {
   return (
     <section
       id="clients"
-      className="relative overflow-hidden py-28"
+      className="relative overflow-hidden py-16 sm:py-20 md:py-28"
       style={{
         background: "linear-gradient(160deg, #1B1A4E 0%, #13113A 50%, #1B1A4E 100%)",
       }}
@@ -186,7 +186,7 @@ export default function ClientsSection() {
         <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] rounded-full bg-[#5B57F5]/12 blur-[120px]" />
       </div>
 
-      <div className="relative z-10 w-full px-6 lg:px-10">
+      <div className="relative z-10 w-full px-4 sm:px-6 lg:px-10">
         {/* header */}
         <motion.span
           className="block tracking-[0.3em] uppercase mb-4"
@@ -230,7 +230,7 @@ export default function ClientsSection() {
 
         {/* clip-path link grid — full width */}
         <motion.div
-          className="mt-16 divide-y border divide-white/10 border-white/10 overflow-hidden backdrop-blur-sm"
+          className="mt-10 sm:mt-12 md:mt-16 divide-y border divide-white/10 border-white/10 overflow-hidden backdrop-blur-sm"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

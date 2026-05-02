@@ -1,7 +1,6 @@
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { StatCounter } from "@/components/ui/StatCounter";
 import { useContent } from "@/lib/use-content";
 import {
   EXPLORE_CONTENT_KEY,
@@ -57,8 +56,6 @@ export default function HomeOverview() {
         </motion.div>
       </div>
 
-
-
       {/* Single Unified Circular Gallery for all items */}
       <div className="flex-grow relative flex items-center justify-center">
         <div className="absolute inset-0 flex items-center justify-center">
@@ -66,7 +63,7 @@ export default function HomeOverview() {
              <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-[150px] opacity-20 animate-pulse bg-[#837FFB]/30" />
              <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full blur-[180px] opacity-10 bg-white/5" />
 
-             <div className="relative w-full h-[700px] md:h-[800px] mt-20 md:mt-32">
+             <div className="relative w-full h-[600px] md:h-[700px] mt-20 md:mt-32">
                 <CircularGallery 
                   bend={1.2} 
                   textColor="#ffffff" 
