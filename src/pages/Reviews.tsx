@@ -91,7 +91,7 @@ export default function Reviews() {
             </div>
 
             <h1
-              className="text-5xl md:text-8xl font-bold tracking-tighter leading-[1.1] mb-10 italic"
+              className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[1.1] mb-8 sm:mb-10 italic"
               style={textStyleToCss(data.heroTitleStyle, DEFAULT_TESTIMONIALS_TITLE_STYLE)}
             >
               {data.heroTitle.includes("**") ? (

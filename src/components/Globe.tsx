@@ -450,7 +450,7 @@ export default function Globe({
   return (
     <div
       ref={wrapperRef}
-      className="w-full h-[500px] md:h-[620px] relative"
+      className="w-full h-[320px] sm:h-[400px] md:h-[520px] lg:h-[620px] relative"
       style={{ overflow: "visible" }}
     >
       {!webglOk ? (

@@ -79,7 +79,7 @@ export default function AIAgent() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-[9999] font-sans">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[9999] font-sans" style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
       <AnimatePresence>
         {!isOpen && (
           <motion.button
@@ -100,9 +100,9 @@ export default function AIAgent() {
             animate={{ y: 0, opacity: 1, scale: 1 }}
             exit={{ y: 100, opacity: 0, scale: 0.9 }}
             className={`bg-[#0D0B24]/90 backdrop-blur-xl border border-white/10 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden flex flex-col transition-all duration-300 ${
-              isMinimized 
-                ? "h-16 w-64 md:w-72" 
-                : "h-[500px] w-[calc(100vw-2.5rem)] md:w-96"
+              isMinimized
+                ? "h-16 w-[calc(100vw-2rem)] max-w-xs md:w-72"
+                : "h-[min(70vh,500px)] w-[calc(100vw-2rem)] max-w-sm md:w-96"
             }`}
           >
             {/* Header */}

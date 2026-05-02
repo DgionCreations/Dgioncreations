@@ -17,9 +17,9 @@ const industries = [
 
 export default function EngagementSection() {
   return (
-    <section className="py-24 bg-[#08061A] overflow-hidden">
-      <div className="max-w-[85rem] mx-auto px-6 lg:px-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-8 items-center">
+    <section className="py-16 sm:py-20 md:py-24 bg-[#08061A] overflow-hidden">
+      <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-8 items-center">
           
           {/* Left Column: What you get */}
           <div>
@@ -29,15 +29,15 @@ export default function EngagementSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <h3 className="text-[#837FFB] font-bold text-base tracking-[0.2em] uppercase mb-5">
+              <h3 className="text-[#837FFB] font-bold text-sm sm:text-base tracking-[0.2em] uppercase mb-4 sm:mb-5">
                 What you get
               </h3>
-              <h2 className="text-5xl md:text-6xl font-bold text-white mb-14 tracking-tight leading-[1.1]">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-10 sm:mb-12 lg:mb-14 tracking-tight leading-[1.1]">
                 Every engagement<br />includes
               </h2>
             </motion.div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 lg:gap-5">
               {features.map((feature, idx) => (
                 <motion.div
                   key={idx}
@@ -45,14 +45,14 @@ export default function EngagementSection() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  className="flex items-start gap-4 p-6 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-colors"
+                  className="flex items-start gap-3 sm:gap-4 p-4 sm:p-5 lg:p-6 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-colors"
                 >
                   <div className="mt-0.5 shrink-0">
                     <div className="w-6 h-6 rounded-full border border-[#837FFB]/50 flex items-center justify-center bg-[#837FFB]/10">
                       <CheckCircle2 className="w-4 h-4 text-[#837FFB]" />
                     </div>
                   </div>
-                  <p className="text-base text-white/80 leading-snug font-medium">
+                  <p className="text-sm sm:text-base text-white/80 leading-snug font-medium">
                     {feature}
                   </p>
                 </motion.div>
@@ -84,31 +84,31 @@ export default function EngagementSection() {
                 }}
               />
 
-              <div className="relative pt-24 pb-12 px-10">
-                <h4 className="text-white/60 font-bold text-sm tracking-[0.2em] uppercase mb-4">
+              <div className="relative pt-20 sm:pt-24 pb-8 sm:pb-12 px-6 sm:px-8 lg:px-10">
+                <h4 className="text-white/60 font-bold text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 sm:mb-4">
                   Where we play
                 </h4>
-                <h3 className="text-5xl text-white font-bold italic tracking-tight mb-5 drop-shadow-md">
+                <h3 className="text-3xl sm:text-4xl lg:text-5xl text-white font-bold italic tracking-tight mb-4 sm:mb-5 drop-shadow-md">
                   Industries we serve
                 </h3>
-                <p className="text-white/80 text-base leading-relaxed mb-10">
+                <p className="text-white/80 text-sm sm:text-base leading-relaxed mb-8 sm:mb-10">
                   Our services adapt to sector-specific requirements—regulatory, scale, UX—without losing speed.
                 </p>
 
-                <div className="flex flex-wrap gap-3.5 mb-12">
+                <div className="flex flex-wrap gap-2 sm:gap-3 lg:gap-3.5 mb-8 sm:mb-10 lg:mb-12">
                   {industries.map((ind) => (
-                    <div 
+                    <div
                       key={ind}
-                      className="px-5 py-2.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md shadow-inner text-[15px] font-medium text-white"
+                      className="px-3 sm:px-4 lg:px-5 py-1.5 sm:py-2 lg:py-2.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md shadow-inner text-xs sm:text-sm lg:text-[15px] font-medium text-white"
                     >
                       {ind}
                     </div>
                   ))}
                 </div>
 
-                <button className="bg-white text-[#4f46e5] font-bold text-sm tracking-wider uppercase px-8 py-4 rounded-full flex items-center gap-2 hover:bg-white/90 transition-colors shadow-xl">
+                <button className="bg-white text-[#4f46e5] font-bold text-xs sm:text-sm tracking-wider uppercase px-6 sm:px-8 py-3 sm:py-4 rounded-full inline-flex items-center gap-2 hover:bg-white/90 transition-colors shadow-xl min-h-[44px]">
                   Explore all industries
-                  <ArrowUpRight className="w-5 h-5 stroke-[3]" />
+                  <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[3]" />
                 </button>
               </div>
 

@@ -71,6 +71,30 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  /* Prevent any single component from causing horizontal scroll on mobile */
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Honour iOS safe areas (notch / home-indicator) without forcing them everywhere */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+/* Default media — never overflow their container on small screens */
+img, video, canvas, svg {
+  max-width: 100%;
+}
+
+/* Ensure interactive elements meet Apple HIG 44pt minimum on touch */
+@media (pointer: coarse) {
+  button, a[role="button"], [type="button"], [type="submit"] {
+    min-height: 44px;
+  }
 }
 
 p {
@@ -235,6 +259,11 @@ code, pre, kbd, samp {
     font-size: 87.5%;
   }
 
+  /* Tighten root size on tiny phones so content breathes inside 320–375px viewports */
+  @media (max-width: 375px) {
+    html { font-size: 81.25%; }
+  }
+
   @media (min-width: 1536px) {
     html { font-size: 93.75%; }
   }
@@ -290,7 +319,7 @@ code, pre, kbd, samp {
   }
 
   .section-padding {
-    @apply py-24 px-6 md:px-12 lg:px-20;
+    @apply py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-12 lg:px-20;
   }
 
   /* Custom cursor */
