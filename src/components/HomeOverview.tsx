@@ -17,6 +17,7 @@ import {
 } from "@/content/explore";
 import { textStyleToCss } from "@/content/typography";
 import { MarkupText } from "@/lib/markup-text";
+import CircularGallery from "@/components/ui/CircularGallery";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -166,39 +167,32 @@ export default function HomeOverview() {
                   "--marker-fg": markerFg
                 } as React.CSSProperties}
               >
-                <div className="absolute inset-0 flex items-center justify-center p-6 md:p-16 lg:p-24">
+                <div className="absolute inset-0 flex items-center justify-center">
                   {/* Floating Glow Blobs */}
                   <div className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full blur-[120px] opacity-20 animate-pulse" style={{ background: item.tint }} />
                   <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full blur-[150px] opacity-10" style={{ background: "#837FFB" }} />
 
                   <div
                     data-img-frame
-                    className="relative h-full w-full rounded-3xl md:rounded-[40px] overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.7)] border border-white/10 backdrop-blur-sm bg-black/20"
+                    className="relative w-full h-[600px] md:h-[700px] overflow-hidden"
                   >
-                    <div
-                      data-img
-                      className="will-change-transform"
-                      style={{
-                        backgroundImage: `url(${item.image})`,
-                        backgroundSize: "contain",
-                        backgroundRepeat: "no-repeat",
-                        backgroundPosition: "center center",
-                        transformOrigin: "center center",
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        width: "100%",
-                        height: "100%",
-                      }}
+                    <CircularGallery 
+                      bend={3} 
+                      textColor="#ffffff" 
+                      borderRadius={0.05} 
+                      scrollEase={0.02}
+                      items={[
+                        { image: item.image, text: item.title },
+                        { image: item.image, text: "Explore " + item.title },
+                        { image: item.image, text: "Dgion Creative" },
+                        { image: item.image, text: "Innovation" },
+                        { image: item.image, text: "Quality" },
+                      ]}
                     />
 
-                    {/* Premium Glass Gradient Overlays */}
-                    <div className="absolute inset-0 bg-gradient-to-tr from-black/60 via-transparent to-white/5 opacity-40" />
-                    <div className="absolute inset-0 bg-gradient-to-tl from-black/90 via-transparent to-transparent opacity-60" />
-                    
-                    {/* Floating Content Layout */}
-                    <div className="relative z-10 h-full flex items-end justify-end p-8 md:p-16">
-                      <div data-content className="max-w-xl text-right" style={{ willChange: "transform, opacity" }}>
+                    {/* Floating Content Layout Overlay */}
+                    <div className="absolute inset-0 z-10 pointer-events-none flex items-end justify-end p-8 md:p-20">
+                      <div data-content className="max-w-xl text-right" style={{ willChange: "transform, opacity", pointerEvents: "auto" }}>
                         <h3 data-title className="mb-8">
                            <div className="font-sans font-extrabold tracking-tight text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]" style={{ fontSize: "clamp(32px, 5.5vw, 68px)", lineHeight: "1" }}>
                               {item.title}
