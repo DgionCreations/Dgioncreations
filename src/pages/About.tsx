@@ -13,7 +13,7 @@ import { Tilt3DCard } from "@/components/ui/tilt-3d-card";
 import {
   IdentityCardBody,
   RevealCardContainer,
-} from "@/components/ui/animated-profile-card";
+  } from "@/components/ui/animated-profile-card";
 import GalleryHoverCarousel from "@/components/ui/gallery-hover-carousel";
 import { useContent } from "@/lib/use-content";
 import { 
@@ -107,9 +107,9 @@ export default function About() {
 
       {/* HERO */}
       <section className="relative pt-44 pb-24 overflow-hidden z-10">
-        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
-          <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1, ease }} className="max-w-4xl">
-            <div className="flex items-center gap-4 mb-8">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 flex justify-end">
+          <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1, ease }} className="max-w-4xl text-right">
+            <div className="flex items-center justify-end gap-4 mb-8">
               <div 
                 className="px-4 py-1.5 rounded-full font-bold uppercase tracking-[0.3em] bg-white/5 border border-white/10"
                 style={textStyleToCss(data.heroKickerStyle)}
@@ -154,13 +154,13 @@ export default function About() {
             </h1>
             
             <p 
-              className="mt-10 text-white/50 leading-relaxed max-w-2xl font-medium mb-12"
+              className="mt-10 text-white/50 leading-relaxed max-w-2xl font-medium mb-12 ml-auto"
               style={textStyleToCss(data.heroDescStyle)}
             >
               {data.heroDesc}
             </p>
             
-            <div className="flex flex-wrap gap-5">
+            <div className="flex flex-wrap gap-5 justify-end">
               <Link to="/contact" className="group relative inline-flex items-center gap-3 px-10 py-5 bg-[#837FFB] text-white rounded-full font-bold text-lg hover:scale-105 active:scale-95 transition-all shadow-[0_20px_50px_rgba(131,127,251,0.3)] overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-[#837FFB] to-[#5B57F5] group-hover:opacity-90 transition-opacity" />
                 <span className="relative z-10">Meet the Team</span>
@@ -226,8 +226,6 @@ export default function About() {
           />
         </div>
       </section>
-
-
 
       {/* CTA */}
       <section className="relative py-40 z-10">
@@ -328,8 +326,6 @@ function TimelineWithGlider({ milestones, titleStyle, descStyle }: { milestones:
             >
               {m.desc}
             </p>
-
-
           </div>
         </div>
       ))}
