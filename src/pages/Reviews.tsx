@@ -83,8 +83,8 @@ export default function Reviews() {
           >
             <div className="flex items-center justify-center gap-4 mb-8">
               <div 
-                className="px-4 py-1.5 rounded-full font-bold uppercase tracking-[0.3em] bg-white/5 border border-white/10"
-                style={textStyleToCss(data.heroKickerStyle, DEFAULT_TESTIMONIALS_KICKER_STYLE)}
+                className="px-6 py-2 rounded-full font-bold uppercase tracking-[0.3em] bg-[#837FFB]/10 border border-[#837FFB]/30 shadow-[0_0_30px_rgba(131,127,251,0.15)] backdrop-blur-sm text-white"
+                style={textStyleToCss(data.heroKickerStyle, { ...DEFAULT_TESTIMONIALS_KICKER_STYLE, color: "#FFFFFF" })}
               >
                 {data.heroKicker}
               </div>

@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Link, Zap } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -242,13 +243,23 @@ export default function RadialOrbitalTimeline({
 
                 <div
                   className={`
-                  absolute top-12 left-1/2 -translate-x-1/2 whitespace-nowrap
-                  text-xs font-semibold tracking-wider
+                  absolute top-12 left-1/2 -translate-x-1/2 whitespace-nowrap flex flex-col items-center
                   transition-all duration-300
-                  ${isExpanded ? "text-white scale-125" : "text-white/70"}
+                  ${isExpanded ? "text-white scale-110" : "text-white/70"}
                 `}
                 >
-                  {item.title}
+                  <span className="text-xs font-semibold tracking-wider">
+                    {item.title}
+                  </span>
+                  {!isExpanded && (
+                    <motion.span
+                      animate={{ opacity: [0.6, 1.0, 0.6] }}
+                      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                      className="text-[8px] uppercase tracking-[0.25em] text-[#837FFB] mt-1 font-display italic font-bold"
+                    >
+                      Click here
+                    </motion.span>
+                  )}
                 </div>
 
                 {isExpanded && (

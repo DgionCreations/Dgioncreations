@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -42,6 +42,12 @@ import AIAgent from "./components/AIAgent.tsx";
 
 const queryClient = new QueryClient();
 
+const AIAgentWrapper = () => {
+  const { pathname } = useLocation();
+  if (pathname.startsWith("/admin")) return null;
+  return <AIAgent />;
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -50,7 +56,6 @@ const App = () => (
       {/* AuthProvider wraps everything — exposes the current Firebase user to
           admin pages AND to public pages (e.g. to show an "Edit" overlay later). */}
       <AuthProvider>
-        <AIAgent />
         <SmoothScrollProvider>
           <BrowserRouter
             future={{
@@ -58,6 +63,7 @@ const App = () => (
               v7_relativeSplatPath: true,
             }}
           >
+            <AIAgentWrapper />
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/services" element={<Services />} />

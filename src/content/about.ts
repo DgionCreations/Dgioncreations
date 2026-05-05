@@ -57,6 +57,9 @@ export interface AboutContent {
   spiralTimeline: TimelineItem[];
 
   // Vertical Journey Timeline (glider)
+  journeyKicker?: string;
+  journeyTitle?: string;
+  journeyDesc?: string;
   journeyItemTitleStyle?: TextStyle;
   journeyItemDescStyle?: TextStyle;
   journeyTimeline: TimelineItem[];
@@ -247,15 +250,34 @@ export const defaultAboutContent: AboutContent = {
     },
   ],
 
+  journeyKicker: "OUR MILESTONES",
+  journeyTitle: "The **Journey.**",
+  journeyDesc: "From a small creative studio to a global innovation partner.",
   journeyTimeline: [
-    { year: "Q1 2024", title: "Dgion Established", desc: "Dgion was founded with a vision to bridge the gap between elite design and high-scale engineering." },
-    { year: "Q2 2024", title: "First Legacy Project", desc: "Successfully delivered our first major e-commerce transformation for a global luxury brand." },
-    { year: "Q3 2024", title: "Studio Expansion", desc: "Moved into our flagship digital studio and doubled our core engineering and design teams." },
-    { year: "Q4 2024", title: "Innovation Lab", desc: "Launched Dgion Labs, an internal R&D division focused on Generative AI and WebGL performance." },
-    { year: "Q1 2025", title: "Global Partnerships", desc: "Established strategic alliances with leading tech providers to scale our delivery capabilities." },
-    { year: "Q2 2025", title: "Award Wins", desc: "Recognized as 'Rising Agency of the Year' at the International Digital Excellence Awards." },
-    { year: "Q3 2025", title: "Product Launch", desc: "Released our first internal SaaS tool designed for elite creative agencies." },
-    { year: "Q4 2025", title: "Scale at Speed", desc: "Reached a milestone of 50+ successful project deliveries across three continents." },
+    { 
+      year: "2023", 
+      title: "Foundation", 
+      desc: "When the vision for Dgion was first drafted—a studio where elite design and engineering coexist in perfect harmony.",
+      images: ["https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800"]
+    },
+    { 
+      year: "2024", 
+      title: "Expansion", 
+      desc: "Moving into our first dedicated digital studio space to house our growing team of multi-disciplinary specialists.",
+      images: ["https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=800"]
+    },
+    { 
+      year: "2024", 
+      title: "Innovation", 
+      desc: "Launching our internal R&D lab, where we experiment with emerging technologies, WebGL, and advanced AI agents.",
+      images: ["https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800"]
+    },
+    { 
+      year: "2025", 
+      title: "Global Reach", 
+      desc: "Taking on our first international client and establishing Dgion as a premier player on the global innovation stage.",
+      images: ["https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=800"]
+    },
   ],
 
 

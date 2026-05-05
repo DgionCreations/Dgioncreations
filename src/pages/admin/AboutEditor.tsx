@@ -22,9 +22,9 @@ import ImageField from "@/components/admin/ImageField";
 const TABS = [
   { id: "hero",     label: "Hero Section", icon: Type,     hint: "Page title & description" },
   { id: "values",   label: "Core Values",  icon: Sparkles, hint: "Craft, Clarity, Care, Speed" },
-  { id: "spiral",   label: "Spiral Journey", icon: Workflow, hint: "Wavy path with images" },
-  { id: "timeline", label: "Vertical Timeline", icon: Calendar, hint: "Glider milestone track" },
-  { id: "why",      label: "Why Choose",   icon: Workflow, hint: "3 Pillars of excellence" },
+  { id: "spiral",   label: "Behind the Scenes", icon: Workflow, hint: "Wavy spiral path" },
+  { id: "why",      label: "Why Choose DGION",   icon: Target, hint: "3 Pillars of excellence" },
+  { id: "timeline", label: "Our Milestones", icon: Calendar, hint: "Vertical glider track" },
 ] as const;
 
 type TabId = (typeof TABS)[number]["id"];
@@ -474,24 +474,24 @@ export default function AboutEditor() {
               <SectionPanel title="Vertical Timeline" subtitle="Glider track." icon={Calendar}>
                 <FieldGroup legend="Header">
                   <div className="grid grid-cols-2 gap-4">
-                    <Field label="Kicker" value={draft.sectionKicker || ""} onChange={v => setDraft(d => ({ ...d, sectionKicker: v }))} />
-                    <Field label="Highlight Word" value={draft.sectionHighlight || ""} onChange={v => setDraft(d => ({ ...d, sectionHighlight: v }))} />
+                    <Field label="Kicker" value={draft.journeyKicker ?? defaultAboutContent.journeyKicker} onChange={v => setDraft(d => ({ ...d, journeyKicker: v }))} />
                   </div>
-                  <Field label="Title" value={draft.sectionTitle || ""} onChange={v => setDraft(d => ({ ...d, sectionTitle: v }))} multiline />
+                  <Field label="Title (use **word** for highlights)" value={draft.journeyTitle ?? defaultAboutContent.journeyTitle} onChange={v => setDraft(d => ({ ...d, journeyTitle: v }))} multiline />
+                  <Field label="Description" value={draft.journeyDesc ?? defaultAboutContent.journeyDesc} onChange={v => setDraft(d => ({ ...d, journeyDesc: v }))} multiline />
                   <div className="grid grid-cols-3 gap-4 mt-4">
                     <TextStyleEditor 
                       label="Kicker Style" 
                       value={draft.sectionKickerStyle ?? DEFAULT_ABOUT_KICKER_STYLE} 
                       fallback={DEFAULT_ABOUT_KICKER_STYLE}
                       onChange={v => setDraft(d => ({ ...d, sectionKickerStyle: v }))}
-                      previewText={draft.sectionKicker || "Kicker"}
+                      previewText={draft.journeyKicker || "OUR MILESTONES"}
                     />
                     <TextStyleEditor 
                       label="Title Style" 
                       value={draft.sectionTitleStyle ?? DEFAULT_ABOUT_TITLE_STYLE} 
                       fallback={DEFAULT_ABOUT_TITLE_STYLE}
                       onChange={v => setDraft(d => ({ ...d, sectionTitleStyle: v }))}
-                      previewText={draft.sectionTitle || "Section Title"}
+                      previewText={draft.journeyTitle || "The Journey"}
                     />
                     <TextStyleEditor 
                       label="Highlight Style" 

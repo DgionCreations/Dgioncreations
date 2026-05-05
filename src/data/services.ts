@@ -1,6 +1,6 @@
 import {
   Search, Share2, BarChart3, FileText,
-  Fingerprint, Layout, Rocket, LineChart, Brain,
+  Fingerprint, Layout, Rocket, LineChart, Brain, Video
 } from "lucide-react";
 
 const services = [
@@ -262,12 +262,34 @@ const services = [
       { value: "<300ms", label: "Median agent latency" },
     ],
   },
+  {
+    id: "production",
+    title: "Production",
+    full: "Cinematic Digital Production",
+    icon: Video,
+    desc: "High-end video production, motion design, and storytelling that captures attention and drives emotional resonance.",
+    hero: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=1400&h=800&fit=crop",
+    color: "#facc15",
+    overview:
+      "We blend cinematic techniques with digital strategy to create content that doesn't just look good — it performs. From brand films to social-first motion systems, we bring your vision to life through high-end digital production and post-production excellence.",
+    features: [
+      { title: "Brand Storytelling", desc: "Crafting cinematic narratives that define your brand identity and build deep emotional connections with your audience." },
+      { title: "3D & Motion Graphics", desc: "High-end visual effects, 3D animation, and motion design systems that make your digital presence feel alive and premium." },
+      { title: "Post-Production", desc: "Professional editing, color grading, and sound design that ensure your content meets the highest industry standards." },
+      { title: "Social Content Systems", desc: "Batch production of social-first video content designed for maximum engagement on TikTok, Reels, and Shorts." },
+    ],
+    stats: [
+      { value: "40%", label: "Average engagement boost" },
+      { value: "150+", label: "Campaigns delivered" },
+      { value: "12M+", label: "Total views generated" },
+    ],
+  },
 ];
 
 // Display order — AI first, Web & App Solutions (ux) second, then the rest.
 // The raw `services` array keeps its natural definition order so each entry
 // stays grouped with its docs; this lookup just re-slots them for the UI.
-const DISPLAY_ORDER = ["web-design", "web-app", "seo", "smm", "ppc", "content", "brand", "growth", "ai"];
+const DISPLAY_ORDER = ["web-design", "web-app", "seo", "smm", "ppc", "content", "brand", "growth", "ai", "production"];
 const orderedServices = DISPLAY_ORDER
   .map((id) => services.find((s) => s.id === id))
   .filter((s): s is (typeof services)[number] => Boolean(s));

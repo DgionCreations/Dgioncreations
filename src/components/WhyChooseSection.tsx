@@ -267,7 +267,7 @@ export default function WhyChooseSection() {
 
   return (
     <section
-      id="why-choose"
+      id="different"
       className="relative overflow-hidden py-28"
       style={{
         background: "linear-gradient(160deg, #1B1A4E 0%, #13113A 50%, #1B1A4E 100%)",

@@ -31,6 +31,19 @@ export default function TextStyleEditor({
   const clamp = (n: number) =>
     Math.min(MAX_FONT_SIZE, Math.max(MIN_FONT_SIZE, Math.round(n)));
   const patch = (p: Partial<TextStyle>) => onChange({ ...value, ...p });
+  
+  const ensureHex = (color: string) => {
+    if (!color) return "#ffffff";
+    if (color.startsWith("#")) return color.length === 4 || color.length === 7 ? color : "#ffffff";
+    const match = color.match(/\d+/g);
+    if (match && match.length >= 3) {
+      const r = parseInt(match[0]);
+      const g = parseInt(match[1]);
+      const b = parseInt(match[2]);
+      return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+    }
+    return "#ffffff";
+  };
 
   const grouped: Record<FontCategory, FontFamily[]> = FONT_CATEGORY_ORDER.reduce(
     (acc, cat) => {
@@ -116,7 +129,7 @@ export default function TextStyleEditor({
               className="relative w-7 h-7 rounded-lg border border-white/20 overflow-hidden"
               style={{ background: value.color || "#ffffff" }}
             >
-              <input type="color" value={value.color || "#ffffff"} onChange={e => patch({ color: e.target.value })} className="absolute inset-0 opacity-0 cursor-pointer" />
+              <input type="color" value={ensureHex(value.color || "#ffffff")} onChange={e => patch({ color: e.target.value })} className="absolute inset-0 opacity-0 cursor-pointer" />
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none mix-blend-difference opacity-50"><Palette className="w-3.5 h-3.5 text-white" /></div>
             </div>
             <input type="text" value={value.color || "#ffffff"} onChange={e => patch({ color: e.target.value })} className="w-16 bg-transparent text-[10px] text-white font-mono outline-none border-b border-white/10" />

@@ -223,6 +223,25 @@ export const defaultServicesContent: ServicesContent = {
     { id: "brand",      title: "Brand",    full: "Brand Identity & Strategy",  iconKey: "fingerprint",  color: "#f43f5e", desc: "Positioning, visual systems and brand architecture that set you apart and scale with you.", imageUrl: "https://picsum.photos/seed/brand-identity/800/600", overview: "Your brand is more than a logo — it's the emotional connection with your audience.", features: [{ title: "Brand Strategy", desc: "Mission, vision, values, positioning." }], stats: [{ value: "200+", label: "Brands launched" }] },
     { id: "growth",     title: "Growth",   full: "Growth Engineering",         iconKey: "line-chart",   color: "#10b981", desc: "Experimentation frameworks, CRO, and full-funnel analytics that unlock sustainable growth.", imageUrl: "https://picsum.photos/seed/growth-charts/800/600", overview: "Growth engineering is the intersection of marketing, data, and product.", features: [{ title: "Conversion Rate Optimization", desc: "Systematic A/B testing and user behavior analysis." }], stats: [{ value: "3.5x", label: "Average conversion lift" }] },
     { id: "ai",         title: "AI",       full: "AI & Automation",            iconKey: "brain",        color: "#8b5cf6", desc: "ML pipelines, NLP engines and workflow automation that take repetitive work off your plate.", imageUrl: "https://picsum.photos/seed/ai-automation/800/600", overview: "We turn GenAI hype into real, shipping software.", features: [{ title: "LLM Copilots & Chatbots", desc: "Domain-tuned assistants for support." }], stats: [{ value: "60%", label: "Support volume deflected" }] },
+    { 
+      id: "production", 
+      title: "Production", 
+      full: "Cinematic Digital Production", 
+      iconKey: "video", 
+      color: "#facc15", 
+      desc: "High-end video production, motion design, and storytelling that captures attention and drives emotional resonance.", 
+      imageUrl: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=2071&auto=format&fit=crop", 
+      overview: "We blend cinematic techniques with digital strategy to create content that doesn't just look good — it performs. From brand films to social-first motion systems, we bring your vision to life.", 
+      features: [
+        { title: "Brand Storytelling", desc: "Crafting narratives that define your identity." },
+        { title: "3D & Motion Graphics", desc: "High-end visual effects and animation." },
+        { title: "Post-Production", desc: "Professional editing, color grading, and sound design." }
+      ], 
+      stats: [
+        { value: "40%", label: "Average engagement boost" },
+        { value: "150+", label: "Campaigns delivered" }
+      ] 
+    },
   ],
 
   approachKicker: "Our Approach",

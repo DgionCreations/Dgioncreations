@@ -47,8 +47,8 @@ export const DEFAULT_INDUSTRIES_TITLE_STYLE: TextStyle = { fontSize: 48, fontFam
 export const DEFAULT_INDUSTRIES_HIGHLIGHT_STYLE: TextStyle = { fontSize: 48, fontFamily: "inter", bold: true, color: "#837FFB" };
 
 export const defaultIndustriesContent: IndustriesContent = {
-  heroTitle: "Sectors We ",
-  heroHighlight: "Empower",
+  heroTitle: "Strategic Global ",
+  heroHighlight: "Verticals",
   
   industries: [
     {

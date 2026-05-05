@@ -116,7 +116,7 @@ const Carousel_004 = ({
           {images.map((image, index) => (
             <SwiperSlide key={index} className="h-full">
               <img
-                className="h-full w-full rounded-3xl object-cover grayscale hover:grayscale-0 transition-all duration-700 hover:scale-105"
+                className="h-full w-full rounded-3xl object-cover transition-all duration-700 hover:scale-105"
                 src={image.src}
                 alt={image.alt}
               />

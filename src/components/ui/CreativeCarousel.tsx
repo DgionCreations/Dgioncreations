@@ -35,7 +35,7 @@ export const CreativeCarousel = ({
   const css = `
   .CreativeCarousel {
     width: 100%;
-    height: 380px;
+    height: 300px;
     padding-bottom: 40px !important;
   }
   
@@ -43,7 +43,7 @@ export const CreativeCarousel = ({
     background-position: center;
     background-size: cover;
     width: 100%;
-    max-width: 320px;
+    max-width: 240px;
     border-radius: 25px;
     overflow: hidden;
   }

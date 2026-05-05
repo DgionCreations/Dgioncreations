@@ -34,7 +34,10 @@ export default function Process() {
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   return (
-    <div className="min-h-screen bg-[#08061A] text-white relative">
+    <div 
+      className="min-h-screen text-white relative"
+      style={{ background: "linear-gradient(160deg, #08061A 0%, #0D0B24 50%, #08061A 100%)" }}
+    >
       <Navbar />
 
       {/* HERO */}
@@ -96,7 +99,10 @@ export default function Process() {
       </section>
 
       {/* FAQ */}
-      <section className="relative py-16 sm:py-20 md:py-28" style={{ background: "#1B144A" }}>
+      <section 
+        className="relative py-16 sm:py-20 md:py-28" 
+        style={{ background: "linear-gradient(160deg, #08061A 0%, #0D0B24 50%, #08061A 100%)" }}
+      >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-10">
           <motion.div className="text-center mb-10 sm:mb-12 md:mb-16" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, ease }}>
             <span className="text-[#837FFB] text-xs sm:text-sm font-bold tracking-[0.3em] uppercase">FAQ</span>
@@ -138,7 +144,10 @@ export default function Process() {
       </section>
 
       {/* TRUST STRIP */}
-      <section className="relative py-24 border-y border-white/5 bg-transparent overflow-hidden">
+      <section 
+        className="relative py-24 border-y border-white/5 overflow-hidden"
+        style={{ background: "linear-gradient(160deg, #08061A 0%, #0D0B24 50%, #08061A 100%)" }}
+      >
         
         {/* 2. High-Tech Glowing Grid */}
         <div 

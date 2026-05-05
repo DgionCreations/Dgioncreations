@@ -115,7 +115,7 @@ export default function AboutSection() {
     <section
       ref={sectionRef}
       id="about"
-      className="relative overflow-hidden py-16 sm:py-20 md:py-[100px]"
+      className="relative overflow-hidden pt-16 pb-32 sm:pt-20 sm:pb-40 md:pt-[100px] md:pb-[250px]"
       style={{
         background: "linear-gradient(160deg, hsl(var(--background)) 0%, #0D0B24 50%, hsl(var(--background)) 100%)",
       }}
@@ -284,8 +284,8 @@ export default function AboutSection() {
                   left: isRight ? `calc(${dotXPercent}% + ${horizontalGap}px)` : undefined,
                   right: !isRight ? `calc(${100 - dotXPercent}% + ${horizontalGap}px)` : undefined,
                   transform: isActive ? "translateY(-50%)" : "translateY(-40%)",
-                  width: "40vw",
-                  maxWidth: 320,
+                  width: "35vw",
+                  maxWidth: 260,
                   textAlign: isRight ? "left" : "right",
                   pointerEvents: isActive ? "auto" : "none",
                 }}

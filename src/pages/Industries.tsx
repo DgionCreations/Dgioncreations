@@ -54,8 +54,8 @@ export default function Industries() {
         <div className="relative z-10 max-w-6xl mx-auto px-6 lg:px-10">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease }} className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold font-display leading-[1.05]">
-              Sectors We{" "}
-              <span className="text-[#837FFB] drop-shadow-[0_0_24px_rgba(131,127,251,0.6)]">Empower</span>
+              Our Strategic{" "}
+              <span className="text-[#837FFB] drop-shadow-[0_0_24px_rgba(131,127,251,0.6)]">Impact</span>
             </h1>
             <p className="mt-7 text-lg md:text-xl text-white/55 leading-relaxed max-w-2xl">
               From regulated healthcare to high-frequency finance — our playbook bends to sector-specific realities without sacrificing speed or polish.

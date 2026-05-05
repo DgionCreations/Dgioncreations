@@ -77,7 +77,7 @@ export default function IndustriesEditor() {
             <ChevronRight className="w-3 h-3" />
             <span className="text-[#837FFB]">Industries Page</span>
           </div>
-          <h1 className="mt-2 text-3xl md:text-4xl font-bold">Industries — Sectors We Empower</h1>
+          <h1 className="mt-2 text-3xl md:text-4xl font-bold">Industries — Our Strategic Impact</h1>
           <p className="text-white/45 text-sm mt-2 max-w-xl">
             Edit the industries you serve, their descriptions, and visual accents.
           </p>
@@ -242,6 +242,64 @@ export default function IndustriesEditor() {
               )}
             </FieldGroup>
           </SectionPanel>
+        )}
+
+        {activeTab === "sectors" && (
+          <div className="space-y-6">
+            {draft.industries.map((ind, i) => (
+              <SectionPanel 
+                key={i} 
+                title={ind.label || "New Sector"} 
+                subtitle={`Configure the ${ind.label?.toLowerCase() || "sector"} description and accents.`} 
+                icon={Globe2}
+              >
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-4">
+                    <FieldGroup legend="Identity">
+                      <div className="grid grid-cols-2 gap-4">
+                        <Field label="Label" value={ind.label} onChange={(v: string) => setDraft(d => ({ ...d, industries: d.industries.map((item, idx) => idx === i ? { ...item, label: v } : item) }))} />
+                        <Field label="Tag" value={ind.tag} onChange={(v: string) => setDraft(d => ({ ...d, industries: d.industries.map((item, idx) => idx === i ? { ...item, tag: v } : item) }))} />
+                      </div>
+                      <Field label="Icon Key" value={ind.iconKey} onChange={(v: string) => setDraft(d => ({ ...d, industries: d.industries.map((item, idx) => idx === i ? { ...item, iconKey: v } : item) }))} />
+                    </FieldGroup>
+                  </div>
+                  <div className="space-y-4">
+                    <FieldGroup legend="Visual Accents">
+                      <div className="grid grid-cols-2 gap-4">
+                        <Field label="Accent Color" value={ind.accent} onChange={(v: string) => setDraft(d => ({ ...d, industries: d.industries.map((item, idx) => idx === i ? { ...item, accent: v } : item) }))} />
+                        <Field label="Glow Color" value={ind.glow} onChange={(v: string) => setDraft(d => ({ ...d, industries: d.industries.map((item, idx) => idx === i ? { ...item, glow: v } : item) }))} />
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <Field label="Glass BG" value={ind.glassBg} onChange={(v: string) => setDraft(d => ({ ...d, industries: d.industries.map((item, idx) => idx === i ? { ...item, glassBg: v } : item) }))} />
+                        <Field label="Glass Border" value={ind.glassBorder} onChange={(v: string) => setDraft(d => ({ ...d, industries: d.industries.map((item, idx) => idx === i ? { ...item, glassBorder: v } : item) }))} />
+                      </div>
+                    </FieldGroup>
+                  </div>
+                </div>
+                <div className="mt-4">
+                  <FieldGroup legend="Description">
+                    <Field label="Description" multiline value={ind.desc} onChange={(v: string) => setDraft(d => ({ ...d, industries: d.industries.map((item, idx) => idx === i ? { ...item, desc: v } : item) }))} />
+                  </FieldGroup>
+                </div>
+                <div className="flex justify-end pt-4">
+                  <button 
+                    type="button"
+                    onClick={() => setDraft(d => ({ ...d, industries: d.industries.filter((_, idx) => idx !== i) }))}
+                    className="flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold text-red-400 hover:bg-red-400/10 transition-colors"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" /> Remove Sector
+                  </button>
+                </div>
+              </SectionPanel>
+            ))}
+            <button 
+              type="button"
+              onClick={() => setDraft(d => ({ ...d, industries: [...d.industries, { iconKey: "briefcase", label: "New Sector", desc: "Description here...", accent: "#837FFB", glow: "rgba(131,127,251,0.3)", glassBg: "rgba(131,127,251,0.1)", glassBorder: "rgba(131,127,251,0.2)", tag: "New" }] }))}
+              className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl bg-white/5 border border-dashed border-white/20 text-white/50 hover:text-white transition-colors"
+            >
+              <Plus className="w-4 h-4" /> Add New Sector
+            </button>
+          </div>
         )}
 
         {activeTab === "dd-title" && (

@@ -99,7 +99,7 @@ export default function EngagementSection() {
                   {industries.map((ind) => (
                     <div
                       key={ind}
-                      className="px-3 sm:px-4 lg:px-5 py-1.5 sm:py-2 lg:py-2.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md shadow-inner text-xs sm:text-sm lg:text-[15px] font-medium text-white"
+                      className="px-3 sm:px-4 lg:px-5 py-1.5 sm:py-2 lg:py-2.5 rounded-full bg-white/20 border border-white/30 backdrop-blur-md shadow-sm text-xs sm:text-sm lg:text-[15px] font-bold text-white transition-all cursor-default"
                     >
                       {ind}
                     </div>

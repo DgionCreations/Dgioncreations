@@ -153,8 +153,8 @@ export default function ServiceDetail() {
       <div className="min-h-screen flex items-center justify-center bg-[#08061A] text-white">
         <div className="text-center">
           <h1 className="text-4xl font-bold mb-4">Service Not Found</h1>
-          <button onClick={() => navigate("/industries")} className="text-[#837FFB] underline">
-            Back to Industries
+          <button onClick={() => navigate("/services")} className="text-[#837FFB] underline">
+            Back to Services
           </button>
         </div>
       </div>
@@ -167,34 +167,35 @@ export default function ServiceDetail() {
     <div className="min-h-screen w-full text-white overflow-x-hidden selection:bg-[#837FFB]/30" style={{ background: "#08061A" }}>
       {/* Background Texture & Glows */}
       <div className="fixed inset-0 pointer-events-none z-0">
-        <FloatingLines
-          enabledWaves={["top", "bottom"]}
-          lineCount={6}
-          lineDistance={10}
-          bendRadius={8}
-          bendStrength={2}
-          parallax
-          animationSpeed={0.8}
-          gradientStart={service.color}
-          gradientMid="#6f6f6f"
-          gradientEnd="#6a6a6a"
+        {/* Cinematic Noise / Grain */}
+        <div className="absolute inset-0 opacity-[0.05] contrast-150 brightness-100 mix-blend-overlay" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }} />
+        
+        {/* Soft Ambient Glows */}
+        <div className="absolute top-[-20%] left-[-10%] w-[70%] h-[70%] rounded-full opacity-[0.12] blur-[140px] animate-pulse" style={{ background: service.color, animationDuration: '8s' }} />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full opacity-[0.08] blur-[120px] animate-pulse" style={{ background: "#5B57F5", animationDuration: '10s' }} />
+        
+        {/* Volumetric Light Ray */}
+        <div 
+          className="absolute inset-0 opacity-[0.03]" 
+          style={{ 
+            background: `linear-gradient(135deg, ${service.color} 0%, transparent 50%, #5B57F5 100%)`,
+            clipPath: 'polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%)',
+            filter: 'blur(80px)'
+          }} 
         />
-        <div className="absolute inset-0 opacity-[0.03] contrast-150 brightness-100" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3仿真%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }} />
-        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full opacity-20 blur-[120px]" style={{ background: service.color }} />
-        <div className="absolute bottom-[10%] right-[-5%] w-[40%] h-[40%] rounded-full opacity-10 blur-[100px]" style={{ background: "#5B57F5" }} />
       </div>
 
       {/* Nav bar */}
       <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-white/5 bg-[#08061A]/40 backdrop-blur-2xl">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <button
-            onClick={() => navigate("/industries")}
+            onClick={() => navigate(-1)}
             className="group flex items-center gap-2.5 text-white/50 hover:text-white transition-all"
           >
             <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-[#837FFB]/20 group-hover:border-[#837FFB]/30 transition-all">
               <ArrowLeft className="w-4 h-4" />
             </div>
-            <span className="text-xs font-bold uppercase tracking-widest">Industries</span>
+            <span className="text-xs font-bold uppercase tracking-widest">Back</span>
           </button>
           
           <div className="hidden md:flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10">

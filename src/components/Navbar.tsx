@@ -56,17 +56,17 @@ export default function Navbar() {
         {/* Main Body - Stretched Oval with background RESTORED for readability */}
         <div className="relative w-full px-4 sm:px-5 md:px-10 py-2 bg-[#22175A]/80 backdrop-blur-3xl rounded-[100px] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-center justify-between min-h-[60px] sm:min-h-[70px] md:min-h-[80px]">
 
-          {/* Logo Section - New Dgion Logo */}
-          <Link to={data.logoHref} className="flex items-center group shrink-0">
-            <motion.span
-              whileHover={{ scale: 1.05 }}
-              className="text-white tracking-tight text-base sm:text-xl md:text-2xl whitespace-nowrap"
-              style={textStyleToCss(data.logoStyle)}
-            >
-              {data.logoText}
-            </motion.span>
-            <div className="ml-1 w-1 h-1 md:w-1.5 md:h-1.5 rounded-full bg-[#837FFB] opacity-0 group-hover:opacity-100 transition-opacity self-end mb-2 md:mb-2.5" />
-          </Link>
+            {/* Logo Section - New Dgion Logo */}
+            <Link to={data.logoHref} className="relative flex items-center group shrink-0">
+              <motion.span
+                whileHover={{ scale: 1.05 }}
+                className="text-white tracking-tight text-base sm:text-xl md:text-2xl whitespace-nowrap"
+                style={textStyleToCss(data.logoStyle)}
+              >
+                {data.logoText}
+              </motion.span>
+              <div className="ml-1 w-1 h-1 md:w-1.5 md:h-1.5 rounded-full bg-[#837FFB] opacity-0 group-hover:opacity-100 transition-opacity self-end mb-2 md:mb-2.5" />
+            </Link>
 
           {/* Desktop Links - Flex Centered to prevent overlap */}
           <div className="hidden xl:flex items-center justify-center flex-1 mx-2 h-full pb-1">
@@ -77,11 +77,11 @@ export default function Navbar() {
               ).map(l => ({
                 ...l,
                 href: l.href.startsWith("http") || l.href.startsWith("/") ? l.href : (l.href.startsWith("#") ? `/${l.href}` : `/${l.href}`),
-                subItems: l.label.toLowerCase() === "about" ? [
-                  { label: "Our Story",  href: "/about#story" },
-                  { label: "Our Team",   href: "/about#team" },
-                  { label: "Our Values", href: "/about#values" },
-                  { label: "Milestones", href: "/about#timeline" },
+                subItems: (l.label.toLowerCase() === "portfolio" || l.label.toLowerCase() === "work") ? [
+                  { label: "Branding",          href: "/service/brand" },
+                  { label: "Digital Marketing", href: "/service/seo" },
+                  { label: "Website & App",     href: "/service/web-app" },
+                  { label: "Production",        href: "/service/production" },
                 ] : undefined
               }))} 
               textStyle={data.linksStyle} 
@@ -116,18 +116,43 @@ export default function Navbar() {
             {(data.links.some(l => l.href === "/reviews") 
               ? data.links 
               : [...data.links, { label: "Reviews", href: "/reviews" }]
-            ).map((l) => (
-              <Link
-                key={l.label}
-                to={l.href}
-                onClick={() => setOpen(false)}
-                className="transition-colors py-3 sm:py-4 font-black text-base sm:text-lg md:text-xl flex justify-between items-center min-h-[44px]"
-                style={textStyleToCss(data.linksStyle)}
-              >
-                {l.label}
-                <span className="opacity-30">→</span>
-              </Link>
-            ))}
+            ).map((l) => {
+              const hasSubItems = l.label.toLowerCase() === "portfolio" || l.label.toLowerCase() === "work";
+              const subItems = (l.label.toLowerCase() === "portfolio" || l.label.toLowerCase() === "work") ? [
+                { label: "Branding",          href: "/service/brand" },
+                { label: "Digital Marketing", href: "/service/seo" },
+                { label: "Website & App",     href: "/service/web-app" },
+                { label: "Production",        href: "/service/production" },
+              ] : [];
+
+              return (
+                <div key={l.label} className="flex flex-col">
+                  <Link
+                    to={l.href}
+                    onClick={() => setOpen(false)}
+                    className="transition-colors py-3 sm:py-4 font-black text-base sm:text-lg md:text-xl flex justify-between items-center min-h-[44px]"
+                    style={textStyleToCss(data.linksStyle)}
+                  >
+                    {l.label}
+                    <span className="opacity-30">→</span>
+                  </Link>
+                  {hasSubItems && (
+                    <div className="flex flex-col gap-2 pl-4 mb-2 border-l border-white/10">
+                      {subItems.map((sub) => (
+                        <Link
+                          key={sub.label}
+                          to={sub.href}
+                          onClick={() => setOpen(false)}
+                          className="py-2 text-sm font-bold text-white/50 hover:text-[#837FFB] transition-colors"
+                        >
+                          {sub.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
             <div className="flex flex-col gap-4 pt-4 sm:pt-6 mt-2 border-t border-white/10">
                 <Link
                   to={data.ctaHref}

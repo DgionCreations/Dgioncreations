@@ -222,8 +222,8 @@ const GooeyNav = ({
 
               {/* Dropdown Menu */}
               {item.subItems && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 opacity-0 invisible group-hover/nav-item:opacity-100 group-hover/nav-item:visible transition-all duration-300 transform scale-95 group-hover/nav-item:scale-100">
-                  <div className="bg-[#1A1440]/90 backdrop-blur-2xl border border-white/10 rounded-2xl p-2 min-w-[200px] shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 opacity-0 invisible group-hover/nav-item:opacity-100 group-hover/nav-item:visible transition-all duration-500 transform scale-95 group-hover/nav-item:scale-100 z-[100]">
+                  <div className="py-6 px-3 flex flex-col gap-1 min-w-[260px] bg-[#0A0A0A]/90 backdrop-blur-3xl rounded-[32px] border border-white/5 shadow-[0_40px_120px_rgba(0,0,0,0.9)] overflow-hidden">
                     {item.subItems.map((sub, si) => (
                       <button
                         key={si}
@@ -231,10 +231,10 @@ const GooeyNav = ({
                           e.stopPropagation();
                           navigate(sub.href);
                         }}
-                        className="w-full text-left px-4 py-3 rounded-xl text-white/60 hover:text-white hover:bg-white/5 transition-all text-xs font-bold uppercase tracking-widest flex items-center justify-between group/sub"
+                        className="w-full text-center px-6 py-2.5 rounded-2xl transition-all text-[11px] font-bold uppercase tracking-[0.2em] flex items-center justify-center gap-3 group/sub whitespace-nowrap hover:bg-white/5 hover:scale-105 text-white/90 hover:text-white"
                       >
-                        {sub.label}
-                        <div className="w-1 h-1 rounded-full bg-[#837FFB] opacity-0 group-hover/sub:opacity-100 transition-opacity" />
+                        <span>{sub.label}</span>
+                        <div className="w-1 h-1 rounded-full transition-opacity bg-[#837FFB] opacity-0 group-hover/sub:opacity-100" />
                       </button>
                     ))}
                   </div>

@@ -42,12 +42,14 @@ export default function Portfolio() {
       <section className="relative pt-40 pb-24 overflow-hidden" style={{ background: "linear-gradient(160deg, hsl(var(--background)) 0%, #0D0B24 50%, hsl(var(--background)) 100%)" }}>
         <div className="relative z-10 max-w-6xl mx-auto px-6 lg:px-10">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease }} className="max-w-3xl">
-            <span 
-              style={textStyleToCss(data.heroKickerStyle, DEFAULT_HERO_KICKER_STYLE)}
-              className="text-sm font-bold tracking-[0.3em] uppercase block"
-            >
-              {data.heroKicker}
-            </span>
+            <div className="flex items-center justify-start gap-4 mb-8">
+              <div 
+                className="px-6 py-2 rounded-full font-bold uppercase tracking-[0.3em] bg-[#837FFB]/10 border border-[#837FFB]/30 shadow-[0_0_30px_rgba(131,127,251,0.15)] backdrop-blur-sm text-white"
+                style={{ ...textStyleToCss(data.heroKickerStyle, DEFAULT_HERO_KICKER_STYLE), color: "#FFFFFF" }}
+              >
+                {data.heroKicker}
+              </div>
+            </div>
             <h1
               className="mt-5 font-display leading-[1.05]"
               style={textStyleToCss(data.heroTitleStyle, DEFAULT_HERO_TITLE_STYLE)}

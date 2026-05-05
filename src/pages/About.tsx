@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { motion, animate, useInView } from "framer-motion";
 import {
   Sparkles, Target, Heart, Rocket, ArrowUpRight, Linkedin, Twitter, Github, ChevronRight
@@ -20,7 +20,10 @@ import {
   ABOUT_CONTENT_KEY, 
   defaultAboutContent, 
   type AboutContent,
-  DEFAULT_ABOUT_HIGHLIGHT_STYLE 
+  DEFAULT_ABOUT_KICKER_STYLE,
+  DEFAULT_ABOUT_TITLE_STYLE,
+  DEFAULT_ABOUT_HIGHLIGHT_STYLE,
+  DEFAULT_ABOUT_DESC_STYLE
 } from "@/content/about";
 import { textStyleToCss } from "@/content/typography";
 import { MarkupText } from "@/lib/markup-text";
@@ -79,7 +82,21 @@ const milestones = [
 export default function About() {
   const { data, loading } = useContent<AboutContent>(ABOUT_CONTENT_KEY, defaultAboutContent);
 
-  useEffect(() => { window.scrollTo(0, 0); }, []);
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace('#', '');
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [location]);
 
   if (loading) {
     return (
@@ -106,13 +123,13 @@ export default function About() {
       </div>
 
       {/* HERO */}
-      <section className="relative pt-44 pb-24 overflow-hidden z-10">
+      <section id="story" className="relative pt-44 pb-24 overflow-hidden z-10">
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 flex justify-start">
           <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1, ease }} className="max-w-4xl text-left">
             <div className="flex items-center justify-start gap-4 mb-8">
               <div 
-                className="px-4 py-1.5 rounded-full font-bold uppercase tracking-[0.3em] bg-white/5 border border-white/10"
-                style={textStyleToCss(data.heroKickerStyle)}
+                className="px-6 py-2 rounded-full font-bold uppercase tracking-[0.3em] bg-[#837FFB]/10 border border-[#837FFB]/30 shadow-[0_0_30px_rgba(131,127,251,0.15)] backdrop-blur-sm text-white"
+                style={{ ...textStyleToCss(data.heroKickerStyle), color: "#FFFFFF" }}
               >
                 {data.heroKicker}
               </div>
@@ -163,7 +180,7 @@ export default function About() {
             <div className="flex flex-wrap gap-5 justify-start">
               <Link to="/contact" className="group relative inline-flex items-center gap-3 px-10 py-5 bg-[#837FFB] text-white rounded-full font-bold text-lg hover:scale-105 active:scale-95 transition-all shadow-[0_20px_50px_rgba(131,127,251,0.3)] overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-[#837FFB] to-[#5B57F5] group-hover:opacity-90 transition-opacity" />
-                <span className="relative z-10">Meet the Team</span>
+                <span className="relative z-10">Get in Touch</span>
                 <ChevronRight className="relative z-10 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link to="/portfolio" className="px-10 py-5 rounded-full font-bold text-lg text-white bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#837FFB]/30 transition-all backdrop-blur-sm">
@@ -174,49 +191,61 @@ export default function About() {
         </div>
       </section>
 
-      {/* VALUES - Now using GalleryHoverCarousel */}
-      <GalleryHoverCarousel 
-        heading={data.valuesTitle || "Four values, zero"}
-        subHeading={data.valuesHighlight || "fluff."}
-        items={data.values.map((v, i) => ({
-          id: `value-${i}`,
-          title: v.title,
-          summary: v.desc,
-          url: v.url || "#",
-          image: v.image || "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop"
-        }))}
-      />
+      {/* VALUES (Section 2) */}
+      <div id="values">
+        <GalleryHoverCarousel 
+          heading={data.valuesTitle || "Four values, zero"}
+          subHeading={data.valuesHighlight || "fluff."}
+          items={data.values.map((v, i) => ({
+            id: `value-${i}`,
+            title: v.title,
+            summary: v.desc,
+            url: v.url || "#",
+            image: v.image || "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop"
+          }))}
+        />
+      </div>
 
-      {/* SECTIONS FROM COMPONENTS */}
-      <div className="relative z-10 space-y-12">
+      {/* BEHIND THE SCENES (Spiral Timeline - Section 3) */}
+      <div id="behind-scenes" className="relative z-10 pt-12">
         <AboutSection />
+      </div>
+
+      {/* WHY CHOOSE (Pillars - Section 4) */}
+      <div id="different" className="relative z-10">
         <WhyChooseSection />
       </div>
 
-      {/* TIMELINE */}
-      <section className="relative py-32 z-10">
+      {/* TIMELINE (OUR MILESTONES - Vertical Glider - Section 5) */}
+      <section id="timeline" className="relative py-32 z-10">
         <div className="max-w-5xl mx-auto px-6 lg:px-10">
           <motion.div className="mb-24" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
             <span 
               className="text-[#837FFB] text-xs font-bold tracking-[0.4em] uppercase mb-6 block"
-              style={textStyleToCss(data.sectionKickerStyle)}
+              style={textStyleToCss(data.sectionKickerStyle, DEFAULT_ABOUT_KICKER_STYLE)}
             >
-              {data.sectionKicker || "BEHIND THE SCENES"}
+              {data.journeyKicker || "OUR MILESTONES"}
             </span>
             <h2 
               className="text-5xl md:text-7xl font-bold tracking-tighter italic"
-              style={textStyleToCss(data.sectionTitleStyle)}
+              style={textStyleToCss(data.sectionTitleStyle, DEFAULT_ABOUT_TITLE_STYLE)}
             >
               <MarkupText 
                 text={
-                  data.sectionTitle?.includes("**") 
-                    ? data.sectionTitle 
-                    : (data.sectionTitle || "Project").replace(/Done/g, "**Done.**")
+                  data.journeyTitle?.includes("**") 
+                    ? data.journeyTitle 
+                    : (data.journeyTitle || "Journey").replace(/Journey/g, "**Journey.**")
                 } 
                 highlightStyle={data.sectionHighlightStyle || DEFAULT_ABOUT_HIGHLIGHT_STYLE}
                 highlightClassName="drop-shadow-[0_0_40px_rgba(131,127,251,0.5)]"
               />
             </h2>
+            <p 
+              className="mt-8 text-white/40 text-xl max-w-2xl font-medium"
+              style={textStyleToCss(data.sectionDescStyle, DEFAULT_ABOUT_DESC_STYLE)}
+            >
+              {data.journeyDesc || "From a small creative studio to a global innovation partner."}
+            </p>
           </motion.div>
           
           <TimelineWithGlider 
