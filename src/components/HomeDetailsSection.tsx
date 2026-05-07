@@ -18,52 +18,8 @@ export default function HomeDetailsSection() {
 
   return (
     <section className="bg-[#0A0818] pt-12 pb-24 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-12 md:mb-16">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center"
-        >
-          <span className="text-[#837FFB] font-black tracking-[0.5em] uppercase text-sm mb-6 block">
-            {data.detailsKicker || "EXPLORE DGION"}
-          </span>
-          <h2 className="text-5xl md:text-7xl font-extrabold text-white leading-tight">
-            <span 
-              style={{
-                fontSize: data.detailsHeadingStyle?.fontSize ? `${data.detailsHeadingStyle.fontSize}px` : undefined,
-                fontFamily: data.detailsHeadingStyle?.fontFamily,
-                color: data.detailsHeadingStyle?.color,
-                fontWeight: data.detailsHeadingStyle?.bold ? '800' : undefined
-              }}
-            >
-              {data.detailsHeadingBefore || "The Pillars of "}
-            </span>
-            <span 
-              className="text-transparent bg-clip-text"
-              style={{ 
-                backgroundImage: `linear-gradient(to right, ${data.detailsHighlightStyle?.color || '#ffffff'}, ${data.detailsHighlightStyle?.color ? data.detailsHighlightStyle.color + '66' : '#ffffff66'})`,
-                fontSize: data.detailsHighlightStyle?.fontSize ? `${data.detailsHighlightStyle.fontSize}px` : undefined,
-                fontFamily: data.detailsHighlightStyle?.fontFamily,
-                fontWeight: data.detailsHighlightStyle?.bold ? '800' : undefined
-              }}
-            >
-              {data.detailsHeadingHighlight || "Excellence"}
-            </span>
-            <span
-              style={{
-                fontSize: data.detailsHeadingStyle?.fontSize ? `${data.detailsHeadingStyle.fontSize}px` : undefined,
-                fontFamily: data.detailsHeadingStyle?.fontFamily,
-                color: data.detailsHeadingStyle?.color,
-                fontWeight: data.detailsHeadingStyle?.bold ? '800' : undefined
-              }}
-            >
-              {data.detailsHeadingAfter || ""}
-            </span>
-          </h2>
-        </motion.div>
-      </div>
+      {/* Removed duplicated header as it's now handled by HomeOverview */}
+
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
         <div className="space-y-20 md:space-y-32">

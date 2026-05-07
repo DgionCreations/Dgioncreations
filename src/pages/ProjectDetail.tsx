@@ -99,12 +99,7 @@ export default function ProjectDetail() {
       <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-white/5 bg-[#08061A]/40 backdrop-blur-2xl">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <button
-            onClick={() => {
-              navigate("/");
-              setTimeout(() => {
-                document.getElementById("industries")?.scrollIntoView({ behavior: "smooth" });
-              }, 50);
-            }}
+            onClick={() => navigate(-1)}
             className="group flex items-center gap-2.5 text-white/50 hover:text-white transition-all"
           >
             <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-[#837FFB]/20 group-hover:border-[#837FFB]/30 transition-all">

@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
-import { ChevronUp, ChevronDown, PlusCircle } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronUp, ChevronDown, PlusCircle, X } from "lucide-react";
 import GlassSurface from "@/components/ui/GlassSurface";
 import ScrollStack, { ScrollStackItem } from "@/components/ui/ScrollStack";
 
@@ -11,8 +11,6 @@ import {
   defaultPortfolioContent,
   type PortfolioContent,
 } from "@/content/portfolio";
-
-const projects = defaultPortfolioContent.projects; // Initial fallback for SSR
 
 const ease = [0.25, 0.46, 0.45, 0.94] as const;
 
@@ -38,25 +36,45 @@ export default function PortfolioSection() {
   const navigate = useNavigate();
   const { data } = useContent<PortfolioContent>(PORTFOLIO_CONTENT_KEY, defaultPortfolioContent);
   const projects = data.projects;
-  const [activeId, setActiveId] = useState(projects[0]?.id || "1");
+  const [activeId, setActiveId] = useState<string | null>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  // Click outside listener
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (sectionRef.current && !sectionRef.current.contains(event.target as Node)) {
+        setActiveId(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const activeIndex = projects.findIndex((p) => p.id === activeId);
-  const active = projects[activeIndex] || projects[0];
+  const active = activeIndex !== -1 ? projects[activeIndex] : null;
 
-  const goUp   = () => {
+  const goUp = () => {
+    if (!activeId) {
+        setActiveId(projects[0].id);
+        return;
+    }
     const idx = projects.findIndex(p => p.id === activeId);
-    if (idx === -1) return;
     setActiveId(projects[(idx - 1 + projects.length) % projects.length].id);
   };
   const goDown = () => {
+    if (!activeId) {
+        setActiveId(projects[0].id);
+        return;
+    }
     const idx = projects.findIndex(p => p.id === activeId);
-    if (idx === -1) return;
     setActiveId(projects[(idx + 1) % projects.length].id);
   };
 
   return (
     <section
       id="portfolio"
+      ref={sectionRef}
       className="relative bg-[#0A0818] overflow-hidden py-16 sm:py-20 md:py-24"
     >
       {/* Ambient glows */}
@@ -89,7 +107,7 @@ export default function PortfolioSection() {
 
         {/* LEFT PANEL */}
         <motion.div
-          className="flex-shrink-0 w-[40%] xl:w-[38%] self-center flex items-center gap-6
+          className="flex-shrink-0 w-[42%] xl:w-[40%] self-center flex items-start gap-6
                      pl-10 xl:pl-20 2xl:pl-28 pr-10 py-14"
           initial={{ opacity: 0, x: -40 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -97,7 +115,7 @@ export default function PortfolioSection() {
           transition={{ duration: 0.7, ease, delay: 0.1 }}
         >
           {/* Up / Down navigation */}
-          <div className="flex flex-col gap-2 shrink-0">
+          <div className="flex flex-col gap-2 shrink-0 pt-2">
             <button onClick={goUp} className="w-10 h-10 group transition-all duration-200">
               <GlassSurface width="100%" height="100%" borderRadius={100} className="border border-white/15 group-hover:border-white/40 text-white/40 group-hover:text-white flex items-center justify-center shadow-[0_4px_12px_rgba(0,0,0,0.1)]">
                 <ChevronUp className="w-5 h-5" />
@@ -111,76 +129,129 @@ export default function PortfolioSection() {
           </div>
 
           {/* Feature list */}
-          <div className="flex-1 flex flex-col gap-2.5">
-            {projects.map((project) => {
-              const isActive = project.id === activeId;
+          <div className="flex-1 flex flex-col gap-3.5 relative">
+            <AnimatePresence mode="popLayout">
+              {projects.map((project) => {
+                const isActive = project.id === activeId;
 
-              if (isActive) {
                 return (
                   <motion.div
                     key={project.id}
-                    layoutId={`card-${project.id}`}
-                    className="w-full relative"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.35, ease }}
+                    layout
+                    initial={false}
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
                   >
-                    <GlassSurface
-                      width="100%"
-                      height="auto"
-                      borderRadius={16}
-                      className="border border-white/[0.12] p-5 shadow-[0_8px_32px_rgba(0,0,0,0.3)] items-start text-left"
-                      style={{ background: "rgba(27, 20, 74, 0.85)" }}
-                      opacity={0.1}
-                      displace={3}
-                      blur={15}
-                    >
-                      <div className="w-full">
-                        <p className="text-white text-[15px] leading-relaxed">
-                          <span className="font-bold">{project.title}. </span>
-                          <span className="text-white/70">{project.description}</span>
-                        </p>
-                        <div className="flex items-center justify-between mt-3">
-                          <span className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#837FFB]">
-                            {project.category}
-                          </span>
-                          <button
-                            onClick={() => navigate(`/project/${project.slug}`)}
-                            className="text-[11px] font-bold uppercase tracking-wider text-[#837FFB] hover:text-white transition-colors flex items-center gap-1"
+                    {isActive ? (
+                      <motion.div
+                        layoutId={`project-container-${project.id}`}
+                        className="w-full relative z-20"
+                      >
+                        <GlassSurface
+                          width="100%"
+                          height="auto"
+                          borderRadius={20}
+                          className="border border-[#837FFB]/40 p-6 shadow-[0_25px_60px_rgba(0,0,0,0.6)] items-start text-left relative overflow-hidden"
+                          style={{ background: "rgba(15, 12, 45, 0.98)" }}
+                          opacity={0.25}
+                          displace={5}
+                          blur={30}
+                        >
+                          {/* Close button inside */}
+                          <button 
+                            onClick={(e) => { e.stopPropagation(); setActiveId(null); }}
+                            className="absolute top-4 right-4 text-white/30 hover:text-white transition-colors p-1"
                           >
-                            View Project <span>→</span>
+                            <X className="w-4 h-4" />
                           </button>
-                        </div>
-                      </div>
-                    </GlassSurface>
+
+                          <div className="w-full">
+                            <motion.span 
+                              initial={{ opacity: 0, x: -10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              className="text-[10px] font-black uppercase tracking-[0.3em] text-[#837FFB] mb-2 block"
+                            >
+                              {project.category}
+                            </motion.span>
+                            <motion.h3 
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              className="text-white text-xl font-bold mb-3 leading-tight"
+                            >
+                                {project.title}
+                            </motion.h3>
+                            <motion.p 
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              transition={{ delay: 0.1 }}
+                              className="text-white/80 text-[14px] leading-relaxed mb-6"
+                            >
+                               {project.description}
+                            </motion.p>
+                            
+                            <motion.div 
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.2 }}
+                              className="grid grid-cols-2 gap-4 mb-6 border-t border-white/10 pt-5"
+                            >
+                                {project.stats?.slice(0, 2).map((s, i) => (
+                                    <div key={i}>
+                                        <div className="text-white font-bold text-lg leading-none mb-1">{s.value}</div>
+                                        <div className="text-white/40 text-[9px] uppercase tracking-widest font-bold">{s.label}</div>
+                                    </div>
+                                ))}
+                            </motion.div>
+
+                            <motion.div 
+                               initial={{ opacity: 0 }}
+                               animate={{ opacity: 1 }}
+                               transition={{ delay: 0.3 }}
+                               className="flex items-center justify-between"
+                            >
+                              <div className="flex gap-2">
+                                 {project.tech?.slice(0, 2).map(t => (
+                                    <span key={t} className="px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-[9px] text-white/50 font-medium">
+                                        {t}
+                                    </span>
+                                 ))}
+                              </div>
+                              <button
+                                onClick={() => navigate(`/project/${project.slug}`)}
+                                className="text-[11px] font-extrabold uppercase tracking-widest text-[#837FFB] hover:text-white transition-colors flex items-center gap-2 group/btn"
+                              >
+                                View Case Study <span className="group-hover:translate-x-1 transition-transform">→</span>
+                              </button>
+                            </motion.div>
+                          </div>
+                        </GlassSurface>
+                      </motion.div>
+                    ) : (
+                      <motion.button
+                        layoutId={`project-container-${project.id}`}
+                        onClick={(e) => { e.stopPropagation(); setActiveId(project.id); }}
+                        className="w-fit text-left group block"
+                        whileHover={{ x: 5, scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        <GlassSurface
+                          width="auto"
+                          height="auto"
+                          borderRadius={16}
+                          className="inline-flex items-center gap-3 px-6 py-3.5 border border-white/[0.08] group-hover:border-[#837FFB]/50 shadow-[0_4px_16px_rgba(0,0,0,0.2)] transition-all duration-300"
+                          opacity={0.08}
+                          style={{ background: "rgba(255, 255, 255, 0.02)" }}
+                        >
+                          <PlusCircle className="w-4 h-4 text-[#837FFB] shrink-0 opacity-60 group-hover:opacity-100 transition-opacity" />
+                          <span className="font-bold text-white/60 group-hover:text-white text-[15px] tracking-tight transition-colors">
+                            {project.title}
+                          </span>
+                        </GlassSurface>
+                      </motion.button>
+                    )}
                   </motion.div>
                 );
-              }
-
-              return (
-                <motion.button
-                  key={project.id}
-                  layoutId={`card-${project.id}`}
-                  onClick={() => setActiveId(project.id)}
-                  className="self-start text-left group"
-                  whileHover={{ x: 3 }}
-                  transition={{ duration: 0.15 }}
-                >
-                  <GlassSurface
-                    width="auto"
-                    height="auto"
-                    borderRadius={16}
-                    className="inline-flex items-center gap-2.5 px-5 py-3 border border-white/[0.06] group-hover:border-white/[0.15] shadow-[0_4px_16px_rgba(0,0,0,0.1)] group-hover:shadow-[0_8px_24px_rgba(0,0,0,0.2)] transition-all duration-300"
-                    opacity={0.05}
-                  >
-                    <PlusCircle className="w-4 h-4 text-white/50 shrink-0" />
-                    <span className="font-semibold text-white/80 text-sm">
-                      {project.title}
-                    </span>
-                  </GlassSurface>
-                </motion.button>
-              );
-            })}
+              })}
+            </AnimatePresence>
           </div>
         </motion.div>
 

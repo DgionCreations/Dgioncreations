@@ -40,8 +40,8 @@ export interface IndustriesContent {
   deepDiveSectors: DeepDiveSector[];
 }
 
-export const DEFAULT_DEEPDIVE_TITLE_STYLE: TextStyle = { fontSize: 40, fontFamily: "display", bold: true, color: "#FFFFFF" };
-export const DEFAULT_DEEPDIVE_HIGHLIGHT_STYLE: TextStyle = { fontSize: 40, fontFamily: "display", bold: true, color: "#837FFB" };
+export const DEFAULT_DEEPDIVE_TITLE_STYLE: TextStyle = { fontSize: 40, fontFamily: "inter", bold: true, color: "#FFFFFF" };
+export const DEFAULT_DEEPDIVE_HIGHLIGHT_STYLE: TextStyle = { fontSize: 40, fontFamily: "inter", bold: true, color: "#837FFB" };
 
 export const DEFAULT_INDUSTRIES_TITLE_STYLE: TextStyle = { fontSize: 48, fontFamily: "inter", bold: true, color: "#FFFFFF" };
 export const DEFAULT_INDUSTRIES_HIGHLIGHT_STYLE: TextStyle = { fontSize: 48, fontFamily: "inter", bold: true, color: "#837FFB" };

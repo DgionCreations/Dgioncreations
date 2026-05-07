@@ -25,7 +25,7 @@ export const ShaderBackground: React.FC<ShaderBackgroundProps> = ({ color = "#83
         distortion: 0.2,
         swirl: 0.9,
         swirlIterations: 12,
-        shape: "dots" as const,
+        shape: "stripes" as const,
         shapeScale: 0.12,
       },
       {
@@ -43,7 +43,7 @@ export const ShaderBackground: React.FC<ShaderBackgroundProps> = ({ color = "#83
         distortion: 0.22,
         swirl: 0.8,
         swirlIterations: 15,
-        shape: "dots" as const,
+        shape: "stripes" as const,
         shapeScale: 0.09,
       },
     ];
